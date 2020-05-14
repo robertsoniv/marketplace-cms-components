@@ -1,7 +1,8 @@
 export interface ContentBlock {
     Background: Background;
     DateRange: DateRange;
-    Alignment: 'Left' | 'Center' | 'Right' | 'Top' | 'Middle' | 'Bottom';
+    HorizontalAlignment: 'Left' | 'Center' | 'Right';
+    VerticalAlignment: 'Top' | 'Middle' | 'Bottom';
     Button: ContentButton;
 }
 
