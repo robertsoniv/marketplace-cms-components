@@ -12,6 +12,6 @@ export const withText = () => ({
 export const withEmoji = () => ({
   component: Button,
   props: {
-    text: '😀 😎 👍 💯',
+      text: '😀 😎 👍 💯 🐛',
   },
 });
