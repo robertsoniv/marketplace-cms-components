@@ -7,7 +7,7 @@ import { ContentContainerComponent } from './components/content-container/conten
 import { ContentBlockComponent } from 'src/storybook/page/components/ContentBlock/ContentBlock.component';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { CarouselComponent } from './components/carousel/carousel.component';
-import { CarouselSlideComponent } from './components/carousel-slide/carousel-slide.component';
+import { BgColorDirective } from './directives/bg-color.directive';
 
 @NgModule({
   declarations: [
@@ -16,7 +16,7 @@ import { CarouselSlideComponent } from './components/carousel-slide/carousel-sli
     ContentContainerComponent,
     ContentBlockComponent,
     CarouselComponent,
-    CarouselSlideComponent,
+    BgColorDirective,
   ],
   imports: [BrowserModule, NgbModule],
   providers: [],

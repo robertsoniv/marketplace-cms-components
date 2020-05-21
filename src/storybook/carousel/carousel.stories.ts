@@ -1,8 +1,8 @@
 import { storiesOf } from '@storybook/angular';
 import { CarouselComponent } from 'src/app/components/carousel/carousel.component';
 import { NgbCarouselModule } from '@ng-bootstrap/ng-bootstrap';
-import { CarouselSlideComponent } from 'src/app/components/carousel-slide/carousel-slide.component';
 import { CmsCarouselSlideConfig } from 'src/app/models/CmsCarousel.interface';
+import { BgColorDirective } from 'src/app/directives/bg-color.directive';
 
 const BasicExampleSlides: CmsCarouselSlideConfig[] = [
   {
@@ -31,13 +31,10 @@ const BasicExampleSlides: CmsCarouselSlideConfig[] = [
   {
     text: {
       title: 'Third Slide',
-      subtitle: 'Also has a subtitle!',
+      subtitle: 'Background color instead of image',
     },
     background: {
-      image: {
-        url: `https://picsum.photos/id/984/1700/500`,
-        title: 'Grassy mountainscape',
-      },
+      color: 'blue',
     },
   },
 ];
@@ -45,7 +42,7 @@ const BasicExampleSlides: CmsCarouselSlideConfig[] = [
 storiesOf('Carousel', module).add('Basic Example', () => ({
   component: CarouselComponent,
   moduleMetadata: {
-    declarations: [CarouselSlideComponent],
+    declarations: [BgColorDirective],
     imports: [NgbCarouselModule],
     providers: [],
     entryComponents: [],

@@ -6,9 +6,21 @@
   [showNavigationIndicators]="options.indicators"
   [wrap]="options.wrap"
 >
-  <cms-carousel-slide
-    *ngFor="let slide of slides"
-    [background]="slide.background"
-    [text]="slide.text"
-  ></cms-carousel-slide>
+  <ng-template *ngFor="let slide of slides" ngbSlide>
+    <div
+      *ngIf="slide.background"
+      class="cms-carousel-slide-bg"
+      [cmsBgColor]="slide.background.color"
+    >
+      <img
+        *ngIf="slide.background.image"
+        [src]="slide.background.image.url"
+        [alt]="slide.background.image.title"
+      />
+    </div>
+    <div *ngIf="slide.text" class="carousel-caption">
+      <h3 *ngIf="slide.text.title">{{ slide.text.title }}</h3>
+      <p *ngIf="slide.text.subtitle">{{ slide.text.subtitle }}</p>
+    </div>
+  </ng-template>
 </ngb-carousel>
