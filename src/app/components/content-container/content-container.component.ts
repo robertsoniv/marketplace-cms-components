@@ -2,6 +2,7 @@ import { Component, Input, ViewChild, ViewContainerRef, ComponentFactoryResolver
 import { HttpClient } from '@angular/common/http';
 import { ContentDoc } from 'src/app/models/ContentDoc.interface';
 import { takeWhile } from 'rxjs/operators';
+import { ContentBlock } from 'src/app/models/ConentBlock.interface';
 
 @Component({
   selector: 'cms-content-container',
@@ -10,7 +11,7 @@ import { takeWhile } from 'rxjs/operators';
 })
 export class ContentContainerComponent implements AfterViewInit, OnDestroy {
   @ViewChild('container', { read: ViewContainerRef }) container: ViewContainerRef
-  @Input() contentDocUrl: string;
+  @Input() content: ContentBlock;
   alive = true;
 
   constructor(
@@ -19,11 +20,15 @@ export class ContentContainerComponent implements AfterViewInit, OnDestroy {
   ) { }
 
   ngAfterViewInit() {
-    return this.httpClient.get(this.contentDocUrl)
-      .pipe(takeWhile(() => this.alive))
-      .subscribe((doc: ContentDoc) => {
-        this.renderComponent(doc.Type, doc);
-      })
+    this.renderComponent(this.content.ComponentName, this.content);
+    // return this.httpClient.get(this.contentDocUrl)
+    //   .pipe(takeWhile(() => this.alive))
+    //   .subscribe((doc: ContentDoc) => {
+    //     this.renderComponent(doc.Type, doc);
+    //   }, (error: any) => {
+    //     console.log(mockData);
+    //     this.renderComponent(mockData.Type, mockData);
+    //   })
   }
 
   ngOnDestroy() {

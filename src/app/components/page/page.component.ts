@@ -11,6 +11,7 @@ import { PageContentDoc } from '../../models/PageContentDoc.interface';
 export class PageComponent implements OnInit {
 
   contentDocUrls: string[] = [];
+  content: any[] = [];
   @Input() pageDoc: PageContentDoc;
 
   constructor(
@@ -26,7 +27,8 @@ export class PageComponent implements OnInit {
       // this is an extra check, but should be handled at a higher level ideally
       console.warn('Page can not be displayed. Please ensure:\n1. Page is active\n2. Page has content doc urls\n3. Page Url matches path of current url')
     }
-    this.contentDocUrls = this.pageDoc.ContentDocUrls;
+    // this.contentDocUrls = this.pageDoc.ContentDocUrls;
+    this.content = this.pageDoc.Content;
     this.setMetaData(this.pageDoc);
     this.loadScripts(this.pageDoc.HeaderEmbeds, this.pageDoc.FooterEmbeds);
   }
@@ -35,10 +37,15 @@ export class PageComponent implements OnInit {
     return Boolean(
       pageDoc &&
       pageDoc.Active &&
-      pageDoc.ContentDocUrls &&
-      pageDoc.ContentDocUrls.length && 
-      pageDoc.Url === this.document.location.href
+      pageDoc.Content
     )
+    // return Boolean(
+    //   pageDoc &&
+    //   pageDoc.Active &&
+    //   pageDoc.ContentDocUrls &&
+    //   pageDoc.ContentDocUrls.length && 
+    //   pageDoc.Url === this.document.location.href
+    // )
   }
 
   private setMetaData(pageDoc: PageContentDoc) {

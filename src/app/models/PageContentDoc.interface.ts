@@ -7,6 +7,7 @@ export interface PageContentDoc {
     DateLastUpdated: string;
     Active: boolean;
     ContentDocUrls: string[];
+    Content: any[];
     HeaderEmbeds?: string
     FooterEmbeds?: string
     NavTitle?: string;
