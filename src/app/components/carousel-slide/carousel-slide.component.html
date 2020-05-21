@@ -1,0 +1,17 @@
+<ng-template ngbSlide>
+  <div
+    *ngIf="background"
+    class="cms-carousel-slide-img-wrapper"
+    [ngStyle]="{ 'background-color': backgroundColor }"
+  >
+    <img
+      *ngIf="background.image"
+      [src]="background.image.url"
+      [alt]="background.image.title"
+    />
+  </div>
+  <div *ngIf="text" class="carousel-caption">
+    <h3 *ngIf="text.title">{{ text.title }}</h3>
+    <p *ngIf="text.subtitle">{{ text.subtitle }}</p>
+  </div>
+</ng-template>

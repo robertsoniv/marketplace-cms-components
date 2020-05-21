@@ -1,15 +1,1 @@
-ngb-carousel .picsum-img-wrapper {
-  position: relative;
-  height: 0;
-  padding-top: 29.4%;
 
-  /* Keep ratio for 900x500 images */
-  &>img {
-    position: absolute;
-    top: 0;
-    left: 0;
-    bottom: 0;
-    right: 0;
-
-  }
-}

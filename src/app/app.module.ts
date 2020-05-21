@@ -7,6 +7,7 @@ import { ContentContainerComponent } from './components/content-container/conten
 import { ContentBlockComponent } from 'src/storybook/page/components/ContentBlock/ContentBlock.component';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { CarouselComponent } from './components/carousel/carousel.component';
+import { CarouselSlideComponent } from './components/carousel-slide/carousel-slide.component';
 
 @NgModule({
   declarations: [
@@ -15,6 +16,7 @@ import { CarouselComponent } from './components/carousel/carousel.component';
     ContentContainerComponent,
     ContentBlockComponent,
     CarouselComponent,
+    CarouselSlideComponent,
   ],
   imports: [BrowserModule, NgbModule],
   providers: [],
