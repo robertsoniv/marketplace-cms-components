@@ -6,6 +6,7 @@ import { PageComponent } from './components/page/page.component';
 import { ContentContainerComponent } from './components/content-container/content-container.component';
 import { ContentBlockComponent } from 'src/storybook/page/components/ContentBlock/ContentBlock.component';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { CarouselComponent } from './components/carousel/carousel.component';
 
 @NgModule({
   declarations: [
@@ -13,12 +14,10 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
     PageComponent,
     ContentContainerComponent,
     ContentBlockComponent,
+    CarouselComponent,
   ],
-  imports: [
-    BrowserModule,
-    NgbModule
-  ],
+  imports: [BrowserModule, NgbModule],
   providers: [],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
 })
-export class AppModule { }
+export class AppModule {}
