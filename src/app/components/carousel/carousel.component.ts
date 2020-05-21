@@ -1,4 +1,24 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
+
+interface CmsAsset {
+  url: string;
+  title: string;
+}
+
+interface CmsBackground {
+  image?: CmsAsset;
+  color?: string;
+}
+
+interface CmsCarouselSlideTextConfig {
+  title?: string;
+  text?: string;
+}
+
+interface CmsCourselSlideConfig {
+  background?: CmsBackground;
+  text?: CmsCarouselSlideTextConfig;
+}
 
 @Component({
   selector: 'cms-carousel',
@@ -6,11 +26,9 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./carousel.component.scss'],
 })
 export class CarouselComponent implements OnInit {
-  constructor() {}
+  @Input() slides: CmsCourselSlideConfig;
 
-  public images = [944, 1011, 984].map(
-    (n) => `https://picsum.photos/id/${n}/1700/500`
-  );
+  constructor() {}
 
   ngOnInit(): void {}
 }

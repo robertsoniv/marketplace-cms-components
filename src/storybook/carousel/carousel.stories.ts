@@ -10,5 +10,18 @@ storiesOf('Carousel', module).add('Basic Example', () => ({
     providers: [],
     entryComponents: [],
   },
-  props: {},
+  props: {
+    slides: [944, 1011, 984].map((n) => ({
+      text: {
+        title: 'Testing Title',
+        subtitle: 'Testing Text',
+      },
+      background: {
+        image: {
+          url: `https://picsum.photos/id/${n}/1700/500`,
+          title: 'Test Image Title',
+        },
+      },
+    })),
+  },
 }));
