@@ -11,8 +11,7 @@ import { PageContentDoc } from '../../models/PageContentDoc.interface';
 export class PageComponent implements OnInit {
 
   contentDocUrls: string[] = [];
-  content: any[] = [];
-  @Input() pageDoc: PageContentDoc;
+  @Input() content: PageContentDoc;
 
   constructor(
     private metaService: Meta,
@@ -22,44 +21,43 @@ export class PageComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
-    if (!this.shouldShowContent(this.pageDoc)) {
+    if (!this.shouldShowContent(this.content)) {
       this.contentDocUrls = [] as string[];
       // this is an extra check, but should be handled at a higher level ideally
       console.warn('Page can not be displayed. Please ensure:\n1. Page is active\n2. Page has content doc urls\n3. Page Url matches path of current url')
     }
-    this.content = this.pageDoc.Content;
-    this.setMetaData(this.pageDoc);
-    this.loadScripts(this.pageDoc.HeaderEmbeds, this.pageDoc.FooterEmbeds);
+    this.setMetaData(this.content);
+    this.loadScripts(this.content.HeaderEmbeds, this.content.FooterEmbeds);
   }
 
-  private shouldShowContent(pageDoc: PageContentDoc): boolean {
+  private shouldShowContent(content: PageContentDoc): boolean {
     return Boolean(
-      pageDoc &&
-      pageDoc.Active &&
-      pageDoc.Content
+      content &&
+      content.Active &&
+      content.Content
     )
   }
 
-  private setMetaData(pageDoc: PageContentDoc) {
+  private setMetaData(content: PageContentDoc) {
     // addTag results in dupes, so we use updateTag instead
 
     // normal metadata
-    this.titleService.setTitle(pageDoc.Title);
-    this.metaService.updateTag({ property: 'application-name', content: pageDoc.SiteUrl })
-    this.metaService.updateTag({ property: 'description', content: pageDoc.Description })
+    this.titleService.setTitle(content.Title);
+    this.metaService.updateTag({ property: 'application-name', content: content.SiteUrl })
+    this.metaService.updateTag({ property: 'description', content: content.Description })
 
     // open graph meta data
     this.metaService.updateTag({property: 'og:type', content: 'website'})
-    this.metaService.updateTag({property: 'og:title', content: pageDoc.Title})
-    this.metaService.updateTag({property: 'og:description', content: pageDoc.Description})
-    this.metaService.updateTag({property: 'og:image', content: pageDoc.MetaImageUrl})
+    this.metaService.updateTag({property: 'og:title', content: content.Title})
+    this.metaService.updateTag({property: 'og:description', content: content.Description})
+    this.metaService.updateTag({property: 'og:image', content: content.MetaImageUrl})
 
     // twitter metadata
     this.metaService.updateTag({ property: 'twitter:card', content: 'summary' })
-    this.metaService.updateTag({ property: 'twitter:site', content: pageDoc.SiteUrl })
-    this.metaService.updateTag({ property: 'twitter:title', content: pageDoc.Title })
-    this.metaService.updateTag({ property: 'twitter:description', content: pageDoc.Description })
-    this.metaService.updateTag({property: 'twitter:image', content: pageDoc.MetaImageUrl})
+    this.metaService.updateTag({ property: 'twitter:site', content: content.SiteUrl })
+    this.metaService.updateTag({ property: 'twitter:title', content: content.Title })
+    this.metaService.updateTag({ property: 'twitter:description', content: content.Description })
+    this.metaService.updateTag({property: 'twitter:image', content: content.MetaImageUrl})
   }
 
   private loadScripts(headerEmbeds, footerEmbeds) {

@@ -8,7 +8,6 @@ export interface PageContentDoc extends ContentDoc {
     MetaImageUrl: string;
     DateLastUpdated: string;
     Active: boolean;
-    ContentDocUrls: string[];
     Content: any[];
     HeaderEmbeds?: string
     FooterEmbeds?: string

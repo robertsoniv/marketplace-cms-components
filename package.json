@@ -8,7 +8,8 @@
     "test": "ng test",
     "lint": "ng lint",
     "e2e": "ng e2e",
-    "storybook": "npm run docs:json && start-storybook -p 9008 -s src/assets",
+    "storybook": "start-storybook",
+    "storybook-with-docs": "npm run docs:json && start-storybook -p 9008 -s src/assets",
     "docs:json": "compodoc -p ./tsconfig.json -e json -d ."
   },
   "private": true,
