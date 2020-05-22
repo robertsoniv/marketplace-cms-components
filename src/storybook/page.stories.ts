@@ -46,4 +46,5 @@ storiesOf('Page', module)
         "NavTitle": null
       },
     }
-  }));
+  }))
+  .addParameters({ component: PageComponent });

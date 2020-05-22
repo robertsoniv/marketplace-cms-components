@@ -56,4 +56,5 @@ storiesOf('Row', module).add('Basic Example', () => ({
     props: {
         content: ExampleRow
     },
-}));
+}))
+.addParameters({ component: RowComponent });

@@ -50,4 +50,5 @@ storiesOf('Carousel', module).add('Basic Example', () => ({
   props: {
     slides: BasicExampleSlides,
   },
-}));
+}))
+.addParameters({ component: CarouselComponent })
