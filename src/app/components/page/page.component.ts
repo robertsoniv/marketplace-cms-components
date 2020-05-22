@@ -3,14 +3,16 @@ import { DOCUMENT } from '@angular/common';
 import { Meta, Title } from '@angular/platform-browser';
 import { PageContentDoc } from '../../models/PageContentDoc.interface';
 
+/**
+ * This component is responsible for dynamically rendering all of the components defined in `Content`
+ * as well as setting metadata important for SEO
+ */
 @Component({
   selector: 'cms-page',
   templateUrl: './page.component.html',
   styleUrls: ['./page.component.scss']
 })
 export class PageComponent implements OnInit {
-
-  contentDocUrls: string[] = [];
   @Input() content: PageContentDoc;
 
   constructor(
@@ -22,9 +24,8 @@ export class PageComponent implements OnInit {
 
   ngOnInit(): void {
     if (!this.shouldShowContent(this.content)) {
-      this.contentDocUrls = [] as string[];
       // this is an extra check, but should be handled at a higher level ideally
-      console.warn('Page can not be displayed. Please ensure:\n1. Page is active\n2. Page has content doc urls\n3. Page Url matches path of current url')
+      return console.warn('Page can not be displayed. Please ensure:\n1. Page is active\n2. Page has content doc urls\n3. Page Url matches path of current url')
     }
     this.setMetaData(this.content);
     this.loadScripts(this.content.HeaderEmbeds, this.content.FooterEmbeds);

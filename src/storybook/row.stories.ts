@@ -9,7 +9,7 @@ export default {
     title: 'Row',
     component: RowComponent,
     parameters: {
-        component: RowComponent
+        component: RowComponent,
     },
     decorators: [
         moduleMetadata({

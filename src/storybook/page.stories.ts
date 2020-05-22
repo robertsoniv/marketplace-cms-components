@@ -33,20 +33,38 @@ const BasicExamplePage: PageContentDoc = {
   SiteUrl: 'https://music-resell-store.com',
   Url: '/page1',
   Title: 'FAQ',
-  Description: 'Frequently Asked Questions | Play It Again Sports',
+  Description: 'Frequently Asked Questions',
   MetaImageUrl: 'https://www.superoffice.com/globalassets/blog/2016/10/how-to-build-faq-section.jpg',
   DateLastUpdated: '2020-05-15T03:55:03.021Z',
   Active: true,
   Content: [
     {
       'ComponentName': 'ContentBlockComponent',
-      'TextArea': `<p style='max-width: 500px; margin: 20px'>
-        This component is responsible for the things you can't see such as metadata and title
-        which are important for SEO. </p>
-        
-        <p style='max-width: 500px; margin: 20px'>
-        You can right click to inspect the html and see the properties 
-        are set correctly. Its easier if you click 'Open canvas in a new tab' (top right)</p>
+      'TextArea': `
+      <div class="container">
+        <p style="max-width: 500px;">
+          You can right click to inspect the html to see the metadata that are set. Its easier if you click 'Open canvas in a new tab' (top right).
+          You should see the following metadata set for this component:
+        </p>
+        <table class="table table-striped">
+          <tr>
+            <th>Property</th>
+            <th>Value</th>
+          </tr>
+          <tr>
+            <td>Title</td>
+            <td>FAQ</td>
+          </tr>
+          <tr>
+            <td>Description</td>
+            <td>Frequently Asked Questions</td>
+          </tr>
+          <tr>
+            <td>Image</td>
+            <td>https://www.superoffice.com/globalassets/blog/2016/10/how-to-build-faq-section.jpg/<td>
+          </tr>
+        </table>
+      </div>
       `,
     },
   ],
