@@ -4,6 +4,8 @@ import { ContentContainerComponent } from 'src/app/components/content-container/
 import { ContentBlockComponent } from 'src/app/components/content-block/content-block.component';
 import { SafeHtmlPipe } from 'src/app/pipes/safe-html.pipe';
 import { RowContentDoc } from 'src/app/models/RowContentDoc.interface';
+import { ContentDoc } from 'src/app/models/ContentDoc.interface';
+import { ColumnComponent } from 'src/app/components/column/column.component';
 
 export default {
     title: 'Row',
@@ -16,7 +18,8 @@ export default {
             declarations: [
                 ContentContainerComponent,
                 ContentBlockComponent,
-                SafeHtmlPipe
+                SafeHtmlPipe,
+                ColumnComponent
             ],
             imports: [],
             providers: [],
@@ -29,32 +32,50 @@ const BasicExampleRow: RowContentDoc = {
     ComponentName: "RowComponent",
     Content: [
         {
-            ComponentName: "ContentBlockComponent",
-            Background: {
-                ImageUrl: null,
-                Color: "#B0AFF0"
-            },
-            DateRange: {
-                StartDate: null,
-                EndDate: null
-            },
-            HorizontalAlignment: "Center",
-            VerticalAlignment: "Middle",
-            TextArea: "<h2>Product 1</h2><p>a golf club</p><h2>Product 2</h2><p>a basketball</p>",
+            ComponentName: "ColumnComponent",
+            // Width: 3,
+            Width: 12,
+            Content: [
+                {
+                    ComponentName: "ContentBlockComponent",
+                    Background: {
+                        ImageUrl: null,
+                        Color: "#B0AFF0"
+                    },
+                    DateRange: {
+                        StartDate: null,
+                        EndDate: null
+                    },
+                    HorizontalAlignment: "Center",
+                    VerticalAlignment: "Middle",
+                    TextArea: "<h2>Product 1</h2><p>a golf club</p><h2>Product 2</h2><p>a basketball</p>",
+                } as ContentDoc
+            ]
         },
         {
-            ComponentName: "ContentBlockComponent",
-            Background: {
-                "ImageUrl": null,
-                "Color": "#E8D0C6"
-            },
-            DateRange: {
-                StartDate: null,
-                EndDate: null
-            },
-            HorizontalAlignment: "Center",
-            VerticalAlignment: "Middle",
-            TextArea: "<h2>Product 3</h2><p>Snowboard</p><h2>Product 4</h2><p>Hobby horse</p>",
+            ComponentName: "ColumnComponent",
+            // Width: {
+            //     sm: 12,
+            //     md: 6,
+            //     lg: 3
+            // },
+            Width: 12,
+            Content: [
+                {
+                    ComponentName: "ContentBlockComponent",
+                    Background: {
+                        "ImageUrl": null,
+                        "Color": "#E8D0C6"
+                    },
+                    DateRange: {
+                        StartDate: null,
+                        EndDate: null
+                    },
+                    HorizontalAlignment: "Center",
+                    VerticalAlignment: "Middle",
+                    TextArea: "<h2>Product 3</h2><p>Snowboard</p><h2>Product 4</h2><p>Hobby horse</p>",
+                } as ContentDoc
+            ]
         }
     ]
 }

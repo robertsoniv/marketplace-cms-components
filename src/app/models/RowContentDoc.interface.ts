@@ -1,5 +1,6 @@
 import { ContentDoc } from './ContentDoc.interface';
+import { ColumnContentDoc } from './ColumnContentDoc.interface';
 
 export interface RowContentDoc extends ContentDoc {
-    Content: any[]
+    Content: ColumnContentDoc[]
 }

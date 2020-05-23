@@ -10,6 +10,7 @@ import { CarouselComponent } from './components/carousel/carousel.component';
 import { BgColorDirective } from './directives/bg-color.directive';
 import { RowComponent } from './components/row/row.component';
 import { SafeHtmlPipe } from './pipes/safe-html.pipe';
+import { ColumnComponent } from './components/column/column.component';
 
 
 @NgModule({
@@ -21,7 +22,8 @@ import { SafeHtmlPipe } from './pipes/safe-html.pipe';
     CarouselComponent,
     BgColorDirective,
     RowComponent,
-    SafeHtmlPipe
+    SafeHtmlPipe,
+    ColumnComponent
   ],
   imports: [BrowserModule, NgbModule],
   providers: [],

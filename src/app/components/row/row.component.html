@@ -1,7 +1,5 @@
-<div class="cms-row">
-    <cms-content-container
-        *ngFor="let content of content.Content"
-        class="cms-col"
-        [content]="content">
-    </cms-content-container>
+<div class="row">
+    <cms-column *ngFor="let content of content.Content" [content]="content">
+
+    </cms-column>
 </div>
