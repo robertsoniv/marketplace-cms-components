@@ -1941,6 +1941,13 @@
     telejson "^3.2.0"
     util-deprecate "^1.0.2"
 
+"@tinymce/tinymce-angular@^3.6.0":
+  version "3.6.0"
+  resolved "https://registry.yarnpkg.com/@tinymce/tinymce-angular/-/tinymce-angular-3.6.0.tgz#9e8ad5d2217a850338aab7166e6820ba0a1949fc"
+  integrity sha512-jqm4fim4WPIxshnOaoNpugon74Q/UrbtNq35A1tQIDXHVNxTA2UoZjgI0u3Wf0LXp/n+9/LCdM7OdeeRJ+1P3g==
+  dependencies:
+    tslib "^1.9.0"
+
 "@types/anymatch@*":
   version "1.3.1"
   resolved "https://registry.yarnpkg.com/@types/anymatch/-/anymatch-1.3.1.tgz#336badc1beecb9dacc38bea2cf32adf627a8421a"
@@ -12910,6 +12917,11 @@ tiny-inflate@^1.0.0, tiny-inflate@^1.0.2:
   version "1.0.3"
   resolved "https://registry.yarnpkg.com/tiny-inflate/-/tiny-inflate-1.0.3.tgz#122715494913a1805166aaf7c93467933eea26c4"
   integrity sha512-pkY1fj1cKHb2seWDy0B16HeWyczlJA9/WW3u3c4z/NiWDsO3DOU5D7nhTLE9CF0yXv/QZFY7sEJmj24dK+Rrqw==
+
+tinymce@^5.3.0:
+  version "5.3.0"
+  resolved "https://registry.yarnpkg.com/tinymce/-/tinymce-5.3.0.tgz#5e239cadd37bde049d53bf13c3aa2185e1486b7f"
+  integrity sha512-uqEvypPRWnFT93PcoIJ4e56Azjbk3/O6W3A68+fifGRHbWkLNqcP2EMPEBdTdzYRXu9iOHnTgqMScYwLK3nYUA==
 
 tmp@0.0.30:
   version "0.0.30"
