@@ -1,6 +1,8 @@
 import { moduleMetadata } from '@storybook/angular';
 import { EditorModule, TINYMCE_SCRIPT_SRC } from '@tinymce/tinymce-angular';
 import { HtmlEditorComponent } from 'src/app/components/html-editor/html-editor.component';
+import { OrderCloudModule, Configuration } from '@ordercloud/angular-sdk';
+import { CookieModule } from 'ngx-cookie';
 
 export default {
   title: 'HTML Editor',
@@ -11,7 +13,11 @@ export default {
   decorators: [
     moduleMetadata({
       declarations: [],
-      imports: [EditorModule],
+      imports: [
+        EditorModule,
+        OrderCloudModule.forRoot(() => new Configuration({})),
+        CookieModule.forRoot()
+      ],
       providers: [
         { provide: TINYMCE_SCRIPT_SRC, useValue: 'tinymce/tinymce.min.js' }
       ],
@@ -22,5 +28,7 @@ export default {
 
 export const BasicExample = () => ({
   component: HtmlEditorComponent,
-  props: {}
+  props: {
+    ocCookieName: 'ordercloud.token'
+  }
 });
