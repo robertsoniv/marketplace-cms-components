@@ -303,22 +303,29 @@
         },
         {
             "name": "ColumnContentDoc",
-            "id": "interface-ColumnContentDoc-17109550a159ed1efce0f2d6bc5f12e1",
+            "id": "interface-ColumnContentDoc-93fb30a048e58a6dc1b62abf592833ef",
             "file": "src/app/models/ColumnContentDoc.interface.ts",
             "type": "interface",
-            "sourceCode": "import { ContentDoc } from './ContentDoc.interface';\r\n\r\nexport interface ColumnContentDoc extends ContentDoc {\r\n    Width: number | BootstrapMediaDefinition | undefined\r\n    Content: ContentDoc[]\r\n}\r\n\r\nexport type BootstrapBreakpoint = 'xs' | 'sm' | 'md' | 'lg' | 'xl'\r\nexport type BootstrapMediaDefinition = {\r\n    [key in BootstrapBreakpoint]?: number\r\n}",
+            "sourceCode": "import { ContentDoc } from './ContentDoc.interface';\r\n\r\nexport interface ColumnContentDoc extends ContentDoc {\r\n    Width?: number | BootstrapMediaDefinition\r\n    Padding?: 0 | 1 | 2 | 3 | 4 | 5 | 'auto';\r\n    Content: ContentDoc[]\r\n}\r\n\r\nexport type BootstrapBreakpoint = 'xs' | 'sm' | 'md' | 'lg' | 'xl'\r\nexport type BootstrapMediaDefinition = {\r\n    [key in BootstrapBreakpoint]?: number\r\n}",
             "properties": [
                 {
                     "name": "Content",
                     "type": "ContentDoc[]",
                     "optional": false,
                     "description": "",
+                    "line": 6
+                },
+                {
+                    "name": "Padding",
+                    "type": "\"0\" | \"1\" | \"2\" | \"3\" | \"4\" | \"5\" | \"auto\"",
+                    "optional": true,
+                    "description": "",
                     "line": 5
                 },
                 {
                     "name": "Width",
-                    "type": "number | BootstrapMediaDefinition | undefined",
-                    "optional": false,
+                    "type": "number | BootstrapMediaDefinition",
+                    "optional": true,
                     "description": "",
                     "line": 4
                 }
@@ -801,7 +808,7 @@
         },
         {
             "name": "ColumnComponent",
-            "id": "component-ColumnComponent-f94b41f6330b3e57edd15b8e93e3a1f1",
+            "id": "component-ColumnComponent-36c1f59fc855e855a77b67206e89e522",
             "file": "src/app/components/column/column.component.ts",
             "encapsulation": [],
             "entryComponents": [],
@@ -825,37 +832,23 @@
                 }
             ],
             "outputsClass": [],
-            "propertiesClass": [
-                {
-                    "name": "widthClass",
-                    "type": "string",
-                    "optional": false,
-                    "description": "",
-                    "line": 11
-                }
-            ],
+            "propertiesClass": [],
             "methodsClass": [
                 {
-                    "name": "getWidthClass",
-                    "args": [
-                        {
-                            "name": "definition",
-                            "type": "number | BootstrapMediaDefinition | undefined"
-                        }
-                    ],
+                    "name": "getPaddingClasses",
+                    "args": [],
                     "optional": false,
-                    "returnType": "any",
+                    "returnType": "{}",
                     "typeParameters": [],
-                    "line": 19,
-                    "jsdoctags": [
-                        {
-                            "name": "definition",
-                            "type": "number | BootstrapMediaDefinition | undefined",
-                            "tagName": {
-                                "text": "param"
-                            }
-                        }
-                    ]
+                    "line": 45
+                },
+                {
+                    "name": "getWidthClasses",
+                    "args": [],
+                    "optional": false,
+                    "returnType": "{}",
+                    "typeParameters": [],
+                    "line": 24
                 },
                 {
                     "name": "ngOnInit",
@@ -863,15 +856,20 @@
                     "optional": false,
                     "returnType": "void",
                     "typeParameters": [],
-                    "line": 15
+                    "line": 21
                 }
             ],
-            "hostBindings": [],
+            "hostBindings": [
+                {
+                    "name": "class",
+                    "line": 12
+                }
+            ],
             "hostListeners": [],
             "description": "",
             "rawdescription": "",
             "type": "component",
-            "sourceCode": "import { Component, OnInit, Input } from '@angular/core';\nimport { ColumnContentDoc, BootstrapMediaDefinition } from 'src/app/models/ColumnContentDoc.interface';\n\n@Component({\n  selector: 'cms-column',\n  templateUrl: './column.component.html',\n  styleUrls: ['./column.component.scss']\n})\nexport class ColumnComponent implements OnInit {\n  @Input() content: ColumnContentDoc;\n  widthClass: string;\n\n  constructor() { }\n\n  ngOnInit(): void {\n    this.widthClass = this.getWidthClass(this.content.Width);\n  }\n\n  getWidthClass(definition: number | BootstrapMediaDefinition | undefined) {\n    if(!definition) {\n      return 'col';\n    }\n    if(typeof definition === 'number') {\n      return `col-${definition}`;\n    }\n    let classNamesArr: string[] = []\n    for(const breakpoint in definition){\n      const columnWidth = definition[breakpoint];\n      classNamesArr = [...classNamesArr, `col-${breakpoint}-${columnWidth}`]\n    }\n    return classNamesArr.join(' ');\n  }\n\n}\n",
+            "sourceCode": "import { Component, OnInit, Input, HostBinding } from '@angular/core';\r\nimport { ColumnContentDoc, BootstrapMediaDefinition } from 'src/app/models/ColumnContentDoc.interface';\r\n\r\n@Component({\r\n  selector: 'cms-column',\r\n  templateUrl: './column.component.html',\r\n  styleUrls: ['./column.component.scss']\r\n})\r\nexport class ColumnComponent implements OnInit {\r\n  @Input() content: ColumnContentDoc;\r\n  @HostBinding('class') \r\n  get getColumnClass(){\r\n    const widthClasses = this.getWidthClasses();\r\n    const paddingClasses = this.getPaddingClasses();\r\n\r\n    return [...widthClasses, ...paddingClasses].join(' ');\r\n  };\r\n\r\n  constructor() { }\r\n\r\n  ngOnInit(): void {\r\n  }\r\n\r\n  getWidthClasses() {\r\n    const definition = this.content.Width;\r\n    if(!definition) {\r\n      return ['col'];\r\n    }\r\n    if(typeof definition === 'number') {\r\n      return [`col-${definition}`];\r\n    }\r\n    let classNames: string[] = []\r\n    for(const breakpoint in definition){\r\n      const columnWidth = definition[breakpoint];\r\n      let className = `col-${breakpoint}-${columnWidth}`\r\n      if(breakpoint === 'xs') {\r\n        // there isn't actually an xs in bootstrap\r\n        className = `col-${columnWidth}`\r\n      }\r\n      classNames.push(className)\r\n    }\r\n    return classNames;\r\n  }\r\n\r\n  getPaddingClasses() {\r\n    const padding = this.content.Padding;\r\n    if(padding === null || padding === undefined) {\r\n      return [];\r\n    }\r\n    return [`p-${padding}`]\r\n  }\r\n}\r\n",
             "assetsDirs": [],
             "styleUrlsData": [
                 {
@@ -884,12 +882,12 @@
                 "name": "constructor",
                 "description": "",
                 "args": [],
-                "line": 11
+                "line": 17
             },
             "implements": [
                 "OnInit"
             ],
-            "templateData": "<cms-content-container [ngClass]=\"widthClass\" [content]=\"content\">\n\n</cms-content-container>"
+            "templateData": "<cms-content-container\n    *ngFor=\"let content of content.Content\"\n    [content]=\"content\">\n</cms-content-container>"
         },
         {
             "name": "ContentBlockComponent",
@@ -955,7 +953,7 @@
         },
         {
             "name": "ContentContainerComponent",
-            "id": "component-ContentContainerComponent-8430acc5f3c0391d9fa5f3bd3f65207d",
+            "id": "component-ContentContainerComponent-a756213a4bfee5e9997f0652b3aa1c04",
             "file": "src/app/components/content-container/content-container.component.ts",
             "encapsulation": [],
             "entryComponents": [],
@@ -1057,7 +1055,7 @@
             "description": "",
             "rawdescription": "",
             "type": "component",
-            "sourceCode": "import { Component, Input, ViewChild, ViewContainerRef, ComponentFactoryResolver, Type, OnDestroy, AfterViewInit } from '@angular/core';\r\nimport { ContentBlockDoc } from 'src/app/models/ContentBlockDoc.interface';\r\n\r\n@Component({\r\n  selector: 'cms-content-container',\r\n  template: '<ng-template #container></ng-template>',\r\n  styleUrls: ['./content-container.component.scss']\r\n})\r\nexport class ContentContainerComponent implements OnDestroy, AfterViewInit {\r\n  @ViewChild('container', { read: ViewContainerRef }) container: ViewContainerRef\r\n  @Input() content: ContentBlockDoc;\r\n  alive = true;\r\n\r\n  constructor(\r\n    private resolver: ComponentFactoryResolver\r\n  ) { }\r\n\r\n  ngAfterViewInit() {\r\n    setTimeout(() => {\r\n      this.renderComponent(this.content.ComponentName, this.content);\r\n    })\r\n  }\r\n\r\n  ngOnDestroy() {\r\n    // unsubscribe when component is destroyed to prevent memory leak\r\n    this.alive = false;\r\n  }\r\n\r\n  renderComponent(componentName: string, content: any): void {\r\n    debugger;\r\n    // dynamically renders component\r\n    const factories = Array.from(this.resolver['_factories'].keys());\r\n    const factoryClass = <Type<any>>factories.find((x: any) => x.name === componentName);\r\n    const factory = this.resolver.resolveComponentFactory(factoryClass);\r\n    const componentRef = this.container.createComponent(factory);\r\n\r\n    // add content to component instance\r\n    componentRef.instance.content = content;\r\n  }\r\n}\r\n",
+            "sourceCode": "import { Component, Input, ViewChild, ViewContainerRef, ComponentFactoryResolver, Type, OnDestroy, AfterViewInit } from '@angular/core';\r\nimport { ContentBlockDoc } from 'src/app/models/ContentBlockDoc.interface';\r\n\r\n@Component({\r\n  selector: 'cms-content-container',\r\n  template: '<ng-template #container></ng-template>',\r\n  styleUrls: ['./content-container.component.scss']\r\n})\r\nexport class ContentContainerComponent implements OnDestroy, AfterViewInit {\r\n  @ViewChild('container', { read: ViewContainerRef }) container: ViewContainerRef\r\n  @Input() content: ContentBlockDoc;\r\n  alive = true;\r\n\r\n  constructor(\r\n    private resolver: ComponentFactoryResolver\r\n  ) { }\r\n\r\n  ngAfterViewInit() {\r\n    setTimeout(() => {\r\n      this.renderComponent(this.content.ComponentName, this.content);\r\n    })\r\n  }\r\n\r\n  ngOnDestroy() {\r\n    // unsubscribe when component is destroyed to prevent memory leak\r\n    this.alive = false;\r\n  }\r\n\r\n  renderComponent(componentName: string, content: any): void {\r\n    // dynamically renders component\r\n    const factories = Array.from(this.resolver['_factories'].keys());\r\n    const factoryClass = <Type<any>>factories.find((x: any) => x.name === componentName);\r\n    const factory = this.resolver.resolveComponentFactory(factoryClass);\r\n    const componentRef = this.container.createComponent(factory);\r\n\r\n    // add content to component instance\r\n    componentRef.instance.content = content;\r\n  }\r\n}\r\n",
             "assetsDirs": [],
             "styleUrlsData": [
                 {
@@ -1324,10 +1322,11 @@
         },
         {
             "name": "RowComponent",
-            "id": "component-RowComponent-dcc55c2364a95ed6ccce705b66dfc516",
+            "id": "component-RowComponent-ef21f0f32d8bd344f884a1efa8b10198",
             "file": "src/app/components/row/row.component.ts",
             "encapsulation": [],
             "entryComponents": [],
+            "host": {},
             "inputs": [],
             "outputs": [],
             "providers": [],
@@ -1343,7 +1342,7 @@
             "inputsClass": [
                 {
                     "name": "content",
-                    "line": 10,
+                    "line": 18,
                     "type": "RowContentDoc"
                 }
             ],
@@ -1356,15 +1355,15 @@
                     "optional": false,
                     "returnType": "void",
                     "typeParameters": [],
-                    "line": 14
+                    "line": 22
                 }
             ],
             "hostBindings": [],
             "hostListeners": [],
-            "description": "",
-            "rawdescription": "",
+            "description": "<p>Build layouts of all shapes and sizes with this row/column system built on top of Bootstrap</p>\n<ul>\n<li>12 column layout</li>\n<li>5 default breakpoints for responsive layouts<ul>\n<li><code>xs</code> (phone), <code>sm</code> (large phone), <code>md</code> (tablet), <code>lg</code> (desktop), xl (large desktop)</li>\n</ul>\n</li>\n</ul>\n",
+            "rawdescription": "Build layouts of all shapes and sizes with this row/column system built on top of Bootstrap\r\n\r\n- 12 column layout\r\n- 5 default breakpoints for responsive layouts\r\n    - `xs` (phone), `sm` (large phone), `md` (tablet), `lg` (desktop), xl (large desktop)",
             "type": "component",
-            "sourceCode": "import { Component, OnInit, Input } from '@angular/core';\r\nimport { RowContentDoc } from 'src/app/models/RowContentDoc.interface';\r\n\r\n@Component({\r\n  selector: 'cms-row',\r\n  templateUrl: './row.component.html',\r\n  styleUrls: ['./row.component.scss']\r\n})\r\nexport class RowComponent implements OnInit {\r\n  @Input() content: RowContentDoc;\r\n\r\n  constructor() { }\r\n\r\n  ngOnInit(): void {\r\n  }\r\n}\r\n",
+            "sourceCode": "import { Component, OnInit, Input } from '@angular/core';\r\nimport { RowContentDoc } from 'src/app/models/RowContentDoc.interface';\r\n\r\n/**\r\n * Build layouts of all shapes and sizes with this row/column system built on top of Bootstrap\r\n * \r\n * - 12 column layout\r\n * - 5 default breakpoints for responsive layouts\r\n *    - `xs` (phone), `sm` (large phone), `md` (tablet), `lg` (desktop), xl (large desktop)\r\n */\r\n@Component({\r\n  selector: 'cms-row',\r\n  templateUrl: './row.component.html',\r\n  styleUrls: ['./row.component.scss'],\r\n  host: {'class': 'row'}\r\n})\r\nexport class RowComponent implements OnInit {\r\n  @Input() content: RowContentDoc;\r\n\r\n  constructor() { }\r\n\r\n  ngOnInit(): void {\r\n  }\r\n}\r\n",
             "assetsDirs": [],
             "styleUrlsData": [
                 {
@@ -1377,12 +1376,12 @@
                 "name": "constructor",
                 "description": "",
                 "args": [],
-                "line": 10
+                "line": 18
             },
             "implements": [
                 "OnInit"
             ],
-            "templateData": "<div class=\"row\">\r\n    <cms-column *ngFor=\"let content of content.Content\" [content]=\"content\">\r\n\r\n    </cms-column>\r\n</div>"
+            "templateData": "<cms-column *ngFor=\"let content of content.Content\" [content]=\"content\">\r\n\r\n</cms-column>"
         }
     ],
     "modules": [
@@ -1462,17 +1461,17 @@
                 "name": "BasicExample",
                 "ctype": "miscellaneous",
                 "subtype": "variable",
-                "file": "src/storybook/row.stories.ts",
+                "file": "src/storybook/page.stories.ts",
                 "type": "",
-                "defaultValue": "() => ({\r\n    component: RowComponent,\r\n    props: {\r\n        content: BasicExampleRow\r\n    }\r\n})"
+                "defaultValue": "() => ({\r\n  component: PageComponent,\r\n  props: {\r\n    content: BasicExamplePage\r\n  },\r\n})"
             },
             {
                 "name": "BasicExample",
                 "ctype": "miscellaneous",
                 "subtype": "variable",
-                "file": "src/storybook/page.stories.ts",
+                "file": "src/storybook/row.stories.ts",
                 "type": "",
-                "defaultValue": "() => ({\r\n  component: PageComponent,\r\n  props: {\r\n    content: BasicExamplePage\r\n  },\r\n})"
+                "defaultValue": "() => ({\r\n    template: `\r\n        <div style=\"padding: 15px\">\r\n            <cms-row [content]=\"content\"></cms-row>\r\n        </div>\r\n    `,\r\n    props: {\r\n        content: {\r\n            ComponentName: \"RowComponent\",\r\n            Content: [\r\n                {\r\n                    ComponentName: \"ColumnComponent\",\r\n                    Content: [\r\n                        {\r\n                            ComponentName: \"ContentBlockComponent\",\r\n                            Background: {\r\n                                ImageUrl: null,\r\n                                Color: \"#EF476F\"\r\n                            },\r\n                            DateRange: {\r\n                                StartDate: null,\r\n                                EndDate: null\r\n                            },\r\n                            HorizontalAlignment: \"Center\",\r\n                            VerticalAlignment: \"Middle\",\r\n                            TextArea: \"<h2>&zwnj;</h2>\",\r\n                        } as ContentDoc\r\n                    ]\r\n                },\r\n                {\r\n                    ComponentName: \"ColumnComponent\",\r\n                    Content: [\r\n                        {\r\n                            ComponentName: \"ContentBlockComponent\",\r\n                            Background: {\r\n                                ImageUrl: null,\r\n                                Color: \"#FFD166\"\r\n                            },\r\n                            DateRange: {\r\n                                StartDate: null,\r\n                                EndDate: null\r\n                            },\r\n                            HorizontalAlignment: \"Center\",\r\n                            VerticalAlignment: \"Middle\",\r\n                            TextArea: \"<h2>&zwnj;</h2>\",\r\n                        } as ContentDoc\r\n                    ]\r\n                },\r\n                {\r\n                    ComponentName: \"ColumnComponent\",\r\n                    Content: [\r\n                        {\r\n                            ComponentName: \"ContentBlockComponent\",\r\n                            Background: {\r\n                                ImageUrl: null,\r\n                                Color: \"#06D6A0\"\r\n                            },\r\n                            DateRange: {\r\n                                StartDate: null,\r\n                                EndDate: null\r\n                            },\r\n                            HorizontalAlignment: \"Center\",\r\n                            VerticalAlignment: \"Middle\",\r\n                            TextArea: \"<h2>&zwnj;</h2>\",\r\n                        } as ContentDoc\r\n                    ]\r\n                },\r\n                {\r\n                    ComponentName: \"ColumnComponent\",\r\n                    Content: [\r\n                        {\r\n                            ComponentName: \"ContentBlockComponent\",\r\n                            Background: {\r\n                                ImageUrl: null,\r\n                                Color: \"#2B9EB3\"\r\n                            },\r\n                            DateRange: {\r\n                                StartDate: null,\r\n                                EndDate: null\r\n                            },\r\n                            HorizontalAlignment: \"Center\",\r\n                            VerticalAlignment: \"Middle\",\r\n                            TextArea: \"<h2>&zwnj;</h2>\",\r\n                        } as ContentDoc\r\n                    ]\r\n                },\r\n            ]\r\n        } as RowContentDoc\r\n    }\r\n})"
             },
             {
                 "name": "BasicExamplePage",
@@ -1481,14 +1480,6 @@
                 "file": "src/storybook/page.stories.ts",
                 "type": "PageContentDoc",
                 "defaultValue": "{\r\n  ComponentName: 'PageComponent',\r\n  SiteUrl: 'https://music-resell-store.com',\r\n  Url: '/page1',\r\n  Title: 'FAQ',\r\n  Description: 'Frequently Asked Questions',\r\n  MetaImageUrl: 'https://www.superoffice.com/globalassets/blog/2016/10/how-to-build-faq-section.jpg',\r\n  DateLastUpdated: '2020-05-15T03:55:03.021Z',\r\n  Active: true,\r\n  Content: [\r\n    {\r\n      'ComponentName': 'ContentBlockComponent',\r\n      'TextArea': `\r\n      <div class=\"container\">\r\n        <p style=\"max-width: 500px;\">\r\n          You can right click to inspect the html to see the metadata that are set. Its easier if you click 'Open canvas in a new tab' (top right).\r\n          You should see the following metadata set for this component:\r\n        </p>\r\n        <table class=\"table table-striped\">\r\n          <tr>\r\n            <th>Property</th>\r\n            <th>Value</th>\r\n          </tr>\r\n          <tr>\r\n            <td>Title</td>\r\n            <td>FAQ</td>\r\n          </tr>\r\n          <tr>\r\n            <td>Description</td>\r\n            <td>Frequently Asked Questions</td>\r\n          </tr>\r\n          <tr>\r\n            <td>Image</td>\r\n            <td>https://www.superoffice.com/globalassets/blog/2016/10/how-to-build-faq-section.jpg/<td>\r\n          </tr>\r\n        </table>\r\n      </div>\r\n      `,\r\n    },\r\n  ],\r\n  HeaderEmbeds: '',\r\n  FooterEmbeds: '',\r\n  NavTitle: null\r\n}"
-            },
-            {
-                "name": "BasicExampleRow",
-                "ctype": "miscellaneous",
-                "subtype": "variable",
-                "file": "src/storybook/row.stories.ts",
-                "type": "RowContentDoc",
-                "defaultValue": "{\r\n    ComponentName: \"RowComponent\",\r\n    Content: [\r\n        {\r\n            ComponentName: \"ColumnContentBlock\",\r\n            Width: 3,\r\n            Content: [\r\n                {\r\n                    ComponentName: \"ContentBlockComponent\",\r\n                    Background: {\r\n                        ImageUrl: null,\r\n                        Color: \"#B0AFF0\"\r\n                    },\r\n                    DateRange: {\r\n                        StartDate: null,\r\n                        EndDate: null\r\n                    },\r\n                    HorizontalAlignment: \"Center\",\r\n                    VerticalAlignment: \"Middle\",\r\n                    TextArea: \"<h2>Product 1</h2><p>a golf club</p><h2>Product 2</h2><p>a basketball</p>\",\r\n                } as ContentDoc\r\n            ]\r\n        },\r\n        {\r\n            ComponentName: \"ColumnContentBlock\",\r\n            Width: {\r\n                sm: 12,\r\n                md: 6,\r\n                lg: 3\r\n            },\r\n            Content: [\r\n                {\r\n                    ComponentName: \"ContentBlockComponent\",\r\n                    Background: {\r\n                        \"ImageUrl\": null,\r\n                        \"Color\": \"#E8D0C6\"\r\n                    },\r\n                    DateRange: {\r\n                        StartDate: null,\r\n                        EndDate: null\r\n                    },\r\n                    HorizontalAlignment: \"Center\",\r\n                    VerticalAlignment: \"Middle\",\r\n                    TextArea: \"<h2>Product 3</h2><p>Snowboard</p><h2>Product 4</h2><p>Hobby horse</p>\",\r\n                } as ContentDoc\r\n            ]\r\n        }\r\n    ]\r\n}"
             },
             {
                 "name": "BasicExampleSlides",
@@ -1531,11 +1522,35 @@
                 "defaultValue": "{\n  production: false\n}"
             },
             {
+                "name": "Offset",
+                "ctype": "miscellaneous",
+                "subtype": "variable",
+                "file": "src/storybook/row.stories.ts",
+                "type": "",
+                "defaultValue": "() => ({\r\n    template: `\r\n        <div style=\"padding: 15px\">\r\n            <cms-row [content]=\"content\"></cms-row>\r\n        </div>\r\n    `,\r\n    props: {\r\n        content: {\r\n            ComponentName: \"RowComponent\",\r\n            Content: [\r\n                {\r\n                    ComponentName: \"ColumnComponent\",\r\n                    Content: [\r\n                        {\r\n                            ComponentName: \"ContentBlockComponent\",\r\n                            Background: {\r\n                                ImageUrl: null,\r\n                                Color: \"\"\r\n                            },\r\n                            DateRange: {\r\n                                StartDate: null,\r\n                                EndDate: null\r\n                            },\r\n                            HorizontalAlignment: \"Center\",\r\n                            VerticalAlignment: \"Middle\",\r\n                            TextArea: \"\",\r\n                        } as ContentDoc\r\n                    ]\r\n                },\r\n                {\r\n                    ComponentName: \"ColumnComponent\",\r\n                    Content: [\r\n                        {\r\n                            ComponentName: \"ContentBlockComponent\",\r\n                            Background: {\r\n                                ImageUrl: null,\r\n                                Color: \"#FFD166\"\r\n                            },\r\n                            DateRange: {\r\n                                StartDate: null,\r\n                                EndDate: null\r\n                            },\r\n                            HorizontalAlignment: \"Center\",\r\n                            VerticalAlignment: \"Middle\",\r\n                            TextArea: \"<h2>&zwnj;</h2>\",\r\n                        } as ContentDoc\r\n                    ]\r\n                },\r\n                {\r\n                    ComponentName: \"ColumnComponent\",\r\n                    Content: [\r\n                        {\r\n                            ComponentName: \"ContentBlockComponent\",\r\n                            Background: {\r\n                                ImageUrl: null,\r\n                                Color: \"\"\r\n                            },\r\n                            DateRange: {\r\n                                StartDate: null,\r\n                                EndDate: null\r\n                            },\r\n                            HorizontalAlignment: \"Center\",\r\n                            VerticalAlignment: \"Middle\",\r\n                            TextArea: \"\",\r\n                        } as ContentDoc\r\n                    ]\r\n                },\r\n                {\r\n                    ComponentName: \"ColumnComponent\",\r\n                    Content: [\r\n                        {\r\n                            ComponentName: \"ContentBlockComponent\",\r\n                            Background: {\r\n                                ImageUrl: null,\r\n                                Color: \"#2B9EB3\"\r\n                            },\r\n                            DateRange: {\r\n                                StartDate: null,\r\n                                EndDate: null\r\n                            },\r\n                            HorizontalAlignment: \"Center\",\r\n                            VerticalAlignment: \"Middle\",\r\n                            TextArea: \"<h2>&zwnj;</h2>\",\r\n                        } as ContentDoc\r\n                    ]\r\n                },\r\n            ]\r\n        } as RowContentDoc        \r\n    }\r\n})"
+            },
+            {
                 "name": "require",
                 "ctype": "miscellaneous",
                 "subtype": "variable",
                 "file": "src/test.ts",
                 "type": "literal type"
+            },
+            {
+                "name": "Responsive",
+                "ctype": "miscellaneous",
+                "subtype": "variable",
+                "file": "src/storybook/row.stories.ts",
+                "type": "",
+                "defaultValue": "() => ({\r\n    template: `\r\n        <div style=\"padding: 15px\">\r\n            <cms-row [content]=\"content\"></cms-row>\r\n        </div>\r\n    `,\r\n    props: {\r\n        content: {\r\n            ComponentName: \"RowComponent\",\r\n            Content: [\r\n                {\r\n                    ComponentName: \"ColumnComponent\",\r\n                    Width: {\r\n                        xs: 12,\r\n                        sm: 6,\r\n                        md: 3\r\n                    },\r\n                    Content: [\r\n                        {\r\n                            ComponentName: \"ContentBlockComponent\",\r\n                            Background: {\r\n                                ImageUrl: null,\r\n                                Color: \"#EF476F\"\r\n                            },\r\n                            DateRange: {\r\n                                StartDate: null,\r\n                                EndDate: null\r\n                            },\r\n                            HorizontalAlignment: \"Center\",\r\n                            VerticalAlignment: \"Middle\",\r\n                            TextArea: \"<h2>&zwnj;</h2>\",\r\n                        } as ContentDoc\r\n                    ]\r\n                },\r\n                {\r\n                    ComponentName: \"ColumnComponent\",\r\n                    Width: {\r\n                        xs: 12,\r\n                        sm: 6,\r\n                        md: 3\r\n                    },\r\n                    Content: [\r\n                        {\r\n                            ComponentName: \"ContentBlockComponent\",\r\n                            Background: {\r\n                                ImageUrl: null,\r\n                                Color: \"#FFD166\"\r\n                            },\r\n                            DateRange: {\r\n                                StartDate: null,\r\n                                EndDate: null\r\n                            },\r\n                            HorizontalAlignment: \"Center\",\r\n                            VerticalAlignment: \"Middle\",\r\n                            TextArea: \"<h2>&zwnj;</h2>\",\r\n                        } as ContentDoc\r\n                    ]\r\n                },\r\n                {\r\n                    ComponentName: \"ColumnComponent\",\r\n                    Width: {\r\n                        xs: 12,\r\n                        sm: 6,\r\n                        md: 3\r\n                    },\r\n                    Content: [\r\n                        {\r\n                            ComponentName: \"ContentBlockComponent\",\r\n                            Background: {\r\n                                ImageUrl: null,\r\n                                Color: \"#06D6A0\"\r\n                            },\r\n                            DateRange: {\r\n                                StartDate: null,\r\n                                EndDate: null\r\n                            },\r\n                            HorizontalAlignment: \"Center\",\r\n                            VerticalAlignment: \"Middle\",\r\n                            TextArea: \"<h2>&zwnj;</h2>\",\r\n                        } as ContentDoc\r\n                    ]\r\n                },\r\n                {\r\n                    ComponentName: \"ColumnComponent\",\r\n                    Width: {\r\n                        xs: 12,\r\n                        sm: 6,\r\n                        md: 3\r\n                    },\r\n                    Content: [\r\n                        {\r\n                            ComponentName: \"ContentBlockComponent\",\r\n                            Background: {\r\n                                ImageUrl: null,\r\n                                Color: \"#2B9EB3\"\r\n                            },\r\n                            DateRange: {\r\n                                StartDate: null,\r\n                                EndDate: null\r\n                            },\r\n                            HorizontalAlignment: \"Center\",\r\n                            VerticalAlignment: \"Middle\",\r\n                            TextArea: \"<h2>&zwnj;</h2>\",\r\n                        } as ContentDoc\r\n                    ]\r\n                },\r\n            ]\r\n        } as RowContentDoc        \r\n    }\r\n})"
+            },
+            {
+                "name": "VariedWidths",
+                "ctype": "miscellaneous",
+                "subtype": "variable",
+                "file": "src/storybook/row.stories.ts",
+                "type": "",
+                "defaultValue": "() => ({\r\n    template: `\r\n        <div style=\"padding: 15px\">\r\n            <cms-row [content]=\"content\"></cms-row>\r\n        </div>\r\n    `,\r\n    props: {\r\n        content: {\r\n            ComponentName: \"RowComponent\",\r\n            Content: [\r\n                {\r\n                    ComponentName: \"ColumnComponent\",\r\n                    Width: 2,\r\n                    Content: [\r\n                        {\r\n                            ComponentName: \"ContentBlockComponent\",\r\n                            Background: {\r\n                                ImageUrl: null,\r\n                                Color: \"#EF476F\"\r\n                            },\r\n                            DateRange: {\r\n                                StartDate: null,\r\n                                EndDate: null\r\n                            },\r\n                            HorizontalAlignment: \"Center\",\r\n                            VerticalAlignment: \"Middle\",\r\n                            TextArea: \"<h2>&zwnj;</h2>\",\r\n                        } as ContentDoc\r\n                    ]\r\n                },\r\n                {\r\n                    ComponentName: \"ColumnComponent\",\r\n                    Width: 3,\r\n                    Content: [\r\n                        {\r\n                            ComponentName: \"ContentBlockComponent\",\r\n                            Background: {\r\n                                ImageUrl: null,\r\n                                Color: \"#FFD166\"\r\n                            },\r\n                            DateRange: {\r\n                                StartDate: null,\r\n                                EndDate: null\r\n                            },\r\n                            HorizontalAlignment: \"Center\",\r\n                            VerticalAlignment: \"Middle\",\r\n                            TextArea: \"<h2>&zwnj;</h2>\",\r\n                        } as ContentDoc\r\n                    ]\r\n                },\r\n                {\r\n                    ComponentName: \"ColumnComponent\",\r\n                    Width: 6,\r\n                    Content: [\r\n                        {\r\n                            ComponentName: \"ContentBlockComponent\",\r\n                            Background: {\r\n                                ImageUrl: null,\r\n                                Color: \"#06D6A0\"\r\n                            },\r\n                            DateRange: {\r\n                                StartDate: null,\r\n                                EndDate: null\r\n                            },\r\n                            HorizontalAlignment: \"Center\",\r\n                            VerticalAlignment: \"Middle\",\r\n                            TextArea: \"<h2>&zwnj;</h2>\",\r\n                        } as ContentDoc\r\n                    ]\r\n                },\r\n                {\r\n                    ComponentName: \"ColumnComponent\",\r\n                    Width: 1,\r\n                    Content: [\r\n                        {\r\n                            ComponentName: \"ContentBlockComponent\",\r\n                            Background: {\r\n                                ImageUrl: null,\r\n                                Color: \"#2B9EB3\"\r\n                            },\r\n                            DateRange: {\r\n                                StartDate: null,\r\n                                EndDate: null\r\n                            },\r\n                            HorizontalAlignment: \"Center\",\r\n                            VerticalAlignment: \"Middle\",\r\n                            TextArea: \"<h2>&zwnj;</h2>\",\r\n                        } as ContentDoc\r\n                    ]\r\n                },\r\n            ]\r\n        } as RowContentDoc\r\n    }\r\n})"
             }
         ],
         "functions": [],
@@ -1597,24 +1612,6 @@
                     "defaultValue": "[\r\n  {\r\n    text: {\r\n      title: 'First Slide',\r\n    },\r\n    background: {\r\n      image: {\r\n        url: `https://picsum.photos/id/944/1700/500`,\r\n        title: 'A metal bridge in the jungle',\r\n      },\r\n    },\r\n  },\r\n  {\r\n    text: {\r\n      title: 'Second Slide',\r\n      subtitle: 'With a subtitle',\r\n    },\r\n    background: {\r\n      image: {\r\n        url: `https://picsum.photos/id/1011/1700/500`,\r\n        title: 'Woman canoeing',\r\n      },\r\n    },\r\n  },\r\n  {\r\n    text: {\r\n      title: 'Third Slide',\r\n      subtitle: 'Background color instead of image',\r\n    },\r\n    background: {\r\n      color: 'blue',\r\n    },\r\n  },\r\n]"
                 }
             ],
-            "src/storybook/row.stories.ts": [
-                {
-                    "name": "BasicExample",
-                    "ctype": "miscellaneous",
-                    "subtype": "variable",
-                    "file": "src/storybook/row.stories.ts",
-                    "type": "",
-                    "defaultValue": "() => ({\r\n    component: RowComponent,\r\n    props: {\r\n        content: BasicExampleRow\r\n    }\r\n})"
-                },
-                {
-                    "name": "BasicExampleRow",
-                    "ctype": "miscellaneous",
-                    "subtype": "variable",
-                    "file": "src/storybook/row.stories.ts",
-                    "type": "RowContentDoc",
-                    "defaultValue": "{\r\n    ComponentName: \"RowComponent\",\r\n    Content: [\r\n        {\r\n            ComponentName: \"ColumnContentBlock\",\r\n            Width: 3,\r\n            Content: [\r\n                {\r\n                    ComponentName: \"ContentBlockComponent\",\r\n                    Background: {\r\n                        ImageUrl: null,\r\n                        Color: \"#B0AFF0\"\r\n                    },\r\n                    DateRange: {\r\n                        StartDate: null,\r\n                        EndDate: null\r\n                    },\r\n                    HorizontalAlignment: \"Center\",\r\n                    VerticalAlignment: \"Middle\",\r\n                    TextArea: \"<h2>Product 1</h2><p>a golf club</p><h2>Product 2</h2><p>a basketball</p>\",\r\n                } as ContentDoc\r\n            ]\r\n        },\r\n        {\r\n            ComponentName: \"ColumnContentBlock\",\r\n            Width: {\r\n                sm: 12,\r\n                md: 6,\r\n                lg: 3\r\n            },\r\n            Content: [\r\n                {\r\n                    ComponentName: \"ContentBlockComponent\",\r\n                    Background: {\r\n                        \"ImageUrl\": null,\r\n                        \"Color\": \"#E8D0C6\"\r\n                    },\r\n                    DateRange: {\r\n                        StartDate: null,\r\n                        EndDate: null\r\n                    },\r\n                    HorizontalAlignment: \"Center\",\r\n                    VerticalAlignment: \"Middle\",\r\n                    TextArea: \"<h2>Product 3</h2><p>Snowboard</p><h2>Product 4</h2><p>Hobby horse</p>\",\r\n                } as ContentDoc\r\n            ]\r\n        }\r\n    ]\r\n}"
-                }
-            ],
             "src/storybook/page.stories.ts": [
                 {
                     "name": "BasicExample",
@@ -1631,6 +1628,40 @@
                     "file": "src/storybook/page.stories.ts",
                     "type": "PageContentDoc",
                     "defaultValue": "{\r\n  ComponentName: 'PageComponent',\r\n  SiteUrl: 'https://music-resell-store.com',\r\n  Url: '/page1',\r\n  Title: 'FAQ',\r\n  Description: 'Frequently Asked Questions',\r\n  MetaImageUrl: 'https://www.superoffice.com/globalassets/blog/2016/10/how-to-build-faq-section.jpg',\r\n  DateLastUpdated: '2020-05-15T03:55:03.021Z',\r\n  Active: true,\r\n  Content: [\r\n    {\r\n      'ComponentName': 'ContentBlockComponent',\r\n      'TextArea': `\r\n      <div class=\"container\">\r\n        <p style=\"max-width: 500px;\">\r\n          You can right click to inspect the html to see the metadata that are set. Its easier if you click 'Open canvas in a new tab' (top right).\r\n          You should see the following metadata set for this component:\r\n        </p>\r\n        <table class=\"table table-striped\">\r\n          <tr>\r\n            <th>Property</th>\r\n            <th>Value</th>\r\n          </tr>\r\n          <tr>\r\n            <td>Title</td>\r\n            <td>FAQ</td>\r\n          </tr>\r\n          <tr>\r\n            <td>Description</td>\r\n            <td>Frequently Asked Questions</td>\r\n          </tr>\r\n          <tr>\r\n            <td>Image</td>\r\n            <td>https://www.superoffice.com/globalassets/blog/2016/10/how-to-build-faq-section.jpg/<td>\r\n          </tr>\r\n        </table>\r\n      </div>\r\n      `,\r\n    },\r\n  ],\r\n  HeaderEmbeds: '',\r\n  FooterEmbeds: '',\r\n  NavTitle: null\r\n}"
+                }
+            ],
+            "src/storybook/row.stories.ts": [
+                {
+                    "name": "BasicExample",
+                    "ctype": "miscellaneous",
+                    "subtype": "variable",
+                    "file": "src/storybook/row.stories.ts",
+                    "type": "",
+                    "defaultValue": "() => ({\r\n    template: `\r\n        <div style=\"padding: 15px\">\r\n            <cms-row [content]=\"content\"></cms-row>\r\n        </div>\r\n    `,\r\n    props: {\r\n        content: {\r\n            ComponentName: \"RowComponent\",\r\n            Content: [\r\n                {\r\n                    ComponentName: \"ColumnComponent\",\r\n                    Content: [\r\n                        {\r\n                            ComponentName: \"ContentBlockComponent\",\r\n                            Background: {\r\n                                ImageUrl: null,\r\n                                Color: \"#EF476F\"\r\n                            },\r\n                            DateRange: {\r\n                                StartDate: null,\r\n                                EndDate: null\r\n                            },\r\n                            HorizontalAlignment: \"Center\",\r\n                            VerticalAlignment: \"Middle\",\r\n                            TextArea: \"<h2>&zwnj;</h2>\",\r\n                        } as ContentDoc\r\n                    ]\r\n                },\r\n                {\r\n                    ComponentName: \"ColumnComponent\",\r\n                    Content: [\r\n                        {\r\n                            ComponentName: \"ContentBlockComponent\",\r\n                            Background: {\r\n                                ImageUrl: null,\r\n                                Color: \"#FFD166\"\r\n                            },\r\n                            DateRange: {\r\n                                StartDate: null,\r\n                                EndDate: null\r\n                            },\r\n                            HorizontalAlignment: \"Center\",\r\n                            VerticalAlignment: \"Middle\",\r\n                            TextArea: \"<h2>&zwnj;</h2>\",\r\n                        } as ContentDoc\r\n                    ]\r\n                },\r\n                {\r\n                    ComponentName: \"ColumnComponent\",\r\n                    Content: [\r\n                        {\r\n                            ComponentName: \"ContentBlockComponent\",\r\n                            Background: {\r\n                                ImageUrl: null,\r\n                                Color: \"#06D6A0\"\r\n                            },\r\n                            DateRange: {\r\n                                StartDate: null,\r\n                                EndDate: null\r\n                            },\r\n                            HorizontalAlignment: \"Center\",\r\n                            VerticalAlignment: \"Middle\",\r\n                            TextArea: \"<h2>&zwnj;</h2>\",\r\n                        } as ContentDoc\r\n                    ]\r\n                },\r\n                {\r\n                    ComponentName: \"ColumnComponent\",\r\n                    Content: [\r\n                        {\r\n                            ComponentName: \"ContentBlockComponent\",\r\n                            Background: {\r\n                                ImageUrl: null,\r\n                                Color: \"#2B9EB3\"\r\n                            },\r\n                            DateRange: {\r\n                                StartDate: null,\r\n                                EndDate: null\r\n                            },\r\n                            HorizontalAlignment: \"Center\",\r\n                            VerticalAlignment: \"Middle\",\r\n                            TextArea: \"<h2>&zwnj;</h2>\",\r\n                        } as ContentDoc\r\n                    ]\r\n                },\r\n            ]\r\n        } as RowContentDoc\r\n    }\r\n})"
+                },
+                {
+                    "name": "Offset",
+                    "ctype": "miscellaneous",
+                    "subtype": "variable",
+                    "file": "src/storybook/row.stories.ts",
+                    "type": "",
+                    "defaultValue": "() => ({\r\n    template: `\r\n        <div style=\"padding: 15px\">\r\n            <cms-row [content]=\"content\"></cms-row>\r\n        </div>\r\n    `,\r\n    props: {\r\n        content: {\r\n            ComponentName: \"RowComponent\",\r\n            Content: [\r\n                {\r\n                    ComponentName: \"ColumnComponent\",\r\n                    Content: [\r\n                        {\r\n                            ComponentName: \"ContentBlockComponent\",\r\n                            Background: {\r\n                                ImageUrl: null,\r\n                                Color: \"\"\r\n                            },\r\n                            DateRange: {\r\n                                StartDate: null,\r\n                                EndDate: null\r\n                            },\r\n                            HorizontalAlignment: \"Center\",\r\n                            VerticalAlignment: \"Middle\",\r\n                            TextArea: \"\",\r\n                        } as ContentDoc\r\n                    ]\r\n                },\r\n                {\r\n                    ComponentName: \"ColumnComponent\",\r\n                    Content: [\r\n                        {\r\n                            ComponentName: \"ContentBlockComponent\",\r\n                            Background: {\r\n                                ImageUrl: null,\r\n                                Color: \"#FFD166\"\r\n                            },\r\n                            DateRange: {\r\n                                StartDate: null,\r\n                                EndDate: null\r\n                            },\r\n                            HorizontalAlignment: \"Center\",\r\n                            VerticalAlignment: \"Middle\",\r\n                            TextArea: \"<h2>&zwnj;</h2>\",\r\n                        } as ContentDoc\r\n                    ]\r\n                },\r\n                {\r\n                    ComponentName: \"ColumnComponent\",\r\n                    Content: [\r\n                        {\r\n                            ComponentName: \"ContentBlockComponent\",\r\n                            Background: {\r\n                                ImageUrl: null,\r\n                                Color: \"\"\r\n                            },\r\n                            DateRange: {\r\n                                StartDate: null,\r\n                                EndDate: null\r\n                            },\r\n                            HorizontalAlignment: \"Center\",\r\n                            VerticalAlignment: \"Middle\",\r\n                            TextArea: \"\",\r\n                        } as ContentDoc\r\n                    ]\r\n                },\r\n                {\r\n                    ComponentName: \"ColumnComponent\",\r\n                    Content: [\r\n                        {\r\n                            ComponentName: \"ContentBlockComponent\",\r\n                            Background: {\r\n                                ImageUrl: null,\r\n                                Color: \"#2B9EB3\"\r\n                            },\r\n                            DateRange: {\r\n                                StartDate: null,\r\n                                EndDate: null\r\n                            },\r\n                            HorizontalAlignment: \"Center\",\r\n                            VerticalAlignment: \"Middle\",\r\n                            TextArea: \"<h2>&zwnj;</h2>\",\r\n                        } as ContentDoc\r\n                    ]\r\n                },\r\n            ]\r\n        } as RowContentDoc        \r\n    }\r\n})"
+                },
+                {
+                    "name": "Responsive",
+                    "ctype": "miscellaneous",
+                    "subtype": "variable",
+                    "file": "src/storybook/row.stories.ts",
+                    "type": "",
+                    "defaultValue": "() => ({\r\n    template: `\r\n        <div style=\"padding: 15px\">\r\n            <cms-row [content]=\"content\"></cms-row>\r\n        </div>\r\n    `,\r\n    props: {\r\n        content: {\r\n            ComponentName: \"RowComponent\",\r\n            Content: [\r\n                {\r\n                    ComponentName: \"ColumnComponent\",\r\n                    Width: {\r\n                        xs: 12,\r\n                        sm: 6,\r\n                        md: 3\r\n                    },\r\n                    Content: [\r\n                        {\r\n                            ComponentName: \"ContentBlockComponent\",\r\n                            Background: {\r\n                                ImageUrl: null,\r\n                                Color: \"#EF476F\"\r\n                            },\r\n                            DateRange: {\r\n                                StartDate: null,\r\n                                EndDate: null\r\n                            },\r\n                            HorizontalAlignment: \"Center\",\r\n                            VerticalAlignment: \"Middle\",\r\n                            TextArea: \"<h2>&zwnj;</h2>\",\r\n                        } as ContentDoc\r\n                    ]\r\n                },\r\n                {\r\n                    ComponentName: \"ColumnComponent\",\r\n                    Width: {\r\n                        xs: 12,\r\n                        sm: 6,\r\n                        md: 3\r\n                    },\r\n                    Content: [\r\n                        {\r\n                            ComponentName: \"ContentBlockComponent\",\r\n                            Background: {\r\n                                ImageUrl: null,\r\n                                Color: \"#FFD166\"\r\n                            },\r\n                            DateRange: {\r\n                                StartDate: null,\r\n                                EndDate: null\r\n                            },\r\n                            HorizontalAlignment: \"Center\",\r\n                            VerticalAlignment: \"Middle\",\r\n                            TextArea: \"<h2>&zwnj;</h2>\",\r\n                        } as ContentDoc\r\n                    ]\r\n                },\r\n                {\r\n                    ComponentName: \"ColumnComponent\",\r\n                    Width: {\r\n                        xs: 12,\r\n                        sm: 6,\r\n                        md: 3\r\n                    },\r\n                    Content: [\r\n                        {\r\n                            ComponentName: \"ContentBlockComponent\",\r\n                            Background: {\r\n                                ImageUrl: null,\r\n                                Color: \"#06D6A0\"\r\n                            },\r\n                            DateRange: {\r\n                                StartDate: null,\r\n                                EndDate: null\r\n                            },\r\n                            HorizontalAlignment: \"Center\",\r\n                            VerticalAlignment: \"Middle\",\r\n                            TextArea: \"<h2>&zwnj;</h2>\",\r\n                        } as ContentDoc\r\n                    ]\r\n                },\r\n                {\r\n                    ComponentName: \"ColumnComponent\",\r\n                    Width: {\r\n                        xs: 12,\r\n                        sm: 6,\r\n                        md: 3\r\n                    },\r\n                    Content: [\r\n                        {\r\n                            ComponentName: \"ContentBlockComponent\",\r\n                            Background: {\r\n                                ImageUrl: null,\r\n                                Color: \"#2B9EB3\"\r\n                            },\r\n                            DateRange: {\r\n                                StartDate: null,\r\n                                EndDate: null\r\n                            },\r\n                            HorizontalAlignment: \"Center\",\r\n                            VerticalAlignment: \"Middle\",\r\n                            TextArea: \"<h2>&zwnj;</h2>\",\r\n                        } as ContentDoc\r\n                    ]\r\n                },\r\n            ]\r\n        } as RowContentDoc        \r\n    }\r\n})"
+                },
+                {
+                    "name": "VariedWidths",
+                    "ctype": "miscellaneous",
+                    "subtype": "variable",
+                    "file": "src/storybook/row.stories.ts",
+                    "type": "",
+                    "defaultValue": "() => ({\r\n    template: `\r\n        <div style=\"padding: 15px\">\r\n            <cms-row [content]=\"content\"></cms-row>\r\n        </div>\r\n    `,\r\n    props: {\r\n        content: {\r\n            ComponentName: \"RowComponent\",\r\n            Content: [\r\n                {\r\n                    ComponentName: \"ColumnComponent\",\r\n                    Width: 2,\r\n                    Content: [\r\n                        {\r\n                            ComponentName: \"ContentBlockComponent\",\r\n                            Background: {\r\n                                ImageUrl: null,\r\n                                Color: \"#EF476F\"\r\n                            },\r\n                            DateRange: {\r\n                                StartDate: null,\r\n                                EndDate: null\r\n                            },\r\n                            HorizontalAlignment: \"Center\",\r\n                            VerticalAlignment: \"Middle\",\r\n                            TextArea: \"<h2>&zwnj;</h2>\",\r\n                        } as ContentDoc\r\n                    ]\r\n                },\r\n                {\r\n                    ComponentName: \"ColumnComponent\",\r\n                    Width: 3,\r\n                    Content: [\r\n                        {\r\n                            ComponentName: \"ContentBlockComponent\",\r\n                            Background: {\r\n                                ImageUrl: null,\r\n                                Color: \"#FFD166\"\r\n                            },\r\n                            DateRange: {\r\n                                StartDate: null,\r\n                                EndDate: null\r\n                            },\r\n                            HorizontalAlignment: \"Center\",\r\n                            VerticalAlignment: \"Middle\",\r\n                            TextArea: \"<h2>&zwnj;</h2>\",\r\n                        } as ContentDoc\r\n                    ]\r\n                },\r\n                {\r\n                    ComponentName: \"ColumnComponent\",\r\n                    Width: 6,\r\n                    Content: [\r\n                        {\r\n                            ComponentName: \"ContentBlockComponent\",\r\n                            Background: {\r\n                                ImageUrl: null,\r\n                                Color: \"#06D6A0\"\r\n                            },\r\n                            DateRange: {\r\n                                StartDate: null,\r\n                                EndDate: null\r\n                            },\r\n                            HorizontalAlignment: \"Center\",\r\n                            VerticalAlignment: \"Middle\",\r\n                            TextArea: \"<h2>&zwnj;</h2>\",\r\n                        } as ContentDoc\r\n                    ]\r\n                },\r\n                {\r\n                    ComponentName: \"ColumnComponent\",\r\n                    Width: 1,\r\n                    Content: [\r\n                        {\r\n                            ComponentName: \"ContentBlockComponent\",\r\n                            Background: {\r\n                                ImageUrl: null,\r\n                                Color: \"#2B9EB3\"\r\n                            },\r\n                            DateRange: {\r\n                                StartDate: null,\r\n                                EndDate: null\r\n                            },\r\n                            HorizontalAlignment: \"Center\",\r\n                            VerticalAlignment: \"Middle\",\r\n                            TextArea: \"<h2>&zwnj;</h2>\",\r\n                        } as ContentDoc\r\n                    ]\r\n                },\r\n            ]\r\n        } as RowContentDoc\r\n    }\r\n})"
                 }
             ],
             "src/app/components/carousel/carousel.component.ts": [
@@ -1774,7 +1805,7 @@
                 "linktype": "component",
                 "name": "ColumnComponent",
                 "coveragePercent": 0,
-                "coverageCount": "0/6",
+                "coverageCount": "0/7",
                 "status": "low"
             },
             {
@@ -1809,8 +1840,8 @@
                 "type": "component",
                 "linktype": "component",
                 "name": "RowComponent",
-                "coveragePercent": 0,
-                "coverageCount": "0/4",
+                "coveragePercent": 25,
+                "coverageCount": "1/4",
                 "status": "low"
             },
             {
@@ -1891,7 +1922,7 @@
                 "linktype": "interface",
                 "name": "ColumnContentDoc",
                 "coveragePercent": 0,
-                "coverageCount": "0/3",
+                "coverageCount": "0/4",
                 "status": "low"
             },
             {
@@ -2041,7 +2072,27 @@
                 "type": "variable",
                 "linktype": "miscellaneous",
                 "linksubtype": "variable",
-                "name": "BasicExampleRow",
+                "name": "Offset",
+                "coveragePercent": 0,
+                "coverageCount": "0/1",
+                "status": "low"
+            },
+            {
+                "filePath": "src/storybook/row.stories.ts",
+                "type": "variable",
+                "linktype": "miscellaneous",
+                "linksubtype": "variable",
+                "name": "Responsive",
+                "coveragePercent": 0,
+                "coverageCount": "0/1",
+                "status": "low"
+            },
+            {
+                "filePath": "src/storybook/row.stories.ts",
+                "type": "variable",
+                "linktype": "miscellaneous",
+                "linksubtype": "variable",
+                "name": "VariedWidths",
                 "coveragePercent": 0,
                 "coverageCount": "0/1",
                 "status": "low"

@@ -1,4 +1,4 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, HostBinding } from '@angular/core';
 import { ColumnContentDoc, BootstrapMediaDefinition } from 'src/app/models/ColumnContentDoc.interface';
 
 @Component({
@@ -8,27 +8,45 @@ import { ColumnContentDoc, BootstrapMediaDefinition } from 'src/app/models/Colum
 })
 export class ColumnComponent implements OnInit {
   @Input() content: ColumnContentDoc;
-  widthClass: string;
+  @HostBinding('class') 
+  get getColumnClass(){
+    const widthClasses = this.getWidthClasses();
+    const paddingClasses = this.getPaddingClasses();
+
+    return [...widthClasses, ...paddingClasses].join(' ');
+  };
 
   constructor() { }
 
   ngOnInit(): void {
-    this.widthClass = this.getWidthClass(this.content.Width);
   }
 
-  getWidthClass(definition: number | BootstrapMediaDefinition | undefined) {
+  getWidthClasses() {
+    const definition = this.content.Width;
     if(!definition) {
-      return 'col';
+      return ['col'];
     }
     if(typeof definition === 'number') {
-      return `col-${definition}`;
+      return [`col-${definition}`];
     }
-    let classNamesArr: string[] = []
+    let classNames: string[] = []
     for(const breakpoint in definition){
       const columnWidth = definition[breakpoint];
-      classNamesArr = [...classNamesArr, `col-${breakpoint}-${columnWidth}`]
+      let className = `col-${breakpoint}-${columnWidth}`
+      if(breakpoint === 'xs') {
+        // there isn't actually an xs in bootstrap
+        className = `col-${columnWidth}`
+      }
+      classNames.push(className)
     }
-    return classNamesArr.join(' ');
+    return classNames;
   }
 
+  getPaddingClasses() {
+    const padding = this.content.Padding;
+    if(padding === null || padding === undefined) {
+      return [];
+    }
+    return [`p-${padding}`]
+  }
 }

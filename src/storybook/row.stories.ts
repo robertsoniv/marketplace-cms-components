@@ -16,6 +16,7 @@ export default {
     decorators: [
         moduleMetadata({
             declarations: [
+                RowComponent,
                 ContentContainerComponent,
                 ContentBlockComponent,
                 SafeHtmlPipe,
@@ -28,60 +29,392 @@ export default {
     ]
 }
 
-const BasicExampleRow: RowContentDoc = {
-    ComponentName: "RowComponent",
-    Content: [
-        {
-            ComponentName: "ColumnComponent",
-            // Width: 3,
-            Width: 12,
-            Content: [
-                {
-                    ComponentName: "ContentBlockComponent",
-                    Background: {
-                        ImageUrl: null,
-                        Color: "#B0AFF0"
-                    },
-                    DateRange: {
-                        StartDate: null,
-                        EndDate: null
-                    },
-                    HorizontalAlignment: "Center",
-                    VerticalAlignment: "Middle",
-                    TextArea: "<h2>Product 1</h2><p>a golf club</p><h2>Product 2</h2><p>a basketball</p>",
-                } as ContentDoc
-            ]
-        },
-        {
-            ComponentName: "ColumnComponent",
-            // Width: {
-            //     sm: 12,
-            //     md: 6,
-            //     lg: 3
-            // },
-            Width: 12,
-            Content: [
-                {
-                    ComponentName: "ContentBlockComponent",
-                    Background: {
-                        "ImageUrl": null,
-                        "Color": "#E8D0C6"
-                    },
-                    DateRange: {
-                        StartDate: null,
-                        EndDate: null
-                    },
-                    HorizontalAlignment: "Center",
-                    VerticalAlignment: "Middle",
-                    TextArea: "<h2>Product 3</h2><p>Snowboard</p><h2>Product 4</h2><p>Hobby horse</p>",
-                } as ContentDoc
-            ]
-        }
-    ]
-}
+
+
 export const BasicExample = () => ({
-    component: RowComponent,
+    template: `
+        <div style="padding: 15px">
+            <cms-row [content]="content"></cms-row>
+        </div>
+    `,
     props: {
-        content: BasicExampleRow
+        content: {
+            ComponentName: "RowComponent",
+            Content: [
+                {
+                    ComponentName: "ColumnComponent",
+                    Content: [
+                        {
+                            ComponentName: "ContentBlockComponent",
+                            Background: {
+                                ImageUrl: null,
+                                Color: "#EF476F"
+                            },
+                            DateRange: {
+                                StartDate: null,
+                                EndDate: null
+                            },
+                            HorizontalAlignment: "Center",
+                            VerticalAlignment: "Middle",
+                            TextArea: "<h2>&zwnj;</h2>",
+                        } as ContentDoc
+                    ]
+                },
+                {
+                    ComponentName: "ColumnComponent",
+                    Content: [
+                        {
+                            ComponentName: "ContentBlockComponent",
+                            Background: {
+                                ImageUrl: null,
+                                Color: "#FFD166"
+                            },
+                            DateRange: {
+                                StartDate: null,
+                                EndDate: null
+                            },
+                            HorizontalAlignment: "Center",
+                            VerticalAlignment: "Middle",
+                            TextArea: "<h2>&zwnj;</h2>",
+                        } as ContentDoc
+                    ]
+                },
+                {
+                    ComponentName: "ColumnComponent",
+                    Content: [
+                        {
+                            ComponentName: "ContentBlockComponent",
+                            Background: {
+                                ImageUrl: null,
+                                Color: "#06D6A0"
+                            },
+                            DateRange: {
+                                StartDate: null,
+                                EndDate: null
+                            },
+                            HorizontalAlignment: "Center",
+                            VerticalAlignment: "Middle",
+                            TextArea: "<h2>&zwnj;</h2>",
+                        } as ContentDoc
+                    ]
+                },
+                {
+                    ComponentName: "ColumnComponent",
+                    Content: [
+                        {
+                            ComponentName: "ContentBlockComponent",
+                            Background: {
+                                ImageUrl: null,
+                                Color: "#2B9EB3"
+                            },
+                            DateRange: {
+                                StartDate: null,
+                                EndDate: null
+                            },
+                            HorizontalAlignment: "Center",
+                            VerticalAlignment: "Middle",
+                            TextArea: "<h2>&zwnj;</h2>",
+                        } as ContentDoc
+                    ]
+                },
+            ]
+        } as RowContentDoc
+    }
+});
+
+export const VariedWidths = () => ({
+    template: `
+        <div style="padding: 15px">
+            <cms-row [content]="content"></cms-row>
+        </div>
+    `,
+    props: {
+        content: {
+            ComponentName: "RowComponent",
+            Content: [
+                {
+                    ComponentName: "ColumnComponent",
+                    Width: 2,
+                    Content: [
+                        {
+                            ComponentName: "ContentBlockComponent",
+                            Background: {
+                                ImageUrl: null,
+                                Color: "#EF476F"
+                            },
+                            DateRange: {
+                                StartDate: null,
+                                EndDate: null
+                            },
+                            HorizontalAlignment: "Center",
+                            VerticalAlignment: "Middle",
+                            TextArea: "<h2>&zwnj;</h2>",
+                        } as ContentDoc
+                    ]
+                },
+                {
+                    ComponentName: "ColumnComponent",
+                    Width: 3,
+                    Content: [
+                        {
+                            ComponentName: "ContentBlockComponent",
+                            Background: {
+                                ImageUrl: null,
+                                Color: "#FFD166"
+                            },
+                            DateRange: {
+                                StartDate: null,
+                                EndDate: null
+                            },
+                            HorizontalAlignment: "Center",
+                            VerticalAlignment: "Middle",
+                            TextArea: "<h2>&zwnj;</h2>",
+                        } as ContentDoc
+                    ]
+                },
+                {
+                    ComponentName: "ColumnComponent",
+                    Width: 6,
+                    Content: [
+                        {
+                            ComponentName: "ContentBlockComponent",
+                            Background: {
+                                ImageUrl: null,
+                                Color: "#06D6A0"
+                            },
+                            DateRange: {
+                                StartDate: null,
+                                EndDate: null
+                            },
+                            HorizontalAlignment: "Center",
+                            VerticalAlignment: "Middle",
+                            TextArea: "<h2>&zwnj;</h2>",
+                        } as ContentDoc
+                    ]
+                },
+                {
+                    ComponentName: "ColumnComponent",
+                    Width: 1,
+                    Content: [
+                        {
+                            ComponentName: "ContentBlockComponent",
+                            Background: {
+                                ImageUrl: null,
+                                Color: "#2B9EB3"
+                            },
+                            DateRange: {
+                                StartDate: null,
+                                EndDate: null
+                            },
+                            HorizontalAlignment: "Center",
+                            VerticalAlignment: "Middle",
+                            TextArea: "<h2>&zwnj;</h2>",
+                        } as ContentDoc
+                    ]
+                },
+            ]
+        } as RowContentDoc
+    }
+});
+
+export const Responsive = () => ({
+    template: `
+        <div style="padding: 15px">
+            <cms-row [content]="content"></cms-row>
+        </div>
+    `,
+    props: {
+        content: {
+            ComponentName: "RowComponent",
+            Content: [
+                {
+                    ComponentName: "ColumnComponent",
+                    Width: {
+                        xs: 12,
+                        sm: 6,
+                        md: 3
+                    },
+                    Content: [
+                        {
+                            ComponentName: "ContentBlockComponent",
+                            Background: {
+                                ImageUrl: null,
+                                Color: "#EF476F"
+                            },
+                            DateRange: {
+                                StartDate: null,
+                                EndDate: null
+                            },
+                            HorizontalAlignment: "Center",
+                            VerticalAlignment: "Middle",
+                            TextArea: "<h2>&zwnj;</h2>",
+                        } as ContentDoc
+                    ]
+                },
+                {
+                    ComponentName: "ColumnComponent",
+                    Width: {
+                        xs: 12,
+                        sm: 6,
+                        md: 3
+                    },
+                    Content: [
+                        {
+                            ComponentName: "ContentBlockComponent",
+                            Background: {
+                                ImageUrl: null,
+                                Color: "#FFD166"
+                            },
+                            DateRange: {
+                                StartDate: null,
+                                EndDate: null
+                            },
+                            HorizontalAlignment: "Center",
+                            VerticalAlignment: "Middle",
+                            TextArea: "<h2>&zwnj;</h2>",
+                        } as ContentDoc
+                    ]
+                },
+                {
+                    ComponentName: "ColumnComponent",
+                    Width: {
+                        xs: 12,
+                        sm: 6,
+                        md: 3
+                    },
+                    Content: [
+                        {
+                            ComponentName: "ContentBlockComponent",
+                            Background: {
+                                ImageUrl: null,
+                                Color: "#06D6A0"
+                            },
+                            DateRange: {
+                                StartDate: null,
+                                EndDate: null
+                            },
+                            HorizontalAlignment: "Center",
+                            VerticalAlignment: "Middle",
+                            TextArea: "<h2>&zwnj;</h2>",
+                        } as ContentDoc
+                    ]
+                },
+                {
+                    ComponentName: "ColumnComponent",
+                    Width: {
+                        xs: 12,
+                        sm: 6,
+                        md: 3
+                    },
+                    Content: [
+                        {
+                            ComponentName: "ContentBlockComponent",
+                            Background: {
+                                ImageUrl: null,
+                                Color: "#2B9EB3"
+                            },
+                            DateRange: {
+                                StartDate: null,
+                                EndDate: null
+                            },
+                            HorizontalAlignment: "Center",
+                            VerticalAlignment: "Middle",
+                            TextArea: "<h2>&zwnj;</h2>",
+                        } as ContentDoc
+                    ]
+                },
+            ]
+        } as RowContentDoc        
+    }
+});
+
+export const Offset = () => ({
+    template: `
+        <div style="padding: 15px">
+            <cms-row [content]="content"></cms-row>
+        </div>
+    `,
+    props: {
+        content: {
+            ComponentName: "RowComponent",
+            Content: [
+                {
+                    ComponentName: "ColumnComponent",
+                    Content: [
+                        {
+                            ComponentName: "ContentBlockComponent",
+                            Background: {
+                                ImageUrl: null,
+                                Color: ""
+                            },
+                            DateRange: {
+                                StartDate: null,
+                                EndDate: null
+                            },
+                            HorizontalAlignment: "Center",
+                            VerticalAlignment: "Middle",
+                            TextArea: "",
+                        } as ContentDoc
+                    ]
+                },
+                {
+                    ComponentName: "ColumnComponent",
+                    Content: [
+                        {
+                            ComponentName: "ContentBlockComponent",
+                            Background: {
+                                ImageUrl: null,
+                                Color: "#FFD166"
+                            },
+                            DateRange: {
+                                StartDate: null,
+                                EndDate: null
+                            },
+                            HorizontalAlignment: "Center",
+                            VerticalAlignment: "Middle",
+                            TextArea: "<h2>&zwnj;</h2>",
+                        } as ContentDoc
+                    ]
+                },
+                {
+                    ComponentName: "ColumnComponent",
+                    Content: [
+                        {
+                            ComponentName: "ContentBlockComponent",
+                            Background: {
+                                ImageUrl: null,
+                                Color: ""
+                            },
+                            DateRange: {
+                                StartDate: null,
+                                EndDate: null
+                            },
+                            HorizontalAlignment: "Center",
+                            VerticalAlignment: "Middle",
+                            TextArea: "",
+                        } as ContentDoc
+                    ]
+                },
+                {
+                    ComponentName: "ColumnComponent",
+                    Content: [
+                        {
+                            ComponentName: "ContentBlockComponent",
+                            Background: {
+                                ImageUrl: null,
+                                Color: "#2B9EB3"
+                            },
+                            DateRange: {
+                                StartDate: null,
+                                EndDate: null
+                            },
+                            HorizontalAlignment: "Center",
+                            VerticalAlignment: "Middle",
+                            TextArea: "<h2>&zwnj;</h2>",
+                        } as ContentDoc
+                    ]
+                },
+            ]
+        } as RowContentDoc        
     }
 });
