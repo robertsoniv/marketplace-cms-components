@@ -38,6 +38,16 @@ import { CookieModule } from 'ngx-cookie';
     CookieModule.forRoot(),
     OrderCloudModule.forRoot(() => new Configuration({}))
   ],
+<<<<<<< HEAD
+=======
+  imports: [
+    BrowserModule,
+    NgbModule,
+    EditorModule,
+    CookieModule.forRoot(),
+    OrderCloudModule.forRoot(() => new Configuration({}))
+  ],
+>>>>>>> crhistianfork
   providers: [
     { provide: TINYMCE_SCRIPT_SRC, useValue: 'tinymce/tinymce.min.js' }
   ],
