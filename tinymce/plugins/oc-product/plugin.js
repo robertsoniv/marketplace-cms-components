@@ -27,9 +27,7 @@ tinymce.PluginManager.add('oc-product', function (editor, url) {
       onSubmit: function (api) {
         const data = api.getData();
         const token = getCookie(editor, 'ordercloud.token');
-        console.log('TOKEN', token)
-        // /${data.productId}
-        fetch(`https://api.ordercloud.io/v1/products/${data.productId}`, {
+        fetch(`https://api.ordercloud.io/v1/me/products/${data.productId}`, {
           method: "GET",
           headers: {
             "Content-Type": "application/json",
@@ -38,7 +36,8 @@ tinymce.PluginManager.add('oc-product', function (editor, url) {
         }).then((response) => {
           if (response.ok) {
             response.json().then((product) => {
-              editor.insertContent(`<div class="card">
+              editor.insertContent(`
+              <div class="card">
                 <div class="card-body">
                   <h5 class="card-title">${product.Name}</h5>
                   <p class="card-text">ID: <code>${product.ID}</code></p>
