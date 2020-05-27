@@ -1091,7 +1091,7 @@
         },
         {
             "name": "HtmlEditorComponent",
-            "id": "component-HtmlEditorComponent-3ef091e9ac93a4ef4bfb9caf3ab2d291",
+            "id": "component-HtmlEditorComponent-79ce4d2f1a2e82f2d9e427a33d8222d2",
             "file": "src/app/components/html-editor/html-editor.component.ts",
             "encapsulation": [],
             "entryComponents": [],
@@ -1109,8 +1109,18 @@
             "viewProviders": [],
             "inputsClass": [
                 {
+                    "name": "initialValue",
+                    "line": 12,
+                    "type": "string"
+                },
+                {
                     "name": "ocCookieName",
                     "line": 10,
+                    "type": "string"
+                },
+                {
+                    "name": "remoteCss",
+                    "line": 11,
                     "type": "string"
                 }
             ],
@@ -1123,7 +1133,7 @@
                     "optional": false,
                     "returnType": "void",
                     "typeParameters": [],
-                    "line": 14
+                    "line": 16
                 }
             ],
             "hostBindings": [],
@@ -1131,11 +1141,11 @@
             "description": "",
             "rawdescription": "",
             "type": "component",
-            "sourceCode": "import { Component, OnInit, Input } from '@angular/core';\r\nimport { OcTokenService } from '@ordercloud/angular-sdk';\r\n\r\n@Component({\r\n  selector: 'cms-html-editor',\r\n  templateUrl: './html-editor.component.html',\r\n  styleUrls: ['./html-editor.component.scss']\r\n})\r\nexport class HtmlEditorComponent implements OnInit {\r\n  @Input() ocCookieName: string;\r\n\r\n  constructor(private ocTokenService: OcTokenService) {}\r\n\r\n  ngOnInit(): void {\r\n    this.ocTokenService.SetAccess(\r\n      'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ1c3IiOiJhcmFyaWNrXzJAZm91cjUxLmNvbSIsImNpZCI6ImNlMDk1YTMwLWJlZmYtNGVkYy1iOTYwLTZiMDhmZjg4NDNmZSIsInUiOiIxMTgxMjQ3IiwidXNydHlwZSI6ImFkbWluIiwicm9sZSI6WyJBZGRyZXNzQWRtaW4iLCJNZUFkbWluIiwiT3JkZXJBZG1pbiIsIk92ZXJyaWRlU2hpcHBpbmciLCJPdmVycmlkZVRheCIsIk92ZXJyaWRlVW5pdFByaWNlIiwiUHJvZHVjdEFkbWluIiwiUGFzc3dvcmRSZXNldCIsIlNldFNlY3VyaXR5UHJvZmlsZSIsIlByaWNlU2NoZWR1bGVBZG1pbiIsIlN1cHBsaWVyQWRtaW4iLCJTdXBwbGllclVzZXJBZG1pbiIsIlN1cHBsaWVyQWRkcmVzc0FkbWluIiwiU2hvcHBlciIsIlNoaXBtZW50QWRtaW4iLCJTdXBwbGllclJlYWRlciIsIlByb21vdGlvbkFkbWluIiwiQnV5ZXJSZWFkZXIiLCJCdXllckFkbWluIl0sImlzcyI6Imh0dHBzOi8vYXV0aC5vcmRlcmNsb3VkLmlvIiwiYXVkIjoiaHR0cHM6Ly9hcGkub3JkZXJjbG91ZC5pbyIsImV4cCI6MTU5MDYxNzcxNCwibmJmIjoxNTkwNTg3NzE0fQ.IjDUzDyW4KJvFlJu8pPL4ZMtVzh6ze1g01FrCKOyvxI'\r\n    );\r\n  }\r\n}\r\n",
+            "sourceCode": "import { Component, OnInit, Input } from '@angular/core';\r\nimport { OcTokenService } from '@ordercloud/angular-sdk';\r\n\r\n@Component({\r\n  selector: 'cms-html-editor',\r\n  templateUrl: './html-editor.component.html',\r\n  styleUrls: ['./html-editor.component.scss']\r\n})\r\nexport class HtmlEditorComponent implements OnInit {\r\n  @Input() ocCookieName: string;\r\n  @Input() remoteCss: string;\r\n  @Input() initialValue: string;\r\n\r\n  constructor(private ocTokenService: OcTokenService) {}\r\n\r\n  ngOnInit(): void {\r\n    this.ocTokenService.SetAccess(\r\n      'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ1c3IiOiJhbm9uLXRlbXBsYXRlLXVzZXIiLCJjaWQiOiJlOTU1ZDZlYy01OWM4LTQ0NDItOTQ4ZS0xNmNjYzVmZDI3YWUiLCJvcmRlcmlkIjoibXRXUnYtT1lvVXFhekQyRm5yVWpwdyIsInUiOiIxMDIwMjMwIiwidXNydHlwZSI6ImJ1eWVyIiwicm9sZSI6WyJNZUFkZHJlc3NBZG1pbiIsIk1lQWRtaW4iLCJNZUNyZWRpdENhcmRBZG1pbiIsIk1lWHBBZG1pbiIsIlNob3BwZXIiLCJTdXBwbGllclJlYWRlciIsIlN1cHBsaWVyQWRkcmVzc1JlYWRlciIsIlBhc3N3b3JkUmVzZXQiLCJCdXllclJlYWRlciJdLCJpc3MiOiJodHRwczovL2F1dGgub3JkZXJjbG91ZC5pbyIsImF1ZCI6Imh0dHBzOi8vYXBpLm9yZGVyY2xvdWQuaW8iLCJleHAiOjE1OTEyMDQ0MzYsIm5iZiI6MTU5MDU5OTYzNn0.JvRJnjNaYwSlh-4k1Nk6xevT5qLrCcVjvfH56zME6VQ'\r\n    );\r\n  }\r\n}\r\n",
             "assetsDirs": [],
             "styleUrlsData": [
                 {
-                    "data": "",
+                    "data": "\r\n",
                     "styleUrl": "./html-editor.component.scss"
                 }
             ],
@@ -1149,7 +1159,7 @@
                         "type": "OcTokenService"
                     }
                 ],
-                "line": 10,
+                "line": 12,
                 "jsdoctags": [
                     {
                         "name": "ocTokenService",
@@ -1163,7 +1173,7 @@
             "implements": [
                 "OnInit"
             ],
-            "templateData": "<editor\r\n  [init]=\"{\r\n    base_url: '/tinymce',\r\n    suffix: '.min',\r\n    height: 500,\r\n    menubar: false,\r\n    plugins: [\r\n      'table oc-product advlist autolink lists link image charmap print preview anchor',\r\n      'searchreplace visualblocks code fullscreen',\r\n      'insertdatetime media table paste code help wordcount'\r\n    ],\r\n    toolbar:\r\n      'oc-product undo redo | formatselect | bold italic backcolor | \\\r\n      alignleft aligncenter alignright alignjustify | \\\r\n      bullist numlist outdent indent table | removeformat | help',\r\n    ocCookieName: ocCookieName\r\n  }\"\r\n></editor>\r\n"
+            "templateData": "<editor\r\n  [initialValue]=\"initialValue\"\r\n  [init]=\"{\r\n    base_url: '/tinymce',\r\n    suffix: '.min',\r\n    content_css: remoteCss,\r\n    content_style: 'body {padding:15px !important;}',\r\n    height: 500,\r\n    menubar: false,\r\n    plugins: [\r\n      'ordercloud table advlist autolink lists link image charmap print preview anchor',\r\n      'searchreplace visualblocks code fullscreen',\r\n      'insertdatetime media table paste code help wordcount'\r\n    ],\r\n    toolbar:\r\n      'oc-product undo redo | formatselect | bold italic backcolor | \\\r\n      alignleft aligncenter alignright alignjustify | \\\r\n      bullist numlist outdent indent table | removeformat | help',\r\n    ocCookieName: ocCookieName\r\n  }\"\r\n></editor>\r\n"
         },
         {
             "name": "PageComponent",
@@ -1540,9 +1550,17 @@
                 "name": "BasicExample",
                 "ctype": "miscellaneous",
                 "subtype": "variable",
+                "file": "src/storybook/page.stories.ts",
+                "type": "",
+                "defaultValue": "() => ({\r\n  component: PageComponent,\r\n  props: {\r\n    content: BasicExamplePage\r\n  },\r\n})"
+            },
+            {
+                "name": "BasicExample",
+                "ctype": "miscellaneous",
+                "subtype": "variable",
                 "file": "src/storybook/html-editor.stories.ts",
                 "type": "",
-                "defaultValue": "() => ({\r\n  component: HtmlEditorComponent,\r\n  props: {\r\n    ocCookieName: 'ordercloud.token'\r\n  }\r\n})"
+                "defaultValue": "() => ({\r\n  component: HtmlEditorComponent,\r\n  props: {\r\n    ocCookieName: 'ordercloud.token',\r\n    initialValue: '',\r\n    remoteCss:\r\n      'https://mgrstoragetest.azureedge.net/buyerweb/styles.e94215343d3493186ae1.css'\r\n  }\r\n})"
             },
             {
                 "name": "BasicExample",
@@ -1551,14 +1569,6 @@
                 "file": "src/storybook/row.stories.ts",
                 "type": "",
                 "defaultValue": "() => ({\r\n    template: `\r\n        <div style=\"padding: 15px\">\r\n            <cms-row [content]=\"content\"></cms-row>\r\n        </div>\r\n    `,\r\n    props: {\r\n        content: {\r\n            ComponentName: \"RowComponent\",\r\n            Content: [\r\n                {\r\n                    ComponentName: \"ColumnComponent\",\r\n                    Content: [\r\n                        {\r\n                            ComponentName: \"ContentBlockComponent\",\r\n                            Background: {\r\n                                ImageUrl: null,\r\n                                Color: \"#EF476F\"\r\n                            },\r\n                            DateRange: {\r\n                                StartDate: null,\r\n                                EndDate: null\r\n                            },\r\n                            HorizontalAlignment: \"Center\",\r\n                            VerticalAlignment: \"Middle\",\r\n                            TextArea: \"<h2>&zwnj;</h2>\",\r\n                        } as ContentDoc\r\n                    ]\r\n                },\r\n                {\r\n                    ComponentName: \"ColumnComponent\",\r\n                    Content: [\r\n                        {\r\n                            ComponentName: \"ContentBlockComponent\",\r\n                            Background: {\r\n                                ImageUrl: null,\r\n                                Color: \"#FFD166\"\r\n                            },\r\n                            DateRange: {\r\n                                StartDate: null,\r\n                                EndDate: null\r\n                            },\r\n                            HorizontalAlignment: \"Center\",\r\n                            VerticalAlignment: \"Middle\",\r\n                            TextArea: \"<h2>&zwnj;</h2>\",\r\n                        } as ContentDoc\r\n                    ]\r\n                },\r\n                {\r\n                    ComponentName: \"ColumnComponent\",\r\n                    Content: [\r\n                        {\r\n                            ComponentName: \"ContentBlockComponent\",\r\n                            Background: {\r\n                                ImageUrl: null,\r\n                                Color: \"#06D6A0\"\r\n                            },\r\n                            DateRange: {\r\n                                StartDate: null,\r\n                                EndDate: null\r\n                            },\r\n                            HorizontalAlignment: \"Center\",\r\n                            VerticalAlignment: \"Middle\",\r\n                            TextArea: \"<h2>&zwnj;</h2>\",\r\n                        } as ContentDoc\r\n                    ]\r\n                },\r\n                {\r\n                    ComponentName: \"ColumnComponent\",\r\n                    Content: [\r\n                        {\r\n                            ComponentName: \"ContentBlockComponent\",\r\n                            Background: {\r\n                                ImageUrl: null,\r\n                                Color: \"#2B9EB3\"\r\n                            },\r\n                            DateRange: {\r\n                                StartDate: null,\r\n                                EndDate: null\r\n                            },\r\n                            HorizontalAlignment: \"Center\",\r\n                            VerticalAlignment: \"Middle\",\r\n                            TextArea: \"<h2>&zwnj;</h2>\",\r\n                        } as ContentDoc\r\n                    ]\r\n                },\r\n            ]\r\n        } as RowContentDoc\r\n    }\r\n})"
-            },
-            {
-                "name": "BasicExample",
-                "ctype": "miscellaneous",
-                "subtype": "variable",
-                "file": "src/storybook/page.stories.ts",
-                "type": "",
-                "defaultValue": "() => ({\r\n  component: PageComponent,\r\n  props: {\r\n    content: BasicExamplePage\r\n  },\r\n})"
             },
             {
                 "name": "BasicExamplePage",
@@ -1596,17 +1606,17 @@
                 "name": "environment",
                 "ctype": "miscellaneous",
                 "subtype": "variable",
-                "file": "src/environments/environment.prod.ts",
+                "file": "src/environments/environment.ts",
                 "type": "object",
-                "defaultValue": "{\r\n  production: true\r\n}"
+                "defaultValue": "{\r\n  production: false\r\n}"
             },
             {
                 "name": "environment",
                 "ctype": "miscellaneous",
                 "subtype": "variable",
-                "file": "src/environments/environment.ts",
+                "file": "src/environments/environment.prod.ts",
                 "type": "object",
-                "defaultValue": "{\r\n  production: false\r\n}"
+                "defaultValue": "{\r\n  production: true\r\n}"
             },
             {
                 "name": "Offset",
@@ -1630,6 +1640,14 @@
                 "file": "src/storybook/row.stories.ts",
                 "type": "",
                 "defaultValue": "() => ({\r\n    template: `\r\n        <div style=\"padding: 15px\">\r\n            <cms-row [content]=\"content\"></cms-row>\r\n        </div>\r\n    `,\r\n    props: {\r\n        content: {\r\n            ComponentName: \"RowComponent\",\r\n            Content: [\r\n                {\r\n                    ComponentName: \"ColumnComponent\",\r\n                    Width: {\r\n                        xs: 12,\r\n                        sm: 6,\r\n                        md: 3\r\n                    },\r\n                    Content: [\r\n                        {\r\n                            ComponentName: \"ContentBlockComponent\",\r\n                            Background: {\r\n                                ImageUrl: null,\r\n                                Color: \"#EF476F\"\r\n                            },\r\n                            DateRange: {\r\n                                StartDate: null,\r\n                                EndDate: null\r\n                            },\r\n                            HorizontalAlignment: \"Center\",\r\n                            VerticalAlignment: \"Middle\",\r\n                            TextArea: \"<h2>&zwnj;</h2>\",\r\n                        } as ContentDoc\r\n                    ]\r\n                },\r\n                {\r\n                    ComponentName: \"ColumnComponent\",\r\n                    Width: {\r\n                        xs: 12,\r\n                        sm: 6,\r\n                        md: 3\r\n                    },\r\n                    Content: [\r\n                        {\r\n                            ComponentName: \"ContentBlockComponent\",\r\n                            Background: {\r\n                                ImageUrl: null,\r\n                                Color: \"#FFD166\"\r\n                            },\r\n                            DateRange: {\r\n                                StartDate: null,\r\n                                EndDate: null\r\n                            },\r\n                            HorizontalAlignment: \"Center\",\r\n                            VerticalAlignment: \"Middle\",\r\n                            TextArea: \"<h2>&zwnj;</h2>\",\r\n                        } as ContentDoc\r\n                    ]\r\n                },\r\n                {\r\n                    ComponentName: \"ColumnComponent\",\r\n                    Width: {\r\n                        xs: 12,\r\n                        sm: 6,\r\n                        md: 3\r\n                    },\r\n                    Content: [\r\n                        {\r\n                            ComponentName: \"ContentBlockComponent\",\r\n                            Background: {\r\n                                ImageUrl: null,\r\n                                Color: \"#06D6A0\"\r\n                            },\r\n                            DateRange: {\r\n                                StartDate: null,\r\n                                EndDate: null\r\n                            },\r\n                            HorizontalAlignment: \"Center\",\r\n                            VerticalAlignment: \"Middle\",\r\n                            TextArea: \"<h2>&zwnj;</h2>\",\r\n                        } as ContentDoc\r\n                    ]\r\n                },\r\n                {\r\n                    ComponentName: \"ColumnComponent\",\r\n                    Width: {\r\n                        xs: 12,\r\n                        sm: 6,\r\n                        md: 3\r\n                    },\r\n                    Content: [\r\n                        {\r\n                            ComponentName: \"ContentBlockComponent\",\r\n                            Background: {\r\n                                ImageUrl: null,\r\n                                Color: \"#2B9EB3\"\r\n                            },\r\n                            DateRange: {\r\n                                StartDate: null,\r\n                                EndDate: null\r\n                            },\r\n                            HorizontalAlignment: \"Center\",\r\n                            VerticalAlignment: \"Middle\",\r\n                            TextArea: \"<h2>&zwnj;</h2>\",\r\n                        } as ContentDoc\r\n                    ]\r\n                },\r\n            ]\r\n        } as RowContentDoc        \r\n    }\r\n})"
+            },
+            {
+                "name": "ThemeExample",
+                "ctype": "miscellaneous",
+                "subtype": "variable",
+                "file": "src/storybook/html-editor.stories.ts",
+                "type": "",
+                "defaultValue": "() => ({\r\n  component: HtmlEditorComponent,\r\n  props: {\r\n    ocCookieName: 'ordercloud.token',\r\n    initialValue: `\r\n      <h1>h1. Bootstrap heading</h1>\r\n      <h2>h2. Bootstrap heading</h2>\r\n      <h3>h3. Bootstrap heading</h3>\r\n      <h4>h4. Bootstrap heading</h4>\r\n      <h5>h5. Bootstrap heading</h5>\r\n      <h6>h6. Bootstrap heading</h6>\r\n      <button type=\"button\" class=\"btn btn-primary\">Primary</button>\r\n      <button type=\"button\" class=\"btn btn-secondary\">Secondary</button>\r\n      <button type=\"button\" class=\"btn btn-success\">Success</button>\r\n      <button type=\"button\" class=\"btn btn-danger\">Danger</button>\r\n      <button type=\"button\" class=\"btn btn-warning\">Warning</button>\r\n      <button type=\"button\" class=\"btn btn-info\">Info</button>\r\n      <button type=\"button\" class=\"btn btn-light\">Light</button>\r\n      <button type=\"button\" class=\"btn btn-dark\">Dark</button>\r\n    `,\r\n    remoteCss:\r\n      'https://mgrstoragetest.azureedge.net/buyerweb/styles.e94215343d3493186ae1.css'\r\n  }\r\n})"
             },
             {
                 "name": "VariedWidths",
@@ -1699,6 +1717,24 @@
                     "defaultValue": "[\r\n  {\r\n    text: {\r\n      title: 'First Slide',\r\n    },\r\n    background: {\r\n      image: {\r\n        url: `https://picsum.photos/id/944/1700/500`,\r\n        title: 'A metal bridge in the jungle',\r\n      },\r\n    },\r\n  },\r\n  {\r\n    text: {\r\n      title: 'Second Slide',\r\n      subtitle: 'With a subtitle',\r\n    },\r\n    background: {\r\n      image: {\r\n        url: `https://picsum.photos/id/1011/1700/500`,\r\n        title: 'Woman canoeing',\r\n      },\r\n    },\r\n  },\r\n  {\r\n    text: {\r\n      title: 'Third Slide',\r\n      subtitle: 'Background color instead of image',\r\n    },\r\n    background: {\r\n      color: 'blue',\r\n    },\r\n  },\r\n]"
                 }
             ],
+            "src/storybook/page.stories.ts": [
+                {
+                    "name": "BasicExample",
+                    "ctype": "miscellaneous",
+                    "subtype": "variable",
+                    "file": "src/storybook/page.stories.ts",
+                    "type": "",
+                    "defaultValue": "() => ({\r\n  component: PageComponent,\r\n  props: {\r\n    content: BasicExamplePage\r\n  },\r\n})"
+                },
+                {
+                    "name": "BasicExamplePage",
+                    "ctype": "miscellaneous",
+                    "subtype": "variable",
+                    "file": "src/storybook/page.stories.ts",
+                    "type": "PageContentDoc",
+                    "defaultValue": "{\r\n  ComponentName: 'PageComponent',\r\n  SiteUrl: 'https://music-resell-store.com',\r\n  Url: '/page1',\r\n  Title: 'FAQ',\r\n  Description: 'Frequently Asked Questions',\r\n  MetaImageUrl: 'https://www.superoffice.com/globalassets/blog/2016/10/how-to-build-faq-section.jpg',\r\n  DateLastUpdated: '2020-05-15T03:55:03.021Z',\r\n  Active: true,\r\n  Content: [\r\n    {\r\n      'ComponentName': 'ContentBlockComponent',\r\n      'TextArea': `\r\n      <div class=\"container\">\r\n        <p style=\"max-width: 500px;\">\r\n          You can right click to inspect the html to see the metadata that are set. Its easier if you click 'Open canvas in a new tab' (top right).\r\n          You should see the following metadata set for this component:\r\n        </p>\r\n        <table class=\"table table-striped\">\r\n          <tr>\r\n            <th>Property</th>\r\n            <th>Value</th>\r\n          </tr>\r\n          <tr>\r\n            <td>Title</td>\r\n            <td>FAQ</td>\r\n          </tr>\r\n          <tr>\r\n            <td>Description</td>\r\n            <td>Frequently Asked Questions</td>\r\n          </tr>\r\n          <tr>\r\n            <td>Image</td>\r\n            <td>https://www.superoffice.com/globalassets/blog/2016/10/how-to-build-faq-section.jpg/<td>\r\n          </tr>\r\n        </table>\r\n      </div>\r\n      `,\r\n    },\r\n  ],\r\n  HeaderEmbeds: '',\r\n  FooterEmbeds: '',\r\n  NavTitle: null\r\n}"
+                }
+            ],
             "src/storybook/html-editor.stories.ts": [
                 {
                     "name": "BasicExample",
@@ -1706,7 +1742,15 @@
                     "subtype": "variable",
                     "file": "src/storybook/html-editor.stories.ts",
                     "type": "",
-                    "defaultValue": "() => ({\r\n  component: HtmlEditorComponent,\r\n  props: {\r\n    ocCookieName: 'ordercloud.token'\r\n  }\r\n})"
+                    "defaultValue": "() => ({\r\n  component: HtmlEditorComponent,\r\n  props: {\r\n    ocCookieName: 'ordercloud.token',\r\n    initialValue: '',\r\n    remoteCss:\r\n      'https://mgrstoragetest.azureedge.net/buyerweb/styles.e94215343d3493186ae1.css'\r\n  }\r\n})"
+                },
+                {
+                    "name": "ThemeExample",
+                    "ctype": "miscellaneous",
+                    "subtype": "variable",
+                    "file": "src/storybook/html-editor.stories.ts",
+                    "type": "",
+                    "defaultValue": "() => ({\r\n  component: HtmlEditorComponent,\r\n  props: {\r\n    ocCookieName: 'ordercloud.token',\r\n    initialValue: `\r\n      <h1>h1. Bootstrap heading</h1>\r\n      <h2>h2. Bootstrap heading</h2>\r\n      <h3>h3. Bootstrap heading</h3>\r\n      <h4>h4. Bootstrap heading</h4>\r\n      <h5>h5. Bootstrap heading</h5>\r\n      <h6>h6. Bootstrap heading</h6>\r\n      <button type=\"button\" class=\"btn btn-primary\">Primary</button>\r\n      <button type=\"button\" class=\"btn btn-secondary\">Secondary</button>\r\n      <button type=\"button\" class=\"btn btn-success\">Success</button>\r\n      <button type=\"button\" class=\"btn btn-danger\">Danger</button>\r\n      <button type=\"button\" class=\"btn btn-warning\">Warning</button>\r\n      <button type=\"button\" class=\"btn btn-info\">Info</button>\r\n      <button type=\"button\" class=\"btn btn-light\">Light</button>\r\n      <button type=\"button\" class=\"btn btn-dark\">Dark</button>\r\n    `,\r\n    remoteCss:\r\n      'https://mgrstoragetest.azureedge.net/buyerweb/styles.e94215343d3493186ae1.css'\r\n  }\r\n})"
                 }
             ],
             "src/storybook/row.stories.ts": [
@@ -1743,24 +1787,6 @@
                     "defaultValue": "() => ({\r\n    template: `\r\n        <div style=\"padding: 15px\">\r\n            <cms-row [content]=\"content\"></cms-row>\r\n        </div>\r\n    `,\r\n    props: {\r\n        content: {\r\n            ComponentName: \"RowComponent\",\r\n            Content: [\r\n                {\r\n                    ComponentName: \"ColumnComponent\",\r\n                    Width: 2,\r\n                    Content: [\r\n                        {\r\n                            ComponentName: \"ContentBlockComponent\",\r\n                            Background: {\r\n                                ImageUrl: null,\r\n                                Color: \"#EF476F\"\r\n                            },\r\n                            DateRange: {\r\n                                StartDate: null,\r\n                                EndDate: null\r\n                            },\r\n                            HorizontalAlignment: \"Center\",\r\n                            VerticalAlignment: \"Middle\",\r\n                            TextArea: \"<h2>&zwnj;</h2>\",\r\n                        } as ContentDoc\r\n                    ]\r\n                },\r\n                {\r\n                    ComponentName: \"ColumnComponent\",\r\n                    Width: 3,\r\n                    Content: [\r\n                        {\r\n                            ComponentName: \"ContentBlockComponent\",\r\n                            Background: {\r\n                                ImageUrl: null,\r\n                                Color: \"#FFD166\"\r\n                            },\r\n                            DateRange: {\r\n                                StartDate: null,\r\n                                EndDate: null\r\n                            },\r\n                            HorizontalAlignment: \"Center\",\r\n                            VerticalAlignment: \"Middle\",\r\n                            TextArea: \"<h2>&zwnj;</h2>\",\r\n                        } as ContentDoc\r\n                    ]\r\n                },\r\n                {\r\n                    ComponentName: \"ColumnComponent\",\r\n                    Width: 6,\r\n                    Content: [\r\n                        {\r\n                            ComponentName: \"ContentBlockComponent\",\r\n                            Background: {\r\n                                ImageUrl: null,\r\n                                Color: \"#06D6A0\"\r\n                            },\r\n                            DateRange: {\r\n                                StartDate: null,\r\n                                EndDate: null\r\n                            },\r\n                            HorizontalAlignment: \"Center\",\r\n                            VerticalAlignment: \"Middle\",\r\n                            TextArea: \"<h2>&zwnj;</h2>\",\r\n                        } as ContentDoc\r\n                    ]\r\n                },\r\n                {\r\n                    ComponentName: \"ColumnComponent\",\r\n                    Width: 1,\r\n                    Content: [\r\n                        {\r\n                            ComponentName: \"ContentBlockComponent\",\r\n                            Background: {\r\n                                ImageUrl: null,\r\n                                Color: \"#2B9EB3\"\r\n                            },\r\n                            DateRange: {\r\n                                StartDate: null,\r\n                                EndDate: null\r\n                            },\r\n                            HorizontalAlignment: \"Center\",\r\n                            VerticalAlignment: \"Middle\",\r\n                            TextArea: \"<h2>&zwnj;</h2>\",\r\n                        } as ContentDoc\r\n                    ]\r\n                },\r\n            ]\r\n        } as RowContentDoc\r\n    }\r\n})"
                 }
             ],
-            "src/storybook/page.stories.ts": [
-                {
-                    "name": "BasicExample",
-                    "ctype": "miscellaneous",
-                    "subtype": "variable",
-                    "file": "src/storybook/page.stories.ts",
-                    "type": "",
-                    "defaultValue": "() => ({\r\n  component: PageComponent,\r\n  props: {\r\n    content: BasicExamplePage\r\n  },\r\n})"
-                },
-                {
-                    "name": "BasicExamplePage",
-                    "ctype": "miscellaneous",
-                    "subtype": "variable",
-                    "file": "src/storybook/page.stories.ts",
-                    "type": "PageContentDoc",
-                    "defaultValue": "{\r\n  ComponentName: 'PageComponent',\r\n  SiteUrl: 'https://music-resell-store.com',\r\n  Url: '/page1',\r\n  Title: 'FAQ',\r\n  Description: 'Frequently Asked Questions',\r\n  MetaImageUrl: 'https://www.superoffice.com/globalassets/blog/2016/10/how-to-build-faq-section.jpg',\r\n  DateLastUpdated: '2020-05-15T03:55:03.021Z',\r\n  Active: true,\r\n  Content: [\r\n    {\r\n      'ComponentName': 'ContentBlockComponent',\r\n      'TextArea': `\r\n      <div class=\"container\">\r\n        <p style=\"max-width: 500px;\">\r\n          You can right click to inspect the html to see the metadata that are set. Its easier if you click 'Open canvas in a new tab' (top right).\r\n          You should see the following metadata set for this component:\r\n        </p>\r\n        <table class=\"table table-striped\">\r\n          <tr>\r\n            <th>Property</th>\r\n            <th>Value</th>\r\n          </tr>\r\n          <tr>\r\n            <td>Title</td>\r\n            <td>FAQ</td>\r\n          </tr>\r\n          <tr>\r\n            <td>Description</td>\r\n            <td>Frequently Asked Questions</td>\r\n          </tr>\r\n          <tr>\r\n            <td>Image</td>\r\n            <td>https://www.superoffice.com/globalassets/blog/2016/10/how-to-build-faq-section.jpg/<td>\r\n          </tr>\r\n        </table>\r\n      </div>\r\n      `,\r\n    },\r\n  ],\r\n  HeaderEmbeds: '',\r\n  FooterEmbeds: '',\r\n  NavTitle: null\r\n}"
-                }
-            ],
             "src/app/components/carousel/carousel.component.ts": [
                 {
                     "name": "CMS_CAROUSEL_DEFAULT_OPTIONS",
@@ -1788,16 +1814,6 @@
                     "type": "literal type"
                 }
             ],
-            "src/environments/environment.prod.ts": [
-                {
-                    "name": "environment",
-                    "ctype": "miscellaneous",
-                    "subtype": "variable",
-                    "file": "src/environments/environment.prod.ts",
-                    "type": "object",
-                    "defaultValue": "{\r\n  production: true\r\n}"
-                }
-            ],
             "src/environments/environment.ts": [
                 {
                     "name": "environment",
@@ -1806,6 +1822,16 @@
                     "file": "src/environments/environment.ts",
                     "type": "object",
                     "defaultValue": "{\r\n  production: false\r\n}"
+                }
+            ],
+            "src/environments/environment.prod.ts": [
+                {
+                    "name": "environment",
+                    "ctype": "miscellaneous",
+                    "subtype": "variable",
+                    "file": "src/environments/environment.prod.ts",
+                    "type": "object",
+                    "defaultValue": "{\r\n  production: true\r\n}"
                 }
             ]
         },
@@ -1929,7 +1955,7 @@
                 "linktype": "component",
                 "name": "HtmlEditorComponent",
                 "coveragePercent": 0,
-                "coverageCount": "0/4",
+                "coverageCount": "0/6",
                 "status": "low"
             },
             {
@@ -2149,6 +2175,16 @@
                 "linktype": "miscellaneous",
                 "linksubtype": "variable",
                 "name": "BasicExample",
+                "coveragePercent": 0,
+                "coverageCount": "0/1",
+                "status": "low"
+            },
+            {
+                "filePath": "src/storybook/html-editor.stories.ts",
+                "type": "variable",
+                "linktype": "miscellaneous",
+                "linksubtype": "variable",
+                "name": "ThemeExample",
                 "coveragePercent": 0,
                 "coverageCount": "0/1",
                 "status": "low"
