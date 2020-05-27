@@ -10,8 +10,9 @@ import { CarouselComponent } from './components/carousel/carousel.component';
 import { BgColorDirective } from './directives/bg-color.directive';
 import { RowComponent } from './components/row/row.component';
 import { SafeHtmlPipe } from './pipes/safe-html.pipe';
+import { EditorModule, TINYMCE_SCRIPT_SRC } from '@tinymce/tinymce-angular';
+import { HtmlEditorComponent } from './components/html-editor/html-editor.component';
 import { ColumnComponent } from './components/column/column.component';
-
 
 @NgModule({
   declarations: [
@@ -23,10 +24,14 @@ import { ColumnComponent } from './components/column/column.component';
     BgColorDirective,
     RowComponent,
     SafeHtmlPipe,
+    HtmlEditorComponent
+    SafeHtmlPipe,
     ColumnComponent
   ],
-  imports: [BrowserModule, NgbModule],
-  providers: [],
-  bootstrap: [AppComponent],
+  imports: [BrowserModule, NgbModule, EditorModule],
+  providers: [
+    { provide: TINYMCE_SCRIPT_SRC, useValue: 'tinymce/tinymce.min.js' }
+  ],
+  bootstrap: [AppComponent]
 })
 export class AppModule {}
