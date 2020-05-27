@@ -12,6 +12,9 @@ import { RowComponent } from './components/row/row.component';
 import { SafeHtmlPipe } from './pipes/safe-html.pipe';
 import { EditorModule, TINYMCE_SCRIPT_SRC } from '@tinymce/tinymce-angular';
 import { HtmlEditorComponent } from './components/html-editor/html-editor.component';
+import { OrderCloudModule, Configuration } from '@ordercloud/angular-sdk';
+
+import { CookieModule } from 'ngx-cookie';
 
 @NgModule({
   declarations: [
@@ -25,7 +28,13 @@ import { HtmlEditorComponent } from './components/html-editor/html-editor.compon
     SafeHtmlPipe,
     HtmlEditorComponent
   ],
-  imports: [BrowserModule, NgbModule, EditorModule],
+  imports: [
+    BrowserModule,
+    NgbModule,
+    EditorModule,
+    CookieModule.forRoot(),
+    OrderCloudModule.forRoot(() => new Configuration({}))
+  ],
   providers: [
     { provide: TINYMCE_SCRIPT_SRC, useValue: 'tinymce/tinymce.min.js' }
   ],
