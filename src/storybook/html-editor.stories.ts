@@ -1,8 +1,6 @@
 import { moduleMetadata } from '@storybook/angular';
 import { EditorModule, TINYMCE_SCRIPT_SRC } from '@tinymce/tinymce-angular';
 import { HtmlEditorComponent } from 'src/app/components/html-editor/html-editor.component';
-import { OrderCloudModule, Configuration } from '@ordercloud/angular-sdk';
-import { CookieModule } from 'ngx-cookie';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 
 export default {
@@ -14,12 +12,7 @@ export default {
   decorators: [
     moduleMetadata({
       declarations: [],
-      imports: [
-        EditorModule,
-        NgbModule,
-        OrderCloudModule.forRoot(() => new Configuration({})),
-        CookieModule.forRoot()
-      ],
+      imports: [EditorModule, NgbModule],
       providers: [
         { provide: TINYMCE_SCRIPT_SRC, useValue: 'tinymce/tinymce.min.js' }
       ],
@@ -31,7 +24,7 @@ export default {
 export const BasicExample = () => ({
   component: HtmlEditorComponent,
   props: {
-    ocCookieName: 'ordercloud.token',
+    ocToken: '',
     initialValue: '',
     remoteCss:
       'https://mgrstoragetest.azureedge.net/buyerweb/styles.e94215343d3493186ae1.css'
@@ -41,7 +34,7 @@ export const BasicExample = () => ({
 export const ThemeExample = () => ({
   component: HtmlEditorComponent,
   props: {
-    ocCookieName: 'ordercloud.token',
+    ocToken: '',
     initialValue: `
       <h1>h1. Bootstrap heading</h1>
       <h2>h2. Bootstrap heading</h2>
