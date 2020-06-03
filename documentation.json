@@ -1,0 +1,1590 @@
+{
+    "pipes": [
+        {
+            "name": "SafeHtmlPipe",
+            "id": "pipe-SafeHtmlPipe-944328e3cd10f22876454408406a54b2",
+            "file": "src/app/pipes/safe-html.pipe.ts",
+            "type": "pipe",
+            "description": "<p>By default angular sanitizes html and strips out things like\nstyles which we want to keep because it doesnt know if it can be trusted\nhowever we know this html is from a trusted source</p>\n",
+            "properties": [],
+            "methods": [
+                {
+                    "name": "transform",
+                    "args": [
+                        {
+                            "name": "html",
+                            "type": ""
+                        }
+                    ],
+                    "optional": false,
+                    "returnType": "any",
+                    "typeParameters": [],
+                    "line": 16,
+                    "jsdoctags": [
+                        {
+                            "name": "html",
+                            "type": "",
+                            "tagName": {
+                                "text": "param"
+                            }
+                        }
+                    ]
+                }
+            ],
+            "ngname": "safeHtml",
+            "sourceCode": "import { Pipe, PipeTransform } from '@angular/core';\r\nimport { DomSanitizer } from '@angular/platform-browser';\r\n\r\n/**\r\n * By default angular sanitizes html and strips out things like\r\n * styles which we want to keep because it doesnt know if it can be trusted\r\n * however we know this html is from a trusted source\r\n */\r\n@Pipe({\r\n  name: 'safeHtml'\r\n})\r\nexport class SafeHtmlPipe implements PipeTransform {\r\n\r\n  constructor(private sanitizer: DomSanitizer) { }\r\n\r\n  transform(html) {\r\n    return this.sanitizer.bypassSecurityTrustHtml(html);\r\n  }\r\n}\r\n"
+        }
+    ],
+    "interfaces": [
+        {
+            "name": "Background",
+            "id": "interface-Background-107ac98da445040d8f4525a9ca35292e",
+            "file": "src/app/models/ContentBlockDoc.interface.ts",
+            "type": "interface",
+            "sourceCode": "import { ContentDoc } from './ContentDoc.interface';\r\n\r\nexport interface ContentBlockDoc extends ContentDoc {\r\n    Background: Background;\r\n    DateRange: DateRange;\r\n    HorizontalAlignment: 'Left' | 'Center' | 'Right';\r\n    VerticalAlignment: 'Top' | 'Middle' | 'Bottom';\r\n    Button?: ContentButton;\r\n    TextArea: string;\r\n}\r\n\r\ninterface Background {\r\n    ImageUrl: string; // assetID\r\n    Color: string;\r\n}\r\n\r\ninterface DateRange {\r\n    StartDate?: Date;\r\n    EndDate?: Date;\r\n}\r\n\r\ninterface ContentButton {\r\n    Text: string;\r\n    Link: string;\r\n    Color: string;\r\n    Outlined: boolean;\r\n    Variant: boolean;\r\n}",
+            "properties": [
+                {
+                    "name": "Color",
+                    "type": "string",
+                    "optional": false,
+                    "description": "",
+                    "line": 14
+                },
+                {
+                    "name": "ImageUrl",
+                    "type": "string",
+                    "optional": false,
+                    "description": "",
+                    "line": 13
+                }
+            ],
+            "indexSignatures": [],
+            "kind": 150,
+            "methods": []
+        },
+        {
+            "name": "BootstrapCarouselOptions",
+            "id": "interface-BootstrapCarouselOptions-d05f0407abd34843ea546ddc58d6fef9",
+            "file": "src/app/models/CarouselContentDoc.interface.ts",
+            "type": "interface",
+            "sourceCode": "import { ContentDoc } from './ContentDoc.interface';\r\n// import { ContentBlock } from './ContentBlock.interface';\r\n\r\ntype BootstrapCarouselPauseOption =\r\n  | 'hover'\r\n  | 'mouseenter'\r\n  | 'mouseleave'\r\n  | false;\r\n\r\ntype BootstrapCarouselRideOption = 'carousel' | false;\r\n\r\ninterface BootstrapCarouselOptions {\r\n  interval: number;\r\n  keyboard: boolean;\r\n  pause: BootstrapCarouselPauseOption;\r\n  ride: BootstrapCarouselRideOption;\r\n  wrap: boolean;\r\n  touch: boolean;\r\n}\r\n\r\nexport interface CarouselContentDoc extends ContentDoc {\r\n  options: BootstrapCarouselOptions;\r\n  slides: string[]; //content doc urls\r\n}\r\n",
+            "properties": [
+                {
+                    "name": "interval",
+                    "type": "number",
+                    "optional": false,
+                    "description": "",
+                    "line": 13
+                },
+                {
+                    "name": "keyboard",
+                    "type": "boolean",
+                    "optional": false,
+                    "description": "",
+                    "line": 14
+                },
+                {
+                    "name": "pause",
+                    "type": "BootstrapCarouselPauseOption",
+                    "optional": false,
+                    "description": "",
+                    "line": 15
+                },
+                {
+                    "name": "ride",
+                    "type": "BootstrapCarouselRideOption",
+                    "optional": false,
+                    "description": "",
+                    "line": 16
+                },
+                {
+                    "name": "touch",
+                    "type": "boolean",
+                    "optional": false,
+                    "description": "",
+                    "line": 18
+                },
+                {
+                    "name": "wrap",
+                    "type": "boolean",
+                    "optional": false,
+                    "description": "",
+                    "line": 17
+                }
+            ],
+            "indexSignatures": [],
+            "kind": 150,
+            "methods": []
+        },
+        {
+            "name": "CarouselContentDoc",
+            "id": "interface-CarouselContentDoc-d05f0407abd34843ea546ddc58d6fef9",
+            "file": "src/app/models/CarouselContentDoc.interface.ts",
+            "type": "interface",
+            "sourceCode": "import { ContentDoc } from './ContentDoc.interface';\r\n// import { ContentBlock } from './ContentBlock.interface';\r\n\r\ntype BootstrapCarouselPauseOption =\r\n  | 'hover'\r\n  | 'mouseenter'\r\n  | 'mouseleave'\r\n  | false;\r\n\r\ntype BootstrapCarouselRideOption = 'carousel' | false;\r\n\r\ninterface BootstrapCarouselOptions {\r\n  interval: number;\r\n  keyboard: boolean;\r\n  pause: BootstrapCarouselPauseOption;\r\n  ride: BootstrapCarouselRideOption;\r\n  wrap: boolean;\r\n  touch: boolean;\r\n}\r\n\r\nexport interface CarouselContentDoc extends ContentDoc {\r\n  options: BootstrapCarouselOptions;\r\n  slides: string[]; //content doc urls\r\n}\r\n",
+            "properties": [
+                {
+                    "name": "options",
+                    "type": "BootstrapCarouselOptions",
+                    "optional": false,
+                    "description": "",
+                    "line": 22
+                },
+                {
+                    "name": "slides",
+                    "type": "string[]",
+                    "optional": false,
+                    "description": "",
+                    "line": 23
+                }
+            ],
+            "indexSignatures": [],
+            "kind": 150,
+            "methods": [],
+            "extends": "ContentDoc"
+        },
+        {
+            "name": "CmsAsset",
+            "id": "interface-CmsAsset-ca7bd7da1cfa431930c76b236c5b166f",
+            "file": "src/app/models/CmsAssets.interface.ts",
+            "type": "interface",
+            "sourceCode": "export interface CmsAsset {\r\n  url: string;\r\n  title: string;\r\n}\r\n",
+            "properties": [
+                {
+                    "name": "title",
+                    "type": "string",
+                    "optional": false,
+                    "description": "",
+                    "line": 3
+                },
+                {
+                    "name": "url",
+                    "type": "string",
+                    "optional": false,
+                    "description": "",
+                    "line": 2
+                }
+            ],
+            "indexSignatures": [],
+            "kind": 150,
+            "methods": []
+        },
+        {
+            "name": "CmsBackground",
+            "id": "interface-CmsBackground-421514e558c85ca5ec861902298c407f",
+            "file": "src/app/models/CmsCarousel.interface.ts",
+            "type": "interface",
+            "sourceCode": "import { CmsAsset } from './CmsAssets.interface';\r\n\r\nexport interface CmsBackground {\r\n  image?: CmsAsset;\r\n  color?: string | number;\r\n}\r\n\r\nexport interface CmsCarouselSlideTextConfig {\r\n  title?: string;\r\n  subtitle?: string;\r\n}\r\n\r\nexport interface CmsCarouselSlideConfig {\r\n  background?: CmsBackground;\r\n  text?: CmsCarouselSlideTextConfig;\r\n}\r\n\r\nexport interface CmsCarouselOptions {\r\n  arrows?: boolean;\r\n  indicators?: boolean;\r\n  wrap?: boolean;\r\n  interval?: number;\r\n  width?: number | string;\r\n  height?: number | string;\r\n}\r\n",
+            "properties": [
+                {
+                    "name": "color",
+                    "type": "string | number",
+                    "optional": true,
+                    "description": "",
+                    "line": 5
+                },
+                {
+                    "name": "image",
+                    "type": "CmsAsset",
+                    "optional": true,
+                    "description": "",
+                    "line": 4
+                }
+            ],
+            "indexSignatures": [],
+            "kind": 150,
+            "methods": []
+        },
+        {
+            "name": "CmsCarouselOptions",
+            "id": "interface-CmsCarouselOptions-421514e558c85ca5ec861902298c407f",
+            "file": "src/app/models/CmsCarousel.interface.ts",
+            "type": "interface",
+            "sourceCode": "import { CmsAsset } from './CmsAssets.interface';\r\n\r\nexport interface CmsBackground {\r\n  image?: CmsAsset;\r\n  color?: string | number;\r\n}\r\n\r\nexport interface CmsCarouselSlideTextConfig {\r\n  title?: string;\r\n  subtitle?: string;\r\n}\r\n\r\nexport interface CmsCarouselSlideConfig {\r\n  background?: CmsBackground;\r\n  text?: CmsCarouselSlideTextConfig;\r\n}\r\n\r\nexport interface CmsCarouselOptions {\r\n  arrows?: boolean;\r\n  indicators?: boolean;\r\n  wrap?: boolean;\r\n  interval?: number;\r\n  width?: number | string;\r\n  height?: number | string;\r\n}\r\n",
+            "properties": [
+                {
+                    "name": "arrows",
+                    "type": "boolean",
+                    "optional": true,
+                    "description": "",
+                    "line": 19
+                },
+                {
+                    "name": "height",
+                    "type": "number | string",
+                    "optional": true,
+                    "description": "",
+                    "line": 24
+                },
+                {
+                    "name": "indicators",
+                    "type": "boolean",
+                    "optional": true,
+                    "description": "",
+                    "line": 20
+                },
+                {
+                    "name": "interval",
+                    "type": "number",
+                    "optional": true,
+                    "description": "",
+                    "line": 22
+                },
+                {
+                    "name": "width",
+                    "type": "number | string",
+                    "optional": true,
+                    "description": "",
+                    "line": 23
+                },
+                {
+                    "name": "wrap",
+                    "type": "boolean",
+                    "optional": true,
+                    "description": "",
+                    "line": 21
+                }
+            ],
+            "indexSignatures": [],
+            "kind": 150,
+            "methods": []
+        },
+        {
+            "name": "CmsCarouselSlideConfig",
+            "id": "interface-CmsCarouselSlideConfig-421514e558c85ca5ec861902298c407f",
+            "file": "src/app/models/CmsCarousel.interface.ts",
+            "type": "interface",
+            "sourceCode": "import { CmsAsset } from './CmsAssets.interface';\r\n\r\nexport interface CmsBackground {\r\n  image?: CmsAsset;\r\n  color?: string | number;\r\n}\r\n\r\nexport interface CmsCarouselSlideTextConfig {\r\n  title?: string;\r\n  subtitle?: string;\r\n}\r\n\r\nexport interface CmsCarouselSlideConfig {\r\n  background?: CmsBackground;\r\n  text?: CmsCarouselSlideTextConfig;\r\n}\r\n\r\nexport interface CmsCarouselOptions {\r\n  arrows?: boolean;\r\n  indicators?: boolean;\r\n  wrap?: boolean;\r\n  interval?: number;\r\n  width?: number | string;\r\n  height?: number | string;\r\n}\r\n",
+            "properties": [
+                {
+                    "name": "background",
+                    "type": "CmsBackground",
+                    "optional": true,
+                    "description": "",
+                    "line": 14
+                },
+                {
+                    "name": "text",
+                    "type": "CmsCarouselSlideTextConfig",
+                    "optional": true,
+                    "description": "",
+                    "line": 15
+                }
+            ],
+            "indexSignatures": [],
+            "kind": 150,
+            "methods": []
+        },
+        {
+            "name": "CmsCarouselSlideTextConfig",
+            "id": "interface-CmsCarouselSlideTextConfig-421514e558c85ca5ec861902298c407f",
+            "file": "src/app/models/CmsCarousel.interface.ts",
+            "type": "interface",
+            "sourceCode": "import { CmsAsset } from './CmsAssets.interface';\r\n\r\nexport interface CmsBackground {\r\n  image?: CmsAsset;\r\n  color?: string | number;\r\n}\r\n\r\nexport interface CmsCarouselSlideTextConfig {\r\n  title?: string;\r\n  subtitle?: string;\r\n}\r\n\r\nexport interface CmsCarouselSlideConfig {\r\n  background?: CmsBackground;\r\n  text?: CmsCarouselSlideTextConfig;\r\n}\r\n\r\nexport interface CmsCarouselOptions {\r\n  arrows?: boolean;\r\n  indicators?: boolean;\r\n  wrap?: boolean;\r\n  interval?: number;\r\n  width?: number | string;\r\n  height?: number | string;\r\n}\r\n",
+            "properties": [
+                {
+                    "name": "subtitle",
+                    "type": "string",
+                    "optional": true,
+                    "description": "",
+                    "line": 10
+                },
+                {
+                    "name": "title",
+                    "type": "string",
+                    "optional": true,
+                    "description": "",
+                    "line": 9
+                }
+            ],
+            "indexSignatures": [],
+            "kind": 150,
+            "methods": []
+        },
+        {
+            "name": "ColumnContentDoc",
+            "id": "interface-ColumnContentDoc-93fb30a048e58a6dc1b62abf592833ef",
+            "file": "src/app/models/ColumnContentDoc.interface.ts",
+            "type": "interface",
+            "sourceCode": "import { ContentDoc } from './ContentDoc.interface';\r\n\r\nexport interface ColumnContentDoc extends ContentDoc {\r\n    Width?: number | BootstrapMediaDefinition\r\n    Padding?: 0 | 1 | 2 | 3 | 4 | 5 | 'auto';\r\n    Content: ContentDoc[]\r\n}\r\n\r\nexport type BootstrapBreakpoint = 'xs' | 'sm' | 'md' | 'lg' | 'xl'\r\nexport type BootstrapMediaDefinition = {\r\n    [key in BootstrapBreakpoint]?: number\r\n}",
+            "properties": [
+                {
+                    "name": "Content",
+                    "type": "ContentDoc[]",
+                    "optional": false,
+                    "description": "",
+                    "line": 6
+                },
+                {
+                    "name": "Padding",
+                    "type": "\"0\" | \"1\" | \"2\" | \"3\" | \"4\" | \"5\" | \"auto\"",
+                    "optional": true,
+                    "description": "",
+                    "line": 5
+                },
+                {
+                    "name": "Width",
+                    "type": "number | BootstrapMediaDefinition",
+                    "optional": true,
+                    "description": "",
+                    "line": 4
+                }
+            ],
+            "indexSignatures": [],
+            "kind": 150,
+            "methods": [],
+            "extends": "ContentDoc"
+        },
+        {
+            "name": "ContentBlockDoc",
+            "id": "interface-ContentBlockDoc-107ac98da445040d8f4525a9ca35292e",
+            "file": "src/app/models/ContentBlockDoc.interface.ts",
+            "type": "interface",
+            "sourceCode": "import { ContentDoc } from './ContentDoc.interface';\r\n\r\nexport interface ContentBlockDoc extends ContentDoc {\r\n    Background: Background;\r\n    DateRange: DateRange;\r\n    HorizontalAlignment: 'Left' | 'Center' | 'Right';\r\n    VerticalAlignment: 'Top' | 'Middle' | 'Bottom';\r\n    Button?: ContentButton;\r\n    TextArea: string;\r\n}\r\n\r\ninterface Background {\r\n    ImageUrl: string; // assetID\r\n    Color: string;\r\n}\r\n\r\ninterface DateRange {\r\n    StartDate?: Date;\r\n    EndDate?: Date;\r\n}\r\n\r\ninterface ContentButton {\r\n    Text: string;\r\n    Link: string;\r\n    Color: string;\r\n    Outlined: boolean;\r\n    Variant: boolean;\r\n}",
+            "properties": [
+                {
+                    "name": "Background",
+                    "type": "Background",
+                    "optional": false,
+                    "description": "",
+                    "line": 4
+                },
+                {
+                    "name": "Button",
+                    "type": "ContentButton",
+                    "optional": true,
+                    "description": "",
+                    "line": 8
+                },
+                {
+                    "name": "DateRange",
+                    "type": "DateRange",
+                    "optional": false,
+                    "description": "",
+                    "line": 5
+                },
+                {
+                    "name": "HorizontalAlignment",
+                    "type": "\"Left\" | \"Center\" | \"Right\"",
+                    "optional": false,
+                    "description": "",
+                    "line": 6
+                },
+                {
+                    "name": "TextArea",
+                    "type": "string",
+                    "optional": false,
+                    "description": "",
+                    "line": 9
+                },
+                {
+                    "name": "VerticalAlignment",
+                    "type": "\"Top\" | \"Middle\" | \"Bottom\"",
+                    "optional": false,
+                    "description": "",
+                    "line": 7
+                }
+            ],
+            "indexSignatures": [],
+            "kind": 150,
+            "methods": [],
+            "extends": "ContentDoc"
+        },
+        {
+            "name": "ContentButton",
+            "id": "interface-ContentButton-107ac98da445040d8f4525a9ca35292e",
+            "file": "src/app/models/ContentBlockDoc.interface.ts",
+            "type": "interface",
+            "sourceCode": "import { ContentDoc } from './ContentDoc.interface';\r\n\r\nexport interface ContentBlockDoc extends ContentDoc {\r\n    Background: Background;\r\n    DateRange: DateRange;\r\n    HorizontalAlignment: 'Left' | 'Center' | 'Right';\r\n    VerticalAlignment: 'Top' | 'Middle' | 'Bottom';\r\n    Button?: ContentButton;\r\n    TextArea: string;\r\n}\r\n\r\ninterface Background {\r\n    ImageUrl: string; // assetID\r\n    Color: string;\r\n}\r\n\r\ninterface DateRange {\r\n    StartDate?: Date;\r\n    EndDate?: Date;\r\n}\r\n\r\ninterface ContentButton {\r\n    Text: string;\r\n    Link: string;\r\n    Color: string;\r\n    Outlined: boolean;\r\n    Variant: boolean;\r\n}",
+            "properties": [
+                {
+                    "name": "Color",
+                    "type": "string",
+                    "optional": false,
+                    "description": "",
+                    "line": 25
+                },
+                {
+                    "name": "Link",
+                    "type": "string",
+                    "optional": false,
+                    "description": "",
+                    "line": 24
+                },
+                {
+                    "name": "Outlined",
+                    "type": "boolean",
+                    "optional": false,
+                    "description": "",
+                    "line": 26
+                },
+                {
+                    "name": "Text",
+                    "type": "string",
+                    "optional": false,
+                    "description": "",
+                    "line": 23
+                },
+                {
+                    "name": "Variant",
+                    "type": "boolean",
+                    "optional": false,
+                    "description": "",
+                    "line": 27
+                }
+            ],
+            "indexSignatures": [],
+            "kind": 150,
+            "methods": []
+        },
+        {
+            "name": "ContentDoc",
+            "id": "interface-ContentDoc-cdb3cdb1221922b285143856f68aab37",
+            "file": "src/app/models/ContentDoc.interface.ts",
+            "type": "interface",
+            "sourceCode": "export interface ContentDoc {\r\n    ComponentName: string;\r\n}",
+            "properties": [
+                {
+                    "name": "ComponentName",
+                    "type": "string",
+                    "optional": false,
+                    "description": "",
+                    "line": 2
+                }
+            ],
+            "indexSignatures": [],
+            "kind": 150,
+            "methods": []
+        },
+        {
+            "name": "DateRange",
+            "id": "interface-DateRange-107ac98da445040d8f4525a9ca35292e",
+            "file": "src/app/models/ContentBlockDoc.interface.ts",
+            "type": "interface",
+            "sourceCode": "import { ContentDoc } from './ContentDoc.interface';\r\n\r\nexport interface ContentBlockDoc extends ContentDoc {\r\n    Background: Background;\r\n    DateRange: DateRange;\r\n    HorizontalAlignment: 'Left' | 'Center' | 'Right';\r\n    VerticalAlignment: 'Top' | 'Middle' | 'Bottom';\r\n    Button?: ContentButton;\r\n    TextArea: string;\r\n}\r\n\r\ninterface Background {\r\n    ImageUrl: string; // assetID\r\n    Color: string;\r\n}\r\n\r\ninterface DateRange {\r\n    StartDate?: Date;\r\n    EndDate?: Date;\r\n}\r\n\r\ninterface ContentButton {\r\n    Text: string;\r\n    Link: string;\r\n    Color: string;\r\n    Outlined: boolean;\r\n    Variant: boolean;\r\n}",
+            "properties": [
+                {
+                    "name": "EndDate",
+                    "type": "Date",
+                    "optional": true,
+                    "description": "",
+                    "line": 19
+                },
+                {
+                    "name": "StartDate",
+                    "type": "Date",
+                    "optional": true,
+                    "description": "",
+                    "line": 18
+                }
+            ],
+            "indexSignatures": [],
+            "kind": 150,
+            "methods": []
+        },
+        {
+            "name": "PageContentDoc",
+            "id": "interface-PageContentDoc-e7fd391bb95fe7680792f50f814c69a8",
+            "file": "src/app/models/PageContentDoc.interface.ts",
+            "type": "interface",
+            "sourceCode": "import { ContentDoc } from './ContentDoc.interface';\r\n\r\nexport interface PageContentDoc extends ContentDoc {\r\n    Url: string;\r\n    SiteUrl: string;\r\n    Title: string;\r\n    Description: string;\r\n    MetaImageUrl: string;\r\n    DateLastUpdated: string;\r\n    Active: boolean;\r\n    Content: any[];\r\n    HeaderEmbeds?: string\r\n    FooterEmbeds?: string\r\n    NavTitle?: string;\r\n}",
+            "properties": [
+                {
+                    "name": "Active",
+                    "type": "boolean",
+                    "optional": false,
+                    "description": "",
+                    "line": 10
+                },
+                {
+                    "name": "Content",
+                    "type": "any[]",
+                    "optional": false,
+                    "description": "",
+                    "line": 11
+                },
+                {
+                    "name": "DateLastUpdated",
+                    "type": "string",
+                    "optional": false,
+                    "description": "",
+                    "line": 9
+                },
+                {
+                    "name": "Description",
+                    "type": "string",
+                    "optional": false,
+                    "description": "",
+                    "line": 7
+                },
+                {
+                    "name": "FooterEmbeds",
+                    "type": "string",
+                    "optional": true,
+                    "description": "",
+                    "line": 13
+                },
+                {
+                    "name": "HeaderEmbeds",
+                    "type": "string",
+                    "optional": true,
+                    "description": "",
+                    "line": 12
+                },
+                {
+                    "name": "MetaImageUrl",
+                    "type": "string",
+                    "optional": false,
+                    "description": "",
+                    "line": 8
+                },
+                {
+                    "name": "NavTitle",
+                    "type": "string",
+                    "optional": true,
+                    "description": "",
+                    "line": 14
+                },
+                {
+                    "name": "SiteUrl",
+                    "type": "string",
+                    "optional": false,
+                    "description": "",
+                    "line": 5
+                },
+                {
+                    "name": "Title",
+                    "type": "string",
+                    "optional": false,
+                    "description": "",
+                    "line": 6
+                },
+                {
+                    "name": "Url",
+                    "type": "string",
+                    "optional": false,
+                    "description": "",
+                    "line": 4
+                }
+            ],
+            "indexSignatures": [],
+            "kind": 150,
+            "methods": [],
+            "extends": "ContentDoc"
+        },
+        {
+            "name": "RowContentDoc",
+            "id": "interface-RowContentDoc-7a3134891888c616e2ae854ba7c5ffce",
+            "file": "src/app/models/RowContentDoc.interface.ts",
+            "type": "interface",
+            "sourceCode": "import { ContentDoc } from './ContentDoc.interface';\r\nimport { ColumnContentDoc } from './ColumnContentDoc.interface';\r\n\r\nexport interface RowContentDoc extends ContentDoc {\r\n    Content: ColumnContentDoc[]\r\n}",
+            "properties": [
+                {
+                    "name": "Content",
+                    "type": "ColumnContentDoc[]",
+                    "optional": false,
+                    "description": "",
+                    "line": 5
+                }
+            ],
+            "indexSignatures": [],
+            "kind": 150,
+            "methods": [],
+            "extends": "ContentDoc"
+        }
+    ],
+    "injectables": [],
+    "classes": [
+        {
+            "name": "AppPage",
+            "id": "class-AppPage-b0dda38f970a6690b77b35dfb293b3ac",
+            "file": "e2e/src/app.po.ts",
+            "type": "class",
+            "sourceCode": "import { browser, by, element } from 'protractor';\r\n\r\nexport class AppPage {\r\n  navigateTo(): Promise<unknown> {\r\n    return browser.get(browser.baseUrl) as Promise<unknown>;\r\n  }\r\n\r\n  getTitleText(): Promise<string> {\r\n    return element(by.css('app-root .content span')).getText() as Promise<string>;\r\n  }\r\n}\r\n",
+            "properties": [],
+            "methods": [
+                {
+                    "name": "getTitleText",
+                    "args": [],
+                    "optional": false,
+                    "returnType": "Promise<string>",
+                    "typeParameters": [],
+                    "line": 8
+                },
+                {
+                    "name": "navigateTo",
+                    "args": [],
+                    "optional": false,
+                    "returnType": "Promise<unknown>",
+                    "typeParameters": [],
+                    "line": 4
+                }
+            ],
+            "indexSignatures": [],
+            "inputsClass": [],
+            "outputsClass": [],
+            "hostBindings": [],
+            "hostListeners": []
+        }
+    ],
+    "directives": [
+        {
+            "name": "BgColorDirective",
+            "id": "directive-BgColorDirective-3f6968c7b19bf76ef49c83b500c6ec36",
+            "file": "src/app/directives/bg-color.directive.ts",
+            "type": "directive",
+            "description": "",
+            "sourceCode": "import { Directive, Input, ElementRef, OnInit } from '@angular/core';\nimport Color from 'color';\n\n@Directive({\n  selector: '[cmsBgColor]',\n})\nexport class BgColorDirective implements OnInit {\n  @Input() cmsBgColor?: string;\n  el: ElementRef;\n  constructor(el: ElementRef) {\n    this.el = el;\n  }\n\n  ngOnInit() {\n    if (this.cmsBgColor) {\n      try {\n        const color = new Color(this.cmsBgColor);\n        this.el.nativeElement.style.backgroundColor = color.hex();\n      } catch (ex) {\n        console.log(ex);\n        throw ex;\n      }\n    }\n  }\n}\n",
+            "selector": "[cmsBgColor]",
+            "providers": [],
+            "inputsClass": [
+                {
+                    "name": "cmsBgColor",
+                    "line": 8,
+                    "type": "string"
+                }
+            ],
+            "outputsClass": [],
+            "hostBindings": [],
+            "hostListeners": [],
+            "propertiesClass": [
+                {
+                    "name": "el",
+                    "type": "ElementRef",
+                    "optional": false,
+                    "description": "",
+                    "line": 9
+                }
+            ],
+            "methodsClass": [
+                {
+                    "name": "ngOnInit",
+                    "args": [],
+                    "optional": false,
+                    "returnType": "void",
+                    "typeParameters": [],
+                    "line": 14
+                }
+            ],
+            "implements": [
+                "OnInit"
+            ],
+            "constructorObj": {
+                "name": "constructor",
+                "description": "",
+                "args": [
+                    {
+                        "name": "el",
+                        "type": "ElementRef"
+                    }
+                ],
+                "line": 9,
+                "jsdoctags": [
+                    {
+                        "name": "el",
+                        "type": "ElementRef",
+                        "tagName": {
+                            "text": "param"
+                        }
+                    }
+                ]
+            }
+        }
+    ],
+    "components": [
+        {
+            "name": "AppComponent",
+            "id": "component-AppComponent-488b051154b2cfbf88e79bf7d02311c3",
+            "file": "src/app/app.component.ts",
+            "encapsulation": [],
+            "entryComponents": [],
+            "inputs": [],
+            "outputs": [],
+            "providers": [],
+            "selector": "app-root",
+            "styleUrls": [
+                "./app.component.scss"
+            ],
+            "styles": [],
+            "templateUrl": [
+                "./app.component.html"
+            ],
+            "viewProviders": [],
+            "inputsClass": [],
+            "outputsClass": [],
+            "propertiesClass": [
+                {
+                    "name": "title",
+                    "defaultValue": "'marketplace-cms-components'",
+                    "type": "string",
+                    "optional": false,
+                    "description": "",
+                    "line": 9
+                }
+            ],
+            "methodsClass": [],
+            "hostBindings": [],
+            "hostListeners": [],
+            "description": "",
+            "rawdescription": "",
+            "type": "component",
+            "sourceCode": "import { Component } from '@angular/core';\r\n\r\n@Component({\r\n  selector: 'app-root',\r\n  templateUrl: './app.component.html',\r\n  styleUrls: ['./app.component.scss']\r\n})\r\nexport class AppComponent {\r\n  title = 'marketplace-cms-components';\r\n}\r\n",
+            "assetsDirs": [],
+            "styleUrlsData": [
+                {
+                    "data": "",
+                    "styleUrl": "./app.component.scss"
+                }
+            ],
+            "stylesData": "",
+            "templateData": "<div>\r\n  <cms-html-editor\r\n    ocToken=\"eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ1c3IiOiJhbm9uLXRlbXBsYXRlLXVzZXIiLCJjaWQiOiJkZTkzZmZlNS1lZGRmLTRkMzQtODE5NC0zZDUwMjRmNmZhMzciLCJvcmRlcmlkIjoiX3BJZDdSRF9iMEtfczFnTldwMk1LQSIsInUiOiIxMDE5ODU4IiwidXNydHlwZSI6ImJ1eWVyIiwicm9sZSI6WyJNZUFkZHJlc3NBZG1pbiIsIk1lQWRtaW4iLCJNZUNyZWRpdENhcmRBZG1pbiIsIk1lWHBBZG1pbiIsIlNob3BwZXIiLCJTdXBwbGllclJlYWRlciIsIlN1cHBsaWVyQWRkcmVzc1JlYWRlciIsIlBhc3N3b3JkUmVzZXQiLCJCdXllclJlYWRlciJdLCJpc3MiOiJodHRwczovL2F1dGgub3JkZXJjbG91ZC5pbyIsImF1ZCI6Imh0dHBzOi8vYXBpLm9yZGVyY2xvdWQuaW8iLCJleHAiOjE1OTA3MTcxMjIsIm5iZiI6MTU5MDExMjMyMn0.q0Jk_-BHkpfBmol7fPTaNpCGvVl1N58w0iUxIp3xDBI\"\r\n    [initialValue]=\"\"\r\n    remoteCss=\"https://mgrstoragetest.azureedge.net/buyerweb/styles.e94215343d3493186ae1.css\"\r\n  ></cms-html-editor>\r\n</div>\r\n"
+        },
+        {
+            "name": "HtmlEditorComponent",
+            "id": "component-HtmlEditorComponent-ae75f0df8459a6d5c8018f4fcb810ec6",
+            "file": "src/app/components/html-editor/html-editor.component.ts",
+            "encapsulation": [],
+            "entryComponents": [],
+            "inputs": [],
+            "outputs": [],
+            "providers": [],
+            "selector": "cms-html-editor",
+            "styleUrls": [
+                "./html-editor.component.scss"
+            ],
+            "styles": [],
+            "templateUrl": [
+                "./html-editor.component.html"
+            ],
+            "viewProviders": [],
+            "inputsClass": [
+                {
+                    "name": "initialValue",
+                    "line": 11,
+                    "type": "string"
+                },
+                {
+                    "name": "ocToken",
+                    "line": 9,
+                    "type": "string"
+                },
+                {
+                    "name": "remoteCss",
+                    "line": 10,
+                    "type": "string"
+                }
+            ],
+            "outputsClass": [],
+            "propertiesClass": [],
+            "methodsClass": [
+                {
+                    "name": "ngOnInit",
+                    "args": [],
+                    "optional": false,
+                    "returnType": "void",
+                    "typeParameters": [],
+                    "line": 15
+                }
+            ],
+            "hostBindings": [],
+            "hostListeners": [],
+            "description": "",
+            "rawdescription": "",
+            "type": "component",
+            "sourceCode": "import { Component, OnInit, Input } from '@angular/core';\r\n\r\n@Component({\r\n  selector: 'cms-html-editor',\r\n  templateUrl: './html-editor.component.html',\r\n  styleUrls: ['./html-editor.component.scss']\r\n})\r\nexport class HtmlEditorComponent implements OnInit {\r\n  @Input() ocToken: string;\r\n  @Input() remoteCss: string;\r\n  @Input() initialValue: string;\r\n\r\n  constructor() {}\r\n\r\n  ngOnInit(): void {}\r\n}\r\n",
+            "assetsDirs": [],
+            "styleUrlsData": [
+                {
+                    "data": "\r\n",
+                    "styleUrl": "./html-editor.component.scss"
+                }
+            ],
+            "stylesData": "",
+            "constructorObj": {
+                "name": "constructor",
+                "description": "",
+                "args": [],
+                "line": 11
+            },
+            "implements": [
+                "OnInit"
+            ],
+            "templateData": "<editor\r\n  [initialValue]=\"initialValue\"\r\n  [init]=\"{\r\n    base_url: '/tinymce',\r\n    suffix: '.min',\r\n    content_css: remoteCss,\r\n    content_style: 'body {padding:15px !important;}',\r\n    height: 500,\r\n    menubar: false,\r\n    plugins: [\r\n      'ordercloud table advlist autolink lists link image charmap print preview anchor',\r\n      'searchreplace visualblocks code fullscreen',\r\n      'insertdatetime media table paste code help wordcount'\r\n    ],\r\n    toolbar:\r\n      'oc-product undo redo | formatselect | bold italic backcolor | \\\r\n      alignleft aligncenter alignright alignjustify | \\\r\n      bullist numlist outdent indent table | removeformat | help',\r\n    ocToken: ocToken\r\n  }\"\r\n></editor>\r\n"
+        },
+        {
+            "name": "PageComponent",
+            "id": "component-PageComponent-58b798c60d7f54a9fca8e2527dbf48bd",
+            "file": "src/app/components/page/page.component.ts",
+            "encapsulation": [],
+            "entryComponents": [],
+            "inputs": [],
+            "outputs": [],
+            "providers": [],
+            "selector": "cms-page",
+            "styleUrls": [
+                "./page.component.scss"
+            ],
+            "styles": [],
+            "templateUrl": [
+                "./page.component.html"
+            ],
+            "viewProviders": [],
+            "inputsClass": [
+                {
+                    "name": "content",
+                    "line": 16,
+                    "type": "PageContentDoc"
+                }
+            ],
+            "outputsClass": [],
+            "propertiesClass": [],
+            "methodsClass": [
+                {
+                    "name": "createScriptTag",
+                    "args": [
+                        {
+                            "name": "content",
+                            "type": "string"
+                        },
+                        {
+                            "name": "appendTo",
+                            "type": "string"
+                        }
+                    ],
+                    "optional": false,
+                    "returnType": "void",
+                    "typeParameters": [],
+                    "line": 69,
+                    "modifierKind": [
+                        112
+                    ],
+                    "jsdoctags": [
+                        {
+                            "name": "content",
+                            "type": "string",
+                            "tagName": {
+                                "text": "param"
+                            }
+                        },
+                        {
+                            "name": "appendTo",
+                            "type": "string",
+                            "tagName": {
+                                "text": "param"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "name": "loadScripts",
+                    "args": [
+                        {
+                            "name": "headerEmbeds",
+                            "type": ""
+                        },
+                        {
+                            "name": "footerEmbeds",
+                            "type": ""
+                        }
+                    ],
+                    "optional": false,
+                    "returnType": "void",
+                    "typeParameters": [],
+                    "line": 64,
+                    "modifierKind": [
+                        112
+                    ],
+                    "jsdoctags": [
+                        {
+                            "name": "headerEmbeds",
+                            "type": "",
+                            "tagName": {
+                                "text": "param"
+                            }
+                        },
+                        {
+                            "name": "footerEmbeds",
+                            "type": "",
+                            "tagName": {
+                                "text": "param"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "name": "ngOnInit",
+                    "args": [],
+                    "optional": false,
+                    "returnType": "void",
+                    "typeParameters": [],
+                    "line": 25
+                },
+                {
+                    "name": "setMetaData",
+                    "args": [
+                        {
+                            "name": "content",
+                            "type": "PageContentDoc"
+                        }
+                    ],
+                    "optional": false,
+                    "returnType": "void",
+                    "typeParameters": [],
+                    "line": 42,
+                    "modifierKind": [
+                        112
+                    ],
+                    "jsdoctags": [
+                        {
+                            "name": "content",
+                            "type": "PageContentDoc",
+                            "tagName": {
+                                "text": "param"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "name": "shouldShowContent",
+                    "args": [
+                        {
+                            "name": "content",
+                            "type": "PageContentDoc"
+                        }
+                    ],
+                    "optional": false,
+                    "returnType": "boolean",
+                    "typeParameters": [],
+                    "line": 34,
+                    "modifierKind": [
+                        112
+                    ],
+                    "jsdoctags": [
+                        {
+                            "name": "content",
+                            "type": "PageContentDoc",
+                            "tagName": {
+                                "text": "param"
+                            }
+                        }
+                    ]
+                }
+            ],
+            "hostBindings": [],
+            "hostListeners": [],
+            "description": "<p>This component is responsible for dynamically rendering all of the components defined in <code>Content</code>\nas well as setting metadata important for SEO</p>\n",
+            "rawdescription": "This component is responsible for dynamically rendering all of the components defined in `Content`\r\nas well as setting metadata important for SEO",
+            "type": "component",
+            "sourceCode": "import { Component, OnInit, Input, Renderer2, Inject } from '@angular/core';\r\nimport { DOCUMENT } from '@angular/common';\r\nimport { Meta, Title } from '@angular/platform-browser';\r\nimport { PageContentDoc } from '../../models/PageContentDoc.interface';\r\n\r\n/**\r\n * This component is responsible for dynamically rendering all of the components defined in `Content`\r\n * as well as setting metadata important for SEO\r\n */\r\n@Component({\r\n  selector: 'cms-page',\r\n  templateUrl: './page.component.html',\r\n  styleUrls: ['./page.component.scss']\r\n})\r\nexport class PageComponent implements OnInit {\r\n  @Input() content: PageContentDoc;\r\n\r\n  constructor(\r\n    private metaService: Meta,\r\n    private titleService: Title,\r\n    private renderer: Renderer2,\r\n    @Inject(DOCUMENT) private document: HTMLDocument\r\n  ) { }\r\n\r\n  ngOnInit(): void {\r\n    if (!this.shouldShowContent(this.content)) {\r\n      // this is an extra check, but should be handled at a higher level ideally\r\n      return console.warn('Page can not be displayed. Please ensure:\\n1. Page is active\\n2. Page has content doc urls\\n3. Page Url matches path of current url')\r\n    }\r\n    this.setMetaData(this.content);\r\n    this.loadScripts(this.content.HeaderEmbeds, this.content.FooterEmbeds);\r\n  }\r\n\r\n  private shouldShowContent(content: PageContentDoc): boolean {\r\n    return Boolean(\r\n      content &&\r\n      content.Active &&\r\n      content.Content\r\n    )\r\n  }\r\n\r\n  private setMetaData(content: PageContentDoc) {\r\n    // addTag results in dupes, so we use updateTag instead\r\n\r\n    // normal metadata\r\n    this.titleService.setTitle(content.Title);\r\n    this.metaService.updateTag({ property: 'application-name', content: content.SiteUrl })\r\n    this.metaService.updateTag({ property: 'description', content: content.Description })\r\n\r\n    // open graph meta data\r\n    this.metaService.updateTag({property: 'og:type', content: 'website'})\r\n    this.metaService.updateTag({property: 'og:title', content: content.Title})\r\n    this.metaService.updateTag({property: 'og:description', content: content.Description})\r\n    this.metaService.updateTag({property: 'og:image', content: content.MetaImageUrl})\r\n\r\n    // twitter metadata\r\n    this.metaService.updateTag({ property: 'twitter:card', content: 'summary' })\r\n    this.metaService.updateTag({ property: 'twitter:site', content: content.SiteUrl })\r\n    this.metaService.updateTag({ property: 'twitter:title', content: content.Title })\r\n    this.metaService.updateTag({ property: 'twitter:description', content: content.Description })\r\n    this.metaService.updateTag({property: 'twitter:image', content: content.MetaImageUrl})\r\n  }\r\n\r\n  private loadScripts(headerEmbeds, footerEmbeds) {\r\n    this.createScriptTag(headerEmbeds, 'head');\r\n    this.createScriptTag(footerEmbeds, 'body');\r\n  }\r\n\r\n  private createScriptTag(content: string, appendTo: string): void {\r\n    // create script\r\n    const script = this.renderer.createElement('script');\r\n    script.type = 'text/javascript';\r\n    script.textContent = content;\r\n\r\n    // append to target element\r\n    const target = this.document.getElementsByTagName(appendTo)[0];\r\n    this.renderer.appendChild(target, script);\r\n  }\r\n}\r\n",
+            "assetsDirs": [],
+            "styleUrlsData": [
+                {
+                    "data": "",
+                    "styleUrl": "./page.component.scss"
+                }
+            ],
+            "stylesData": "",
+            "constructorObj": {
+                "name": "constructor",
+                "description": "",
+                "args": [
+                    {
+                        "name": "metaService",
+                        "type": "Meta"
+                    },
+                    {
+                        "name": "titleService",
+                        "type": "Title"
+                    },
+                    {
+                        "name": "renderer",
+                        "type": "Renderer2"
+                    },
+                    {
+                        "name": "document",
+                        "type": "HTMLDocument"
+                    }
+                ],
+                "line": 16,
+                "jsdoctags": [
+                    {
+                        "name": "metaService",
+                        "type": "Meta",
+                        "tagName": {
+                            "text": "param"
+                        }
+                    },
+                    {
+                        "name": "titleService",
+                        "type": "Title",
+                        "tagName": {
+                            "text": "param"
+                        }
+                    },
+                    {
+                        "name": "renderer",
+                        "type": "Renderer2",
+                        "tagName": {
+                            "text": "param"
+                        }
+                    },
+                    {
+                        "name": "document",
+                        "type": "HTMLDocument",
+                        "tagName": {
+                            "text": "param"
+                        }
+                    }
+                ]
+            },
+            "implements": [
+                "OnInit"
+            ],
+            "templateData": "<cms-content-container \r\n    *ngFor=\"let contentBlock of content.Content\" [content]=\"contentBlock\">\r\n</cms-content-container>"
+        }
+    ],
+    "modules": [
+        {
+            "name": "AppModule",
+            "children": [
+                {
+                    "type": "providers",
+                    "elements": []
+                },
+                {
+                    "type": "declarations",
+                    "elements": [
+                        {
+                            "name": "AppComponent"
+                        },
+                        {
+                            "name": "HtmlEditorComponent"
+                        }
+                    ]
+                },
+                {
+                    "type": "imports",
+                    "elements": []
+                },
+                {
+                    "type": "exports",
+                    "elements": []
+                },
+                {
+                    "type": "bootstrap",
+                    "elements": [
+                        {
+                            "name": "AppComponent"
+                        }
+                    ]
+                },
+                {
+                    "type": "classes",
+                    "elements": []
+                }
+            ]
+        }
+    ],
+    "miscellaneous": {
+        "variables": [
+            {
+                "name": "BasicExample",
+                "ctype": "miscellaneous",
+                "subtype": "variable",
+                "file": "src/storybook/html-editor.stories.ts",
+                "type": "",
+                "defaultValue": "() => ({\r\n  component: HtmlEditorComponent,\r\n  props: {\r\n    ocToken:\r\n      'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ1c3IiOiJhbm9uLXRlbXBsYXRlLXVzZXIiLCJjaWQiOiJkZTkzZmZlNS1lZGRmLTRkMzQtODE5NC0zZDUwMjRmNmZhMzciLCJvcmRlcmlkIjoiX3BJZDdSRF9iMEtfczFnTldwMk1LQSIsInUiOiIxMDE5ODU4IiwidXNydHlwZSI6ImJ1eWVyIiwicm9sZSI6WyJNZUFkZHJlc3NBZG1pbiIsIk1lQWRtaW4iLCJNZUNyZWRpdENhcmRBZG1pbiIsIk1lWHBBZG1pbiIsIlNob3BwZXIiLCJTdXBwbGllclJlYWRlciIsIlN1cHBsaWVyQWRkcmVzc1JlYWRlciIsIlBhc3N3b3JkUmVzZXQiLCJCdXllclJlYWRlciJdLCJpc3MiOiJodHRwczovL2F1dGgub3JkZXJjbG91ZC5pbyIsImF1ZCI6Imh0dHBzOi8vYXBpLm9yZGVyY2xvdWQuaW8iLCJleHAiOjE1OTA3MTcxMjIsIm5iZiI6MTU5MDExMjMyMn0.q0Jk_-BHkpfBmol7fPTaNpCGvVl1N58w0iUxIp3xDBI',\r\n    initialValue: '',\r\n    remoteCss:\r\n      'https://mgrstoragetest.azureedge.net/buyerweb/styles.e94215343d3493186ae1.css'\r\n  }\r\n})"
+            },
+            {
+                "name": "BasicExample",
+                "ctype": "miscellaneous",
+                "subtype": "variable",
+                "file": "src/storybook/page.stories.ts",
+                "type": "",
+                "defaultValue": "() => ({\r\n  component: PageComponent,\r\n  props: {\r\n    content: BasicExamplePage\r\n  }\r\n})"
+            },
+            {
+                "name": "BasicExamplePage",
+                "ctype": "miscellaneous",
+                "subtype": "variable",
+                "file": "src/storybook/page.stories.ts",
+                "type": "PageContentDoc",
+                "defaultValue": "{\r\n  ComponentName: 'PageComponent',\r\n  SiteUrl: 'https://music-resell-store.com',\r\n  Url: '/page1',\r\n  Title: 'FAQ',\r\n  Description: 'Frequently Asked Questions',\r\n  MetaImageUrl:\r\n    'https://www.superoffice.com/globalassets/blog/2016/10/how-to-build-faq-section.jpg',\r\n  DateLastUpdated: '2020-05-15T03:55:03.021Z',\r\n  Active: true,\r\n  Content: [\r\n    {\r\n      ComponentName: 'ContentBlockComponent',\r\n      TextArea: `\r\n      <div class=\"container\">\r\n        <p style=\"max-width: 500px;\">\r\n          You can right click to inspect the html to see the metadata that are set. Its easier if you click 'Open canvas in a new tab' (top right).\r\n          You should see the following metadata set for this component:\r\n        </p>\r\n        <table class=\"table table-striped\">\r\n          <tr>\r\n            <th>Property</th>\r\n            <th>Value</th>\r\n          </tr>\r\n          <tr>\r\n            <td>Title</td>\r\n            <td>FAQ</td>\r\n          </tr>\r\n          <tr>\r\n            <td>Description</td>\r\n            <td>Frequently Asked Questions</td>\r\n          </tr>\r\n          <tr>\r\n            <td>Image</td>\r\n            <td>https://www.superoffice.com/globalassets/blog/2016/10/how-to-build-faq-section.jpg/<td>\r\n          </tr>\r\n        </table>\r\n      </div>\r\n      `\r\n    }\r\n  ],\r\n  HeaderEmbeds: '',\r\n  FooterEmbeds: '',\r\n  NavTitle: null\r\n}"
+            },
+            {
+                "name": "context",
+                "ctype": "miscellaneous",
+                "subtype": "variable",
+                "file": "src/test.ts",
+                "type": "",
+                "defaultValue": "require.context('./', true, /\\.spec\\.ts$/)"
+            },
+            {
+                "name": "environment",
+                "ctype": "miscellaneous",
+                "subtype": "variable",
+                "file": "src/environments/environment.prod.ts",
+                "type": "object",
+                "defaultValue": "{\r\n  production: true\r\n}"
+            },
+            {
+                "name": "environment",
+                "ctype": "miscellaneous",
+                "subtype": "variable",
+                "file": "src/environments/environment.ts",
+                "type": "object",
+                "defaultValue": "{\r\n  production: false\r\n}"
+            },
+            {
+                "name": "require",
+                "ctype": "miscellaneous",
+                "subtype": "variable",
+                "file": "src/test.ts",
+                "type": "literal type"
+            },
+            {
+                "name": "ThemeExample",
+                "ctype": "miscellaneous",
+                "subtype": "variable",
+                "file": "src/storybook/html-editor.stories.ts",
+                "type": "",
+                "defaultValue": "() => ({\r\n  component: HtmlEditorComponent,\r\n  props: {\r\n    ocToken:\r\n      'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ1c3IiOiJhbm9uLXRlbXBsYXRlLXVzZXIiLCJjaWQiOiJkZTkzZmZlNS1lZGRmLTRkMzQtODE5NC0zZDUwMjRmNmZhMzciLCJvcmRlcmlkIjoiX3BJZDdSRF9iMEtfczFnTldwMk1LQSIsInUiOiIxMDE5ODU4IiwidXNydHlwZSI6ImJ1eWVyIiwicm9sZSI6WyJNZUFkZHJlc3NBZG1pbiIsIk1lQWRtaW4iLCJNZUNyZWRpdENhcmRBZG1pbiIsIk1lWHBBZG1pbiIsIlNob3BwZXIiLCJTdXBwbGllclJlYWRlciIsIlN1cHBsaWVyQWRkcmVzc1JlYWRlciIsIlBhc3N3b3JkUmVzZXQiLCJCdXllclJlYWRlciJdLCJpc3MiOiJodHRwczovL2F1dGgub3JkZXJjbG91ZC5pbyIsImF1ZCI6Imh0dHBzOi8vYXBpLm9yZGVyY2xvdWQuaW8iLCJleHAiOjE1OTA3MTcxMjIsIm5iZiI6MTU5MDExMjMyMn0.q0Jk_-BHkpfBmol7fPTaNpCGvVl1N58w0iUxIp3xDBI',\r\n    initialValue: `\r\n      <h1>h1. Bootstrap heading</h1>\r\n      <h2>h2. Bootstrap heading</h2>\r\n      <h3>h3. Bootstrap heading</h3>\r\n      <h4>h4. Bootstrap heading</h4>\r\n      <h5>h5. Bootstrap heading</h5>\r\n      <h6>h6. Bootstrap heading</h6>\r\n      <button type=\"button\" class=\"btn btn-primary\">Primary</button>\r\n      <button type=\"button\" class=\"btn btn-secondary\">Secondary</button>\r\n      <button type=\"button\" class=\"btn btn-success\">Success</button>\r\n      <button type=\"button\" class=\"btn btn-danger\">Danger</button>\r\n      <button type=\"button\" class=\"btn btn-warning\">Warning</button>\r\n      <button type=\"button\" class=\"btn btn-info\">Info</button>\r\n      <button type=\"button\" class=\"btn btn-light\">Light</button>\r\n      <button type=\"button\" class=\"btn btn-dark\">Dark</button>\r\n    `,\r\n    remoteCss:\r\n      'https://mgrstoragetest.azureedge.net/buyerweb/styles.e94215343d3493186ae1.css'\r\n  }\r\n})"
+            }
+        ],
+        "functions": [],
+        "typealiases": [
+            {
+                "name": "BootstrapBreakpoint",
+                "ctype": "miscellaneous",
+                "subtype": "typealias",
+                "rawtype": "\"xs\" | \"sm\" | \"md\" | \"lg\" | \"xl\"",
+                "file": "src/app/models/ColumnContentDoc.interface.ts",
+                "description": "",
+                "kind": 168
+            },
+            {
+                "name": "BootstrapCarouselPauseOption",
+                "ctype": "miscellaneous",
+                "subtype": "typealias",
+                "rawtype": "\"hover\" | \"mouseenter\" | \"mouseleave\" | \"undefined\"",
+                "file": "src/app/models/CarouselContentDoc.interface.ts",
+                "description": "",
+                "kind": 168
+            },
+            {
+                "name": "BootstrapCarouselRideOption",
+                "ctype": "miscellaneous",
+                "subtype": "typealias",
+                "rawtype": "\"carousel\" | \"undefined\"",
+                "file": "src/app/models/CarouselContentDoc.interface.ts",
+                "description": "",
+                "kind": 168
+            },
+            {
+                "name": "BootstrapMediaDefinition",
+                "ctype": "miscellaneous",
+                "subtype": "typealias",
+                "rawtype": "",
+                "file": "src/app/models/ColumnContentDoc.interface.ts",
+                "description": "",
+                "kind": 176
+            }
+        ],
+        "enumerations": [],
+        "groupedVariables": {
+            "src/storybook/html-editor.stories.ts": [
+                {
+                    "name": "BasicExample",
+                    "ctype": "miscellaneous",
+                    "subtype": "variable",
+                    "file": "src/storybook/html-editor.stories.ts",
+                    "type": "",
+                    "defaultValue": "() => ({\r\n  component: HtmlEditorComponent,\r\n  props: {\r\n    ocToken:\r\n      'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ1c3IiOiJhbm9uLXRlbXBsYXRlLXVzZXIiLCJjaWQiOiJkZTkzZmZlNS1lZGRmLTRkMzQtODE5NC0zZDUwMjRmNmZhMzciLCJvcmRlcmlkIjoiX3BJZDdSRF9iMEtfczFnTldwMk1LQSIsInUiOiIxMDE5ODU4IiwidXNydHlwZSI6ImJ1eWVyIiwicm9sZSI6WyJNZUFkZHJlc3NBZG1pbiIsIk1lQWRtaW4iLCJNZUNyZWRpdENhcmRBZG1pbiIsIk1lWHBBZG1pbiIsIlNob3BwZXIiLCJTdXBwbGllclJlYWRlciIsIlN1cHBsaWVyQWRkcmVzc1JlYWRlciIsIlBhc3N3b3JkUmVzZXQiLCJCdXllclJlYWRlciJdLCJpc3MiOiJodHRwczovL2F1dGgub3JkZXJjbG91ZC5pbyIsImF1ZCI6Imh0dHBzOi8vYXBpLm9yZGVyY2xvdWQuaW8iLCJleHAiOjE1OTA3MTcxMjIsIm5iZiI6MTU5MDExMjMyMn0.q0Jk_-BHkpfBmol7fPTaNpCGvVl1N58w0iUxIp3xDBI',\r\n    initialValue: '',\r\n    remoteCss:\r\n      'https://mgrstoragetest.azureedge.net/buyerweb/styles.e94215343d3493186ae1.css'\r\n  }\r\n})"
+                },
+                {
+                    "name": "ThemeExample",
+                    "ctype": "miscellaneous",
+                    "subtype": "variable",
+                    "file": "src/storybook/html-editor.stories.ts",
+                    "type": "",
+                    "defaultValue": "() => ({\r\n  component: HtmlEditorComponent,\r\n  props: {\r\n    ocToken:\r\n      'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ1c3IiOiJhbm9uLXRlbXBsYXRlLXVzZXIiLCJjaWQiOiJkZTkzZmZlNS1lZGRmLTRkMzQtODE5NC0zZDUwMjRmNmZhMzciLCJvcmRlcmlkIjoiX3BJZDdSRF9iMEtfczFnTldwMk1LQSIsInUiOiIxMDE5ODU4IiwidXNydHlwZSI6ImJ1eWVyIiwicm9sZSI6WyJNZUFkZHJlc3NBZG1pbiIsIk1lQWRtaW4iLCJNZUNyZWRpdENhcmRBZG1pbiIsIk1lWHBBZG1pbiIsIlNob3BwZXIiLCJTdXBwbGllclJlYWRlciIsIlN1cHBsaWVyQWRkcmVzc1JlYWRlciIsIlBhc3N3b3JkUmVzZXQiLCJCdXllclJlYWRlciJdLCJpc3MiOiJodHRwczovL2F1dGgub3JkZXJjbG91ZC5pbyIsImF1ZCI6Imh0dHBzOi8vYXBpLm9yZGVyY2xvdWQuaW8iLCJleHAiOjE1OTA3MTcxMjIsIm5iZiI6MTU5MDExMjMyMn0.q0Jk_-BHkpfBmol7fPTaNpCGvVl1N58w0iUxIp3xDBI',\r\n    initialValue: `\r\n      <h1>h1. Bootstrap heading</h1>\r\n      <h2>h2. Bootstrap heading</h2>\r\n      <h3>h3. Bootstrap heading</h3>\r\n      <h4>h4. Bootstrap heading</h4>\r\n      <h5>h5. Bootstrap heading</h5>\r\n      <h6>h6. Bootstrap heading</h6>\r\n      <button type=\"button\" class=\"btn btn-primary\">Primary</button>\r\n      <button type=\"button\" class=\"btn btn-secondary\">Secondary</button>\r\n      <button type=\"button\" class=\"btn btn-success\">Success</button>\r\n      <button type=\"button\" class=\"btn btn-danger\">Danger</button>\r\n      <button type=\"button\" class=\"btn btn-warning\">Warning</button>\r\n      <button type=\"button\" class=\"btn btn-info\">Info</button>\r\n      <button type=\"button\" class=\"btn btn-light\">Light</button>\r\n      <button type=\"button\" class=\"btn btn-dark\">Dark</button>\r\n    `,\r\n    remoteCss:\r\n      'https://mgrstoragetest.azureedge.net/buyerweb/styles.e94215343d3493186ae1.css'\r\n  }\r\n})"
+                }
+            ],
+            "src/storybook/page.stories.ts": [
+                {
+                    "name": "BasicExample",
+                    "ctype": "miscellaneous",
+                    "subtype": "variable",
+                    "file": "src/storybook/page.stories.ts",
+                    "type": "",
+                    "defaultValue": "() => ({\r\n  component: PageComponent,\r\n  props: {\r\n    content: BasicExamplePage\r\n  }\r\n})"
+                },
+                {
+                    "name": "BasicExamplePage",
+                    "ctype": "miscellaneous",
+                    "subtype": "variable",
+                    "file": "src/storybook/page.stories.ts",
+                    "type": "PageContentDoc",
+                    "defaultValue": "{\r\n  ComponentName: 'PageComponent',\r\n  SiteUrl: 'https://music-resell-store.com',\r\n  Url: '/page1',\r\n  Title: 'FAQ',\r\n  Description: 'Frequently Asked Questions',\r\n  MetaImageUrl:\r\n    'https://www.superoffice.com/globalassets/blog/2016/10/how-to-build-faq-section.jpg',\r\n  DateLastUpdated: '2020-05-15T03:55:03.021Z',\r\n  Active: true,\r\n  Content: [\r\n    {\r\n      ComponentName: 'ContentBlockComponent',\r\n      TextArea: `\r\n      <div class=\"container\">\r\n        <p style=\"max-width: 500px;\">\r\n          You can right click to inspect the html to see the metadata that are set. Its easier if you click 'Open canvas in a new tab' (top right).\r\n          You should see the following metadata set for this component:\r\n        </p>\r\n        <table class=\"table table-striped\">\r\n          <tr>\r\n            <th>Property</th>\r\n            <th>Value</th>\r\n          </tr>\r\n          <tr>\r\n            <td>Title</td>\r\n            <td>FAQ</td>\r\n          </tr>\r\n          <tr>\r\n            <td>Description</td>\r\n            <td>Frequently Asked Questions</td>\r\n          </tr>\r\n          <tr>\r\n            <td>Image</td>\r\n            <td>https://www.superoffice.com/globalassets/blog/2016/10/how-to-build-faq-section.jpg/<td>\r\n          </tr>\r\n        </table>\r\n      </div>\r\n      `\r\n    }\r\n  ],\r\n  HeaderEmbeds: '',\r\n  FooterEmbeds: '',\r\n  NavTitle: null\r\n}"
+                }
+            ],
+            "src/test.ts": [
+                {
+                    "name": "context",
+                    "ctype": "miscellaneous",
+                    "subtype": "variable",
+                    "file": "src/test.ts",
+                    "type": "",
+                    "defaultValue": "require.context('./', true, /\\.spec\\.ts$/)"
+                },
+                {
+                    "name": "require",
+                    "ctype": "miscellaneous",
+                    "subtype": "variable",
+                    "file": "src/test.ts",
+                    "type": "literal type"
+                }
+            ],
+            "src/environments/environment.prod.ts": [
+                {
+                    "name": "environment",
+                    "ctype": "miscellaneous",
+                    "subtype": "variable",
+                    "file": "src/environments/environment.prod.ts",
+                    "type": "object",
+                    "defaultValue": "{\r\n  production: true\r\n}"
+                }
+            ],
+            "src/environments/environment.ts": [
+                {
+                    "name": "environment",
+                    "ctype": "miscellaneous",
+                    "subtype": "variable",
+                    "file": "src/environments/environment.ts",
+                    "type": "object",
+                    "defaultValue": "{\r\n  production: false\r\n}"
+                }
+            ]
+        },
+        "groupedFunctions": {},
+        "groupedEnumerations": {},
+        "groupedTypeAliases": {
+            "src/app/models/ColumnContentDoc.interface.ts": [
+                {
+                    "name": "BootstrapBreakpoint",
+                    "ctype": "miscellaneous",
+                    "subtype": "typealias",
+                    "rawtype": "\"xs\" | \"sm\" | \"md\" | \"lg\" | \"xl\"",
+                    "file": "src/app/models/ColumnContentDoc.interface.ts",
+                    "description": "",
+                    "kind": 168
+                },
+                {
+                    "name": "BootstrapMediaDefinition",
+                    "ctype": "miscellaneous",
+                    "subtype": "typealias",
+                    "rawtype": "",
+                    "file": "src/app/models/ColumnContentDoc.interface.ts",
+                    "description": "",
+                    "kind": 176
+                }
+            ],
+            "src/app/models/CarouselContentDoc.interface.ts": [
+                {
+                    "name": "BootstrapCarouselPauseOption",
+                    "ctype": "miscellaneous",
+                    "subtype": "typealias",
+                    "rawtype": "\"hover\" | \"mouseenter\" | \"mouseleave\" | \"undefined\"",
+                    "file": "src/app/models/CarouselContentDoc.interface.ts",
+                    "description": "",
+                    "kind": 168
+                },
+                {
+                    "name": "BootstrapCarouselRideOption",
+                    "ctype": "miscellaneous",
+                    "subtype": "typealias",
+                    "rawtype": "\"carousel\" | \"undefined\"",
+                    "file": "src/app/models/CarouselContentDoc.interface.ts",
+                    "description": "",
+                    "kind": 168
+                }
+            ]
+        }
+    },
+    "routes": [],
+    "coverage": {
+        "count": 3,
+        "status": "low",
+        "files": [
+            {
+                "filePath": "e2e/src/app.po.ts",
+                "type": "class",
+                "linktype": "classe",
+                "name": "AppPage",
+                "coveragePercent": 0,
+                "coverageCount": "0/3",
+                "status": "low"
+            },
+            {
+                "filePath": "src/app/app.component.ts",
+                "type": "component",
+                "linktype": "component",
+                "name": "AppComponent",
+                "coveragePercent": 0,
+                "coverageCount": "0/2",
+                "status": "low"
+            },
+            {
+                "filePath": "src/app/components/html-editor/html-editor.component.ts",
+                "type": "component",
+                "linktype": "component",
+                "name": "HtmlEditorComponent",
+                "coveragePercent": 0,
+                "coverageCount": "0/6",
+                "status": "low"
+            },
+            {
+                "filePath": "src/app/components/page/page.component.ts",
+                "type": "component",
+                "linktype": "component",
+                "name": "PageComponent",
+                "coveragePercent": 12,
+                "coverageCount": "1/8",
+                "status": "low"
+            },
+            {
+                "filePath": "src/app/directives/bg-color.directive.ts",
+                "type": "directive",
+                "linktype": "directive",
+                "name": "BgColorDirective",
+                "coveragePercent": 0,
+                "coverageCount": "0/5",
+                "status": "low"
+            },
+            {
+                "filePath": "src/app/models/CarouselContentDoc.interface.ts",
+                "type": "interface",
+                "linktype": "interface",
+                "name": "BootstrapCarouselOptions",
+                "coveragePercent": 0,
+                "coverageCount": "0/7",
+                "status": "low"
+            },
+            {
+                "filePath": "src/app/models/CarouselContentDoc.interface.ts",
+                "type": "interface",
+                "linktype": "interface",
+                "name": "CarouselContentDoc",
+                "coveragePercent": 0,
+                "coverageCount": "0/3",
+                "status": "low"
+            },
+            {
+                "filePath": "src/app/models/CmsAssets.interface.ts",
+                "type": "interface",
+                "linktype": "interface",
+                "name": "CmsAsset",
+                "coveragePercent": 0,
+                "coverageCount": "0/3",
+                "status": "low"
+            },
+            {
+                "filePath": "src/app/models/CmsCarousel.interface.ts",
+                "type": "interface",
+                "linktype": "interface",
+                "name": "CmsBackground",
+                "coveragePercent": 0,
+                "coverageCount": "0/3",
+                "status": "low"
+            },
+            {
+                "filePath": "src/app/models/CmsCarousel.interface.ts",
+                "type": "interface",
+                "linktype": "interface",
+                "name": "CmsCarouselOptions",
+                "coveragePercent": 0,
+                "coverageCount": "0/7",
+                "status": "low"
+            },
+            {
+                "filePath": "src/app/models/CmsCarousel.interface.ts",
+                "type": "interface",
+                "linktype": "interface",
+                "name": "CmsCarouselSlideConfig",
+                "coveragePercent": 0,
+                "coverageCount": "0/3",
+                "status": "low"
+            },
+            {
+                "filePath": "src/app/models/CmsCarousel.interface.ts",
+                "type": "interface",
+                "linktype": "interface",
+                "name": "CmsCarouselSlideTextConfig",
+                "coveragePercent": 0,
+                "coverageCount": "0/3",
+                "status": "low"
+            },
+            {
+                "filePath": "src/app/models/ColumnContentDoc.interface.ts",
+                "type": "interface",
+                "linktype": "interface",
+                "name": "ColumnContentDoc",
+                "coveragePercent": 0,
+                "coverageCount": "0/4",
+                "status": "low"
+            },
+            {
+                "filePath": "src/app/models/ContentBlockDoc.interface.ts",
+                "type": "interface",
+                "linktype": "interface",
+                "name": "Background",
+                "coveragePercent": 0,
+                "coverageCount": "0/3",
+                "status": "low"
+            },
+            {
+                "filePath": "src/app/models/ContentBlockDoc.interface.ts",
+                "type": "interface",
+                "linktype": "interface",
+                "name": "ContentBlockDoc",
+                "coveragePercent": 0,
+                "coverageCount": "0/7",
+                "status": "low"
+            },
+            {
+                "filePath": "src/app/models/ContentBlockDoc.interface.ts",
+                "type": "interface",
+                "linktype": "interface",
+                "name": "ContentButton",
+                "coveragePercent": 0,
+                "coverageCount": "0/6",
+                "status": "low"
+            },
+            {
+                "filePath": "src/app/models/ContentBlockDoc.interface.ts",
+                "type": "interface",
+                "linktype": "interface",
+                "name": "DateRange",
+                "coveragePercent": 0,
+                "coverageCount": "0/3",
+                "status": "low"
+            },
+            {
+                "filePath": "src/app/models/ContentDoc.interface.ts",
+                "type": "interface",
+                "linktype": "interface",
+                "name": "ContentDoc",
+                "coveragePercent": 0,
+                "coverageCount": "0/2",
+                "status": "low"
+            },
+            {
+                "filePath": "src/app/models/PageContentDoc.interface.ts",
+                "type": "interface",
+                "linktype": "interface",
+                "name": "PageContentDoc",
+                "coveragePercent": 0,
+                "coverageCount": "0/12",
+                "status": "low"
+            },
+            {
+                "filePath": "src/app/models/RowContentDoc.interface.ts",
+                "type": "interface",
+                "linktype": "interface",
+                "name": "RowContentDoc",
+                "coveragePercent": 0,
+                "coverageCount": "0/2",
+                "status": "low"
+            },
+            {
+                "filePath": "src/app/pipes/safe-html.pipe.ts",
+                "type": "pipe",
+                "linktype": "pipe",
+                "name": "SafeHtmlPipe",
+                "coveragePercent": 100,
+                "coverageCount": "1/1",
+                "status": "very-good"
+            },
+            {
+                "filePath": "src/environments/environment.prod.ts",
+                "type": "variable",
+                "linktype": "miscellaneous",
+                "linksubtype": "variable",
+                "name": "environment",
+                "coveragePercent": 0,
+                "coverageCount": "0/1",
+                "status": "low"
+            },
+            {
+                "filePath": "src/environments/environment.ts",
+                "type": "variable",
+                "linktype": "miscellaneous",
+                "linksubtype": "variable",
+                "name": "environment",
+                "coveragePercent": 0,
+                "coverageCount": "0/1",
+                "status": "low"
+            },
+            {
+                "filePath": "src/storybook/html-editor.stories.ts",
+                "type": "variable",
+                "linktype": "miscellaneous",
+                "linksubtype": "variable",
+                "name": "BasicExample",
+                "coveragePercent": 0,
+                "coverageCount": "0/1",
+                "status": "low"
+            },
+            {
+                "filePath": "src/storybook/html-editor.stories.ts",
+                "type": "variable",
+                "linktype": "miscellaneous",
+                "linksubtype": "variable",
+                "name": "ThemeExample",
+                "coveragePercent": 0,
+                "coverageCount": "0/1",
+                "status": "low"
+            },
+            {
+                "filePath": "src/storybook/page.stories.ts",
+                "type": "variable",
+                "linktype": "miscellaneous",
+                "linksubtype": "variable",
+                "name": "BasicExample",
+                "coveragePercent": 0,
+                "coverageCount": "0/1",
+                "status": "low"
+            },
+            {
+                "filePath": "src/storybook/page.stories.ts",
+                "type": "variable",
+                "linktype": "miscellaneous",
+                "linksubtype": "variable",
+                "name": "BasicExamplePage",
+                "coveragePercent": 0,
+                "coverageCount": "0/1",
+                "status": "low"
+            },
+            {
+                "filePath": "src/test.ts",
+                "type": "variable",
+                "linktype": "miscellaneous",
+                "linksubtype": "variable",
+                "name": "context",
+                "coveragePercent": 0,
+                "coverageCount": "0/1",
+                "status": "low"
+            },
+            {
+                "filePath": "src/test.ts",
+                "type": "variable",
+                "linktype": "miscellaneous",
+                "linksubtype": "variable",
+                "name": "require",
+                "coveragePercent": 0,
+                "coverageCount": "0/1",
+                "status": "low"
+            }
+        ]
+    }
+}
