@@ -1,22 +1,4 @@
-<editor
+<editor ng-if="resolvedEditorOptions"
   [initialValue]="initialValue"
-  [init]="{
-    base_url: '/tinymce',
-    suffix: '.min',
-    content_css: remoteCss,
-    content_style: 'body {padding:15px !important;}',
-    height: 500,
-    menubar: false,
-    plugins: [
-      'ordercloud table advlist autolink lists link image charmap print preview anchor',
-      'searchreplace visualblocks code fullscreen',
-      'insertdatetime media table paste code help wordcount'
-    ],
-    toolbar:
-      'oc-product undo redo | formatselect | bold italic backcolor | \
-      alignleft aligncenter alignright alignjustify | \
-      bullist numlist outdent indent table | removeformat | help',
-    contextmenu: 'link oc-row oc-col table',
-    ocToken: ocToken
-  }"
+  [init]="resolvedEditorOptions"
 ></editor>
