@@ -11,25 +11,11 @@ import { MarketplaceSDK } from 'marketplace-javascript-sdk';
 })
 export class HtmlEditorComponent implements OnInit {
   @Input() ocToken: string;
-  @Input() remoteCss: string;
   @Input() initialValue: string;
+  @Input() editorOptions: any;
+  resolvedEditorOptions: any = {};
 
-  editorOptions = {
-    base_url: '/tinymce',
-    suffix: '.min',
-    content_css: this.remoteCss,
-    content_style: 'body {padding:15px !important;}',
-    height: 500,
-    menubar: 'insert',
-    plugins: [
-      'image table advlist autolink lists link charmap print preview anchor',
-      'searchreplace visualblocks code fullscreen',
-      'insertdatetime media table paste code help wordcount'
-    ],
-    toolbar:
-      'oc-product image undo redo | formatselect | bold italic backcolor | \
-      alignleft aligncenter alignright alignjustify | \
-      bullist numlist outdent indent table | removeformat | help',
+  defaultEditorOptions = {
     ocToken: this.ocToken,
 
     /**
@@ -46,12 +32,20 @@ export class HtmlEditorComponent implements OnInit {
      * Adds an upload tab (uploads to ordercloud cms)
      */
     image_uploadtab: true,
-    images_upload_handler: cmsUpload
+    images_upload_handler: cmsUpload,
+
+    /**
+     * Adds ability to transform images
+     */
+    imagetools_cors_hosts: ['marktplacetest.blob.core.windows.net'],
+
+    
   }
 
   constructor() { }
 
-  ngOnInit(): void { 
+  ngOnInit(): void {
+    Object.assign(this.resolvedEditorOptions, this.editorOptions, this.defaultEditorOptions);
     MarketplaceSdkInstance.Configuration.Set({baseApiUrl: 'https://marketplace-middleware-test.azurewebsites.net'})
     MarketplaceSDK.Tokens.SetAccessToken(this.ocToken);
   }
