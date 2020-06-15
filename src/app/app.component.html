@@ -1,7 +1,11 @@
-<div>
-  <cms-html-editor
-    ocToken="INSERT_TOKEN_HERE"
-    initialValue=""
-    [editorOptions]="editorOptions"
-  ></cms-html-editor>
+<div class="container">
+  <h1>Page Editor Demonstration</h1>
+  <cms-page-editor
+    [pageContentDoc]="currentPage"
+    siteUrl="https://sitebaseurl.com/pages/"
+    editorOptions="{
+      content_css:
+        'https://mgrstoragetest.azureedge.net/buyerweb/styles.e94215343d3493186ae1.css'
+    }"
+  ></cms-page-editor>
 </div>
