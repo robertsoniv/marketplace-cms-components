@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { PageContentDoc } from './models/PageContentDoc.interface';
 
 @Component({
   selector: 'app-root',
@@ -7,7 +8,12 @@ import { Component } from '@angular/core';
 })
 export class AppComponent {
   title = 'marketplace-cms-components';
-  editorOptions = {
-    content_css: 'https://mgrstoragetest.azureedge.net/buyerweb/styles.e94215343d3493186ae1.css',
-  }
+  currentPage: Partial<PageContentDoc> = {
+    Title: 'Test Page Title',
+    Url: 'test-my-url',
+    Content: '<h1>TEST CONTENT</h1>',
+    NavigationTitle: 'Test Page',
+    Description: 'Short 300 word description to be used in Meta tags',
+    Active: true
+  };
 }
