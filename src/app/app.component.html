@@ -1,11 +1,11 @@
+<div class="jumbotron">
+  <div class="container">
+    <h1>Page Editor Demonstration</h1>
+  </div>
+</div>
 <div class="container">
-  <h1>Page Editor Demonstration</h1>
   <cms-page-editor
-    [pageContentDoc]="currentPage"
-    siteUrl="https://sitebaseurl.com/pages/"
-    editorOptions="{
-      content_css:
-        'https://mgrstoragetest.azureedge.net/buyerweb/styles.e94215343d3493186ae1.css'
-    }"
+    [renderSiteUrl]="buyerSiteUrl"
+    [editorOptions]="editorOptions"
   ></cms-page-editor>
 </div>

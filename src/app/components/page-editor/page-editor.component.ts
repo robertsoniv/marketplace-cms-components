@@ -19,9 +19,10 @@ const EMPTY_PAGE_CONTENT_DOC: Partial<PageContentDoc> = {
   styleUrls: ['./page-editor.component.scss']
 })
 export class PageEditorComponent implements OnInit {
-  @Input() siteUrl: string;
+  @Input() renderSiteUrl: string;
   @Input() editorOptions: any;
   @Input() pageContentDoc?: PageContentDoc;
+  @Input() htmlEditorOnly?: boolean;
 
   page: Partial<PageContentDoc>;
   automaticUrl: boolean;
@@ -30,6 +31,7 @@ export class PageEditorComponent implements OnInit {
   constructor() {}
 
   ngOnInit(): void {
+    console.log(this.htmlEditorOnly);
     if (this.pageContentDoc) {
       this.page = this.pageContentDoc;
       this.automaticUrl =
