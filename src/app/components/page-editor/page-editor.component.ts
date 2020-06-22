@@ -7,7 +7,12 @@ const EMPTY_PAGE_CONTENT_DOC: Partial<PageContentDoc> = {
   Url: '',
   Description: '',
   HeaderEmbeds: '',
-  Content: '',
+  Content: `<div class="card" data-oc-widget="product-display" data-oc-product-id="CP8201">
+  <div class="card-body">
+  <h5 class="card-title">ATUS CP8201 Impedance Transformer</h5>
+  <p>ATUS provides an easy way to transform your Lo-Z Mic cable into a Hi-Z 1/4" input. &nbsp;Built from quality parts, this product is not only suitable for the studio, but live applications as well.</p>
+  <a class="btn btn-primary" href="https://mgr-buyer-test.ordercloud-qa.com/product/CP8201/view">View Product</a></div>
+  </div>`,
   FooterEmbeds: '',
   Active: false,
   NavigationTitle: ''
@@ -57,7 +62,6 @@ export class PageEditorComponent implements OnInit {
   }
 
   onPageNavigationChange() {
-    console.log('hit');
     if (this.pageNavigation && !this.page.NavigationTitle) {
       this.page.NavigationTitle = this.page.Title;
     }
