@@ -29,7 +29,7 @@ export class HtmlEditorComponent implements OnInit {
     ],
     menubar: 'file edit view insert format tools table help',
     toolbar:
-      'oc-product undo redo | bold italic underline strikethrough | fontselect fontsizeselect formatselect | alignleft aligncenter alignright alignjustify | outdent indent |  numlist bullist | forecolor backcolor removeformat',
+      'oc-carousel oc-product undo redo | bold italic underline strikethrough | fontselect fontsizeselect formatselect | alignleft aligncenter alignright alignjustify | outdent indent |  numlist bullist | forecolor backcolor removeformat',
     quickbars_selection_toolbar:
       'bold italic | quicklink h2 h3 blockquote quickimage quicktable',
     imagetools_toolbar:

@@ -35,7 +35,7 @@
             "styles": ["src/styles.scss"],
             "scripts": [
               "node_modules/tinymce/tinymce.min.js",
-              "node_modules/ordercloud-tinymce-plugin/dist/ordercloud-tinymce-plugin/plugin.min.js"
+              "node_modules/ordercloud-tinymce-plugin/dist/plugin.min.js"
             ]
           },
           "configurations": {
