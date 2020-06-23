@@ -1,6 +1,5 @@
 <div *ngIf="htmlEditorOnly">
   <cms-html-editor
-    ocToken="INSERT_TOKEN_HERE"
     [initialValue]="page.Content"
     [editorOptions]="editorOptions"
   ></cms-html-editor>
@@ -154,7 +153,6 @@
   <div class="form-group">
     <label for="pageContent">Page Content</label>
     <cms-html-editor
-      ocToken="INSERT_TOKEN_HERE"
       [initialValue]="page.Content"
       [editorOptions]="editorOptions"
     ></cms-html-editor>

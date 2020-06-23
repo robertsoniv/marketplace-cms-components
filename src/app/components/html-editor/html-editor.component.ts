@@ -6,7 +6,6 @@ import { Component, OnInit, Input } from '@angular/core';
   styleUrls: ['./html-editor.component.scss']
 })
 export class HtmlEditorComponent implements OnInit {
-  @Input() ocToken: string;
   @Input() renderSiteUrl: string;
   @Input() initialValue: string;
   @Input() editorOptions: any;
@@ -84,7 +83,6 @@ export class HtmlEditorComponent implements OnInit {
   constructor() {}
 
   ngOnInit(): void {
-    this.defaultEditorOptions['ocToken'] = this.ocToken; // not available until ngOnInit
     Object.assign(
       this.resolvedEditorOptions,
       this.defaultEditorOptions,

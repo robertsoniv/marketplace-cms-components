@@ -7,7 +7,7 @@ const EMPTY_PAGE_CONTENT_DOC: Partial<PageContentDoc> = {
   Url: '',
   Description: '',
   HeaderEmbeds: '',
-  Content: '',
+  Content: ``,
   FooterEmbeds: '',
   Active: false,
   NavigationTitle: ''
