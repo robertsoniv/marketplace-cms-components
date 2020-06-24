@@ -43,39 +43,39 @@ $slide-selected-color: #ffe600;
     box-shadow: 0px 0px 17px -3px $slide-selected-color;
 }
 
-  .slide {
-    margin: $slide-margin;
-    height: $slide-height;
-    width: $slide-width;
+.slide {
+  margin: $slide-margin;
+  height: $slide-height;
+  width: $slide-width;
+  border-radius: 15px;
+  background-color: $slide-bg;
+  position: relative;
+  img {
+    object-fit: cover;
+    height: 100%;
+    width: 100%;
     border-radius: 15px;
-    background-color: $slide-bg;
-    position: relative;
-    img {
-      object-fit: cover;
-      height: 100%;
-      width: 100%;
-      border-radius: 15px;
-    }
-
-    .icon-delete_forever {
-      cursor: pointer;
-      position: absolute;
-      top: -7px;
-      right: -7px;
-      color: white;
-      background-color: #FF4158;
-      width: 25px;
-      height: 25px;
-      border-radius: 50%;
-      text-align: center;
-    }
-
-    // used on add slide icon
-    .icon-add_circle {
-      color: darken($slide-bg, 20%);
-      font-size: 32px;
-      position: absolute;
-      left: $slide-width/2 - 16px; // 16px is half width of icon
-      top: $slide-height/2 - 20.5px; // 20.5px is half height of icon
-    }
   }
+
+  .icon-delete_forever {
+    cursor: pointer;
+    position: absolute;
+    top: -7px;
+    right: -7px;
+    color: white;
+    background-color: #FF4158;
+    width: 25px;
+    height: 25px;
+    border-radius: 50%;
+    text-align: center;
+  }
+
+  // used on add slide icon
+  .icon-add_circle {
+    color: darken($slide-bg, 20%);
+    font-size: 32px;
+    position: absolute;
+    left: $slide-width/2 - 16px; // 16px is half width of icon
+    top: $slide-height/2 - 20.5px; // 20.5px is half height of icon
+  }
+}

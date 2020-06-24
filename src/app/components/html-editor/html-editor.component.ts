@@ -15,7 +15,6 @@ export class HtmlEditorComponent implements OnInit {
   resolvedEditorOptions: any = {};
 
   defaultEditorOptions = {
-    marketplaceUrl: 'https://marketplace-middleware-test.azurewebsites.net',
     base_url: '/tinymce',
     suffix: '.min',
     content_css:

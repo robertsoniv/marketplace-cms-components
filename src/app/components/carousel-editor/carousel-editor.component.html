@@ -9,29 +9,32 @@
         <div class="col-lg-6 col-xl-7">
             <h4 class="text-muted">Drag to rearrange the order of your carousel slides</h4>
             <div class="slides">
-                <div class="slide" (click)="openAssetPicker()">
+                <div class="slide" (click)="addSlide(chooseSlideTypeModal)">
                     <span class="icon-add_circle"></span>
+                </div>
+                <div class="slide" *ngFor="let slide of slides" (click)="selectSlide(slide)" [ngClass]="{'slide-selected': isSelected(slide)}">
+                    <img src="{{slide.ImageUrl}}" alt="{{slide.ImageTitle}}">
                 </div>
             </div>
         </div>
-        <div class="col-lg-6 col-xl-5">
-            <h4 class="text-muted">Edit Slide 4</h4>
-            <form name="slide-edit-form">
+        <div class="col-lg-6 col-xl-5" *ngIf="selectedSlide">
+            <h4 class="text-muted">Edit Slide {{getSlideIndex(selectedSlide) + 1}}</h4>
+            <form [formGroup]="slideEditForm">
                 <div class="form-group">
-                    <label for="slide-h1">Slide H1</label>
-                    <input id="slide-h1" class="form-control" type="text" ngbAutofocus />
+                    <label for="slide-h1">Heading</label>
+                    <input formControlName="Heading" id="slide-h1" class="form-control" type="text" />
                 </div>
                 <div class="form-group">
-                    <label for="slide-h2">Slide H2</label>
-                    <input id="slide-h2" class="form-control" type="text" />
+                    <label for="slide-h2">Subheading</label>
+                    <input formControlName="Subheading" id="slide-h2" class="form-control" type="text" />
                 </div>
                 <div class="form-group">
                     <label for="slide-actiontext">Action Text</label>
-                    <input id="slide-actiontext" class="form-control" type="text" />
+                    <input formControlName="ActionText" id="slide-actiontext" class="form-control" type="text" />
                 </div>
                 <div class="form-group">
                     <label for="slide-actionurl">Action URL</label>
-                    <input id="slide-actionurl" class="form-control" type="text" />
+                    <input formControlName="ActionUrl" id="slide-actionurl" class="form-control" type="text" />
                 </div>
             </form>
         </div>
@@ -46,7 +49,7 @@
                 <div class="form-group">
                     <label for="carousel-speed">Carousel Speed <span
                             class="text-muted">(milliseconds)</span></label>
-                    <input id="carousel-speed" class="form-control" type="number"/>
+                    <input id="carousel-speed" class="form-control" type="number" ngbAutofocus/>
                 </div>
                 <div class="form-group">
                     <label for="carousel-slides-to-show">Slides to Show</label>
@@ -93,3 +96,11 @@
 <div class="modal-footer">
     <button type="button" class="btn btn-primary" (click)="modal.close('Save Carousel')">Add Carousel</button>
 </div>
+<ng-template #chooseSlideTypeModal>
+    <cms-confirm-modal message="Choose type of slide to create"
+                          cancelText="Product"
+                          confirmText="Image"
+                          (cancel)="openProductPicker()"
+                          (proceed)="openAssetPicker()">
+    </cms-confirm-modal>
+  </ng-template>
