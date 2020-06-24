@@ -1,0 +1,95 @@
+<div class="modal-header">
+    <h4 class="modal-title">Carousel Builder</h4>
+    <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+        <span aria-hidden="true">&times;</span>
+    </button>
+</div>
+<div class="modal-body">
+    <div class="row">
+        <div class="col-lg-6 col-xl-7">
+            <h4 class="text-muted">Drag to rearrange the order of your carousel slides</h4>
+            <div class="slides">
+                <div class="slide" (click)="openAssetPicker()">
+                    <span class="icon-add_circle"></span>
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-6 col-xl-5">
+            <h4 class="text-muted">Edit Slide 4</h4>
+            <form name="slide-edit-form">
+                <div class="form-group">
+                    <label for="slide-h1">Slide H1</label>
+                    <input id="slide-h1" class="form-control" type="text" ngbAutofocus />
+                </div>
+                <div class="form-group">
+                    <label for="slide-h2">Slide H2</label>
+                    <input id="slide-h2" class="form-control" type="text" />
+                </div>
+                <div class="form-group">
+                    <label for="slide-actiontext">Action Text</label>
+                    <input id="slide-actiontext" class="form-control" type="text" />
+                </div>
+                <div class="form-group">
+                    <label for="slide-actionurl">Action URL</label>
+                    <input id="slide-actionurl" class="form-control" type="text" />
+                </div>
+            </form>
+        </div>
+    </div>
+    <hr>
+    <form name="carousel-settings-form">
+        <h4 class="text-muted">
+            Carousel Settings
+        </h4>
+        <div class="row">
+            <div class="col-lg-6 col-xl-4">
+                <div class="form-group">
+                    <label for="carousel-speed">Carousel Speed <span
+                            class="text-muted">(milliseconds)</span></label>
+                    <input id="carousel-speed" class="form-control" type="number"/>
+                </div>
+                <div class="form-group">
+                    <label for="carousel-slides-to-show">Slides to Show</label>
+                    <input id="carousel-slides-to-show" class="form-control" type="number"/>
+                </div>
+                <div class="form-group">
+                    <label for="carousel-slides-to-scroll">Slides to Scroll</label>
+                    <input id="carousel-slides-to-scroll" class="form-control" type="number"/>
+                </div>
+                <div class="form-group">
+                    <label for="carousel-rows">Rows</label>
+                    <input id="carousel-rows" class="form-control" type="number"/>
+                </div>
+            </div>
+            <div class="col-lg-6 col-xl-4 d-flex flex-column justify-content-between">
+                <div class="custom-control custom-checkbox">
+                    <input type="checkbox" class="custom-control-input" id="carousel-autoplay">
+                    <label class="custom-control-label" for="carousel-autoplay">Autoplay</label>
+                </div>
+                <div class="custom-control custom-checkbox">
+                    <input type="checkbox" class="custom-control-input" id="carousel-infinite-loop">
+                    <label class="custom-control-label" for="carousel-infinite-loop">Infinite Loop</label>
+                </div>
+                <div class="custom-control custom-checkbox">
+                    <input type="checkbox" class="custom-control-input" id="carousel-show-dots">
+                    <label class="custom-control-label" for="carousel-show-dots">Show Dots</label>
+                </div>
+                <div class="custom-control custom-checkbox">
+                    <input type="checkbox" class="custom-control-input" id="carousel-show-arrows">
+                    <label class="custom-control-label" for="carousel-show-arrows">Show Arrows</label>
+                </div>
+                <div class="custom-control custom-checkbox">
+                    <input type="checkbox" class="custom-control-input" id="carousel-center-mode">
+                    <label class="custom-control-label" for="carousel-center-mode">Center Mode</label>
+                </div>
+                <div class="custom-control custom-checkbox">
+                    <input type="checkbox" class="custom-control-input" id="carousel-fade-transition">
+                    <label class="custom-control-label" for="carousel-fade-transition">Fade Transition</label>
+                </div>
+            </div>
+        </div>
+    </form>
+</div>
+<div class="modal-footer">
+    <button type="button" class="btn btn-primary" (click)="modal.close('Save Carousel')">Add Carousel</button>
+</div>

@@ -32,7 +32,7 @@
                 "output": "/tinymce/"
               }
             ],
-            "styles": ["src/styles.scss"],
+            "styles": ["src/styles/main.scss"],
             "scripts": [
               "node_modules/tinymce/tinymce.min.js",
               "./plugin/dist/plugin.min.js"
@@ -94,7 +94,7 @@
             "tsConfig": "tsconfig.spec.json",
             "karmaConfig": "karma.conf.js",
             "assets": ["src/favicon.ico", "src/assets"],
-            "styles": ["src/styles.scss"],
+            "styles": ["src/styles/main.scss"],
             "scripts": []
           }
         },

@@ -1,10 +1,12 @@
-import { Component, OnInit, Input, ViewEncapsulation } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { AssetPickerComponent } from '../asset-picker/asset-picker.component';
+import { CarouselEditorComponent } from '../carousel-editor/carousel-editor.component';
 
 @Component({
   selector: 'cms-html-editor',
   templateUrl: './html-editor.component.html',
-  styleUrls: ['../../../styles/main.scss'],
-  encapsulation: ViewEncapsulation.None, // TODO: remove this later, just want to make sure this works with new build
+  styleUrls: ['./html-editor.component.scss'],
 })
 export class HtmlEditorComponent implements OnInit {
   @Input() renderSiteUrl: string;
@@ -44,17 +46,17 @@ export class HtmlEditorComponent implements OnInit {
     importcss_append: true,
     toolbar_mode: 'sliding',
 
-    /**
-     * Allows user to browse and select images from ordercloud cms
-     */
-    file_picker_callback: function(callback, value, meta) {
-      // importing tinymce breaks things so we have to use instance from window
-      window['tinymce'].execCommand('ocAssetPicker', true, {
-        callback,
-        value,
-        meta
-      });
-    },
+    // /**
+    //  * Allows user to browse and select images from ordercloud cms
+    //  */
+    // file_picker_callback: function(callback, value, meta) {
+    //   // importing tinymce breaks things so we have to use instance from window
+    //   window['tinymce'].execCommand('ocAssetPicker', true, {
+    //     callback,
+    //     value,
+    //     meta
+    //   });
+    // },
 
     /**
      * Adds an advanced tab to set things like style/border/space
@@ -81,7 +83,8 @@ export class HtmlEditorComponent implements OnInit {
     imagetools_cors_hosts: ['marktplacetest.blob.core.windows.net']
   };
 
-  constructor() {}
+  constructor(private modalService: NgbModal) {
+  }
 
   ngOnInit(): void {
     Object.assign(
@@ -89,5 +92,20 @@ export class HtmlEditorComponent implements OnInit {
       this.defaultEditorOptions,
       this.editorOptions
     );
+
+    this.resolvedEditorOptions.file_picker_callback = this.openAssetPicker.bind(this);
+    this.resolvedEditorOptions.ordercloud.open_carousel_editor = this.openCarouselEditor.bind(this);
+  }
+
+  openAssetPicker(callback, value, meta) {
+    const modalRef = this.modalService.open(AssetPickerComponent);
+    modalRef.componentInstance.onSuccess = callback;
+    modalRef.componentInstance.fileMeta = meta;
+  }
+
+  openCarouselEditor(callback, value, meta) {
+    const modalRef = this.modalService.open(CarouselEditorComponent, {size: 'xl'});
+    modalRef.componentInstance.onSuccess = callback;
+    modalRef.componentInstance.fileMeta = meta;
   }
 }
