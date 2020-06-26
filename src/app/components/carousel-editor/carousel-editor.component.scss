@@ -13,9 +13,7 @@ $slide-selected-color: #ffe600;
 .form-group {
   margin-bottom: .6rem;
   display: flex;
-}
 
-.form-group {
   label {
       flex-grow: 1;
   }
@@ -32,9 +30,6 @@ $slide-selected-color: #ffe600;
     max-height: 2 * $slide-row-height;
     overflow-y: auto;
     cursor: move;
-    .slide:first-child {
-      cursor: pointer;
-    }
 }
 
 .slide-selected {
@@ -69,13 +64,11 @@ $slide-selected-color: #ffe600;
     border-radius: 50%;
     text-align: center;
   }
+}
 
-  // used on add slide icon
-  .icon-add_circle {
-    color: darken($slide-bg, 20%);
-    font-size: 32px;
-    position: absolute;
-    left: $slide-width/2 - 16px; // 16px is half width of icon
-    top: $slide-height/2 - 20.5px; // 20.5px is half height of icon
+.carousel-btn-group {
+  margin: 15px 0;
+  button:first-child {
+    margin-right: 10px;
   }
 }

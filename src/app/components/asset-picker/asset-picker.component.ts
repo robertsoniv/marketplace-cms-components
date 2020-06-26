@@ -4,7 +4,7 @@ import { MarketplaceSDK } from 'marketplace-javascript-sdk';
 import * as MarketplaceSdkInstance from 'marketplace-javascript-sdk';
 import { FormGroup, FormBuilder } from '@angular/forms';
 import { debounceTime, takeWhile, filter } from 'rxjs/operators';
-
+import { NgxSpinnerService } from "ngx-spinner";
 
 @Component({
   selector: 'cms-asset-picker',
@@ -12,6 +12,7 @@ import { debounceTime, takeWhile, filter } from 'rxjs/operators';
   styleUrls: ['./asset-picker.component.scss']
 })
 export class AssetPickerComponent implements OnInit, OnDestroy {
+  loading = true;
   alive = true;
   previousSearchTerm = ''
   searchForm: FormGroup
@@ -22,19 +23,21 @@ export class AssetPickerComponent implements OnInit, OnDestroy {
     filters: {}
   }
 
-  constructor(public modal: NgbActiveModal, private formBuilder: FormBuilder,) { }
+  constructor(public modal: NgbActiveModal, private formBuilder: FormBuilder, private spinner: NgxSpinnerService) { }
 
   
 
   ngOnInit(): void {
-    this.searchForm = this.formBuilder.group({search: ''})
-    this.onFormChanges();
-    this.changePage(1);
     // TODO: remove this - won't be necessary once modal bug is fixed
     MarketplaceSdkInstance.Configuration.Set({
       baseApiUrl: 'https://marketplace-middleware-test.azurewebsites.net',
     });
-    MarketplaceSDK.Tokens.SetAccessToken('eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ1c3IiOiJjcmhpc3RpYW5zdXBwbGllcjQxMTA2IiwiY2lkIjoiN2UwZmQ2MmItOWRkOS00OTM5LTllMGItMjZkODgyZmMzNTA4IiwiaW1wIjoiMTE3NyIsInUiOiIxODEyNjMwIiwidXNydHlwZSI6InN1cHBsaWVyIiwicm9sZSI6WyJCdXllclJlYWRlciIsIk1lQWRtaW4iLCJPcmRlckFkbWluIiwiUGFzc3dvcmRSZXNldCIsIlByaWNlU2NoZWR1bGVBZG1pbiIsIlByaWNlU2NoZWR1bGVSZWFkZXIiLCJQcm9kdWN0QWRtaW4iLCJQcm9kdWN0UmVhZGVyIiwiUHJvbW90aW9uQWRtaW4iLCJQcm9tb3Rpb25SZWFkZXIiLCJTaGlwbWVudEFkbWluIiwiU3VwcGxpZXJBZGRyZXNzUmVhZGVyIiwiU3VwcGxpZXJSZWFkZXIiLCJTdXBwbGllclVzZXJSZWFkZXIiXSwiaXNzIjoiaHR0cHM6Ly9hdXRoLm9yZGVyY2xvdWQuaW8iLCJhdWQiOiJodHRwczovL2FwaS5vcmRlcmNsb3VkLmlvIiwiZXhwIjoxNTkzMDM4MjM0LCJuYmYiOjE1OTMwMDk0MzR9.p4057pRwkcn2PMKs5hU75E-gjYD5ybRHMTsXOfnDGds');
+    MarketplaceSDK.Tokens.SetAccessToken('eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ1c3IiOiJjcmhpc3RpYW5zdXBwbGllcjQxMTA2IiwiY2lkIjoiN2UwZmQ2MmItOWRkOS00OTM5LTllMGItMjZkODgyZmMzNTA4IiwiaW1wIjoiMTE3NyIsInUiOiIxODEyNjMwIiwidXNydHlwZSI6InN1cHBsaWVyIiwicm9sZSI6WyJCdXllclJlYWRlciIsIk1lQWRtaW4iLCJPcmRlckFkbWluIiwiUGFzc3dvcmRSZXNldCIsIlByaWNlU2NoZWR1bGVBZG1pbiIsIlByaWNlU2NoZWR1bGVSZWFkZXIiLCJQcm9kdWN0QWRtaW4iLCJQcm9kdWN0UmVhZGVyIiwiUHJvbW90aW9uQWRtaW4iLCJQcm9tb3Rpb25SZWFkZXIiLCJTaGlwbWVudEFkbWluIiwiU3VwcGxpZXJBZGRyZXNzUmVhZGVyIiwiU3VwcGxpZXJSZWFkZXIiLCJTdXBwbGllclVzZXJSZWFkZXIiXSwiaXNzIjoiaHR0cHM6Ly9hdXRoLm9yZGVyY2xvdWQuaW8iLCJhdWQiOiJodHRwczovL2FwaS5vcmRlcmNsb3VkLmlvIiwiZXhwIjoxNTkzMTM2MjYzLCJuYmYiOjE1OTMxMDc0NjN9.mEPzw1uMQIwj3u74_92ZmjhCmyR6QuDWIqc7RRA81yI');
+    
+    
+    this.searchForm = this.formBuilder.group({search: ''})
+    this.onFormChanges();
+    this.changePage(1);
   }
 
   onFormChanges() {
@@ -58,10 +61,16 @@ export class AssetPickerComponent implements OnInit, OnDestroy {
   }
 
   changePage(page: number) {
+    this.loading = true;
+    this.spinner.show();
     this.parameters.page = page;
-    return MarketplaceSDK.Assets.List(this.parameters)
+    return MarketplaceSDK.Assets.List(this.parameters, 'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ1c3IiOiJjcmhpc3RpYW5zdXBwbGllcjQxMTA2IiwiY2lkIjoiN2UwZmQ2MmItOWRkOS00OTM5LTllMGItMjZkODgyZmMzNTA4IiwiaW1wIjoiMTE3NyIsInUiOiIxODEyNjMwIiwidXNydHlwZSI6InN1cHBsaWVyIiwicm9sZSI6WyJCdXllclJlYWRlciIsIk1lQWRtaW4iLCJPcmRlckFkbWluIiwiUGFzc3dvcmRSZXNldCIsIlByaWNlU2NoZWR1bGVBZG1pbiIsIlByaWNlU2NoZWR1bGVSZWFkZXIiLCJQcm9kdWN0QWRtaW4iLCJQcm9kdWN0UmVhZGVyIiwiUHJvbW90aW9uQWRtaW4iLCJQcm9tb3Rpb25SZWFkZXIiLCJTaGlwbWVudEFkbWluIiwiU3VwcGxpZXJBZGRyZXNzUmVhZGVyIiwiU3VwcGxpZXJSZWFkZXIiLCJTdXBwbGllclVzZXJSZWFkZXIiXSwiaXNzIjoiaHR0cHM6Ly9hdXRoLm9yZGVyY2xvdWQuaW8iLCJhdWQiOiJodHRwczovL2FwaS5vcmRlcmNsb3VkLmlvIiwiZXhwIjoxNTkzMTM2MjYzLCJuYmYiOjE1OTMxMDc0NjN9.mEPzw1uMQIwj3u74_92ZmjhCmyR6QuDWIqc7RRA81yI')
       .then(assetList => {
         this.list = assetList;
+      })
+      .finally(() => {
+        this.loading = false;
+        this.spinner.hide()
       })
   }
   

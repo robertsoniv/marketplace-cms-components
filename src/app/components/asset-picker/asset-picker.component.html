@@ -12,7 +12,7 @@
                 placeholder="Search for an asset by title">
         </div>
     </form>
-    <div *ngIf="!list?.Items?.length">
+    <div *ngIf="!list?.Items?.length && !loading">
         <div class="no-results-well">
             <p class="no-results-well_msg text-center">
                 No Assets were found
@@ -30,8 +30,8 @@
             (pageChange)="changePage($event)">
         </ngb-pagination>
     </div>
-
 </div>
 <div class="modal-footer">
     <button type="button" class="btn btn-primary" (click)="modal.dismiss()">Close</button>
 </div>
+<ngx-spinner class="asset-picker-spinner" type = "ball-beat" bdColor="rgba(255, 255, 255, 0.38)" color="#969696" [fullScreen]="false"></ngx-spinner>
