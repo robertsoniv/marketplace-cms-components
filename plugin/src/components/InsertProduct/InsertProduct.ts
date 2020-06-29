@@ -1,17 +1,19 @@
 declare const fetch: any;
 import tinymce from 'tinymce';
+import {
+  OC_TINYMCE_WIDGET_ATTRIBUTE,
+  OC_TINYMCE_PRODUCT_WIDGET_ID
+} from '../../constants/widget.constants';
+import { isWidgetType } from '../../services/widget.service';
 
 export default (editor, url) => {
   const fetchOptions = {
     method: 'GET',
     headers: {
       'Content-Type': 'application/json',
-      'Authorization': `Bearer ${editor.settings.ordercloud.access_token}`,
-    },
+      Authorization: `Bearer ${editor.settings.ordercloud.access_token}`
+    }
   };
-
-  const OC_TINYMCE_WIDGET_ATTRIBUTE = 'data-oc-widget';
-  const OC_TINYMCE_PRODUCT_WIDGET_ID = 'product-display';
 
   const buildProductDisplayHtml = (product: any) => {
     return `
@@ -33,16 +35,7 @@ export default (editor, url) => {
       </div><br/>`;
   };
 
-  function isWidgetType(node: any, type: string) {
-    let widgetName =
-      typeof node.attr === 'function'
-        ? node.attr(OC_TINYMCE_WIDGET_ATTRIBUTE)
-        : editor.dom.getAttrib(node, OC_TINYMCE_WIDGET_ATTRIBUTE);
-    const re = new RegExp(`\\b${type}\\b`);
-    return widgetName && re.test(widgetName);
-  }
-
-  const openDialog = function (
+  const openDialog = function(
     error: boolean,
     initialProducts?: any[],
     selectedProductId?: string
@@ -64,8 +57,8 @@ export default (editor, url) => {
             level: 'error',
             icon: 'warning',
             text:
-              "There was a problem connecting to OrderCloud. Please check that you've provided a valid token.",
-          },
+              "There was a problem connecting to OrderCloud. Please check that you've provided a valid token."
+          }
         ];
       }
       return [
@@ -73,13 +66,13 @@ export default (editor, url) => {
           label: 'Search',
           type: 'input',
           name: 'productSearch',
-          placeholder: 'Search for a product...',
+          placeholder: 'Search for a product...'
         },
         {
           type: 'label',
           label: 'Choose a product',
-          items: buildProducts(products),
-        },
+          items: buildProducts(products)
+        }
       ];
     }
 
@@ -87,7 +80,7 @@ export default (editor, url) => {
       return products.map(p => ({
         type: 'checkbox',
         name: `product__${p.ID}`,
-        label: `${p.Name}`,
+        label: `${p.Name}`
       }));
     }
 
@@ -155,24 +148,24 @@ export default (editor, url) => {
       // size: 'large',
       body: {
         type: 'panel',
-        items: buildItems(error, initialProducts),
+        items: buildItems(error, initialProducts)
       },
       initialData: {
-        productSearch: '',
+        productSearch: ''
       },
       buttons: [
         {
           type: 'cancel',
-          text: 'Close',
+          text: 'Close'
         },
         {
           type: 'submit',
           text: 'Save',
-          primary: true,
-        },
+          primary: true
+        }
       ],
       onChange,
-      onSubmit,
+      onSubmit
     };
 
     function redialOptions(e: boolean, search?: string, p?: any[]) {
@@ -192,7 +185,7 @@ export default (editor, url) => {
     return editor.windowManager.open(initialOptions);
   };
 
-  const initDialog = function (selectedProductId?: string) {
+  const initDialog = function(selectedProductId?: string) {
     fetch(`https://api.ordercloud.io/v1/me/products`, fetchOptions).then(
       response => {
         if (response.ok) {
@@ -206,12 +199,19 @@ export default (editor, url) => {
     );
   };
 
+  editor.ui.registry.addIcon(
+    'insert-product',
+    '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="black" width="18px" height="18px"><path d="M0 0h24v24H0z" fill="none"/><path d="M3 13h2v-2H3v2zm0 4h2v-2H3v2zm2 4v-2H3c0 1.1.89 2 2 2zM3 9h2V7H3v2zm12 12h2v-2h-2v2zm4-18H9c-1.11 0-2 .9-2 2v10c0 1.1.89 2 2 2h10c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm0 12H9V5h10v10zm-8 6h2v-2h-2v2zm-4 0h2v-2H7v2z"/></svg>'
+  );
+
   editor.ui.registry.addButton('oc-product', {
-    text: 'Insert a Product',
+    icon: 'insert-product',
+    text: 'Product',
+    tooltip: 'Insert a Product',
     onAction: () => {
       // tslint:disable-next-line:no-console
       initDialog();
-    },
+    }
   });
 
   editor.ui.registry.addButton('oc-product-change', {
@@ -223,7 +223,7 @@ export default (editor, url) => {
         'data-oc-product-id'
       );
       initDialog(productId);
-    },
+    }
   });
 
   editor.ui.registry.addButton('oc-product-refresh', {
@@ -248,27 +248,27 @@ export default (editor, url) => {
           alert('Product Not Found');
         }
       });
-    },
+    }
   });
 
   editor.ui.registry.addButton('oc-product-remove', {
-    icon: 'close',
+    icon: 'remove',
     tooltip: 'Remove Product',
     onAction: () => {
       editor.selection.setNode(editor.dom.create('p'));
-    },
+    }
   });
 
   editor.ui.registry.addContextToolbar('oc-product', {
-    predicate: node => isWidgetType(node, OC_TINYMCE_PRODUCT_WIDGET_ID),
+    predicate: node => isWidgetType(editor, node, OC_TINYMCE_PRODUCT_WIDGET_ID),
     items: 'oc-product-remove | oc-product-refresh oc-product-change',
     position: 'node',
-    scope: 'node',
+    scope: 'node'
   });
 
-  editor.on('preInit', function () {
+  editor.on('preInit', function() {
     function toggleContentEditableState(state) {
-      return function (nodes) {
+      return function(nodes) {
         let i = nodes.length,
           node;
 
@@ -279,7 +279,7 @@ export default (editor, url) => {
         while (i--) {
           node = nodes[i];
 
-          if (isWidgetType(node, OC_TINYMCE_PRODUCT_WIDGET_ID)) {
+          if (isWidgetType(editor, node, OC_TINYMCE_PRODUCT_WIDGET_ID)) {
             node.attr('contenteditable', state ? 'false' : null);
             tinymce.each(node.getAll('a'), toggleContentEditable);
           }
