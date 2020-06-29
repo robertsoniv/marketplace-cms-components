@@ -1,9 +1,10 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, ViewEncapsulation } from '@angular/core';
 
 @Component({
   selector: 'cms-html-editor',
   templateUrl: './html-editor.component.html',
-  styleUrls: ['./html-editor.component.scss']
+  styleUrls: ['../../../styles/main.scss'],
+  encapsulation: ViewEncapsulation.None, // TODO: remove this later, just want to make sure this works with new build
 })
 export class HtmlEditorComponent implements OnInit {
   @Input() renderSiteUrl: string;

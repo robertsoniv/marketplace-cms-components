@@ -1,0 +1,117 @@
+  /* Carousel Editor */
+  
+  #cms-carousel-editor-container {
+    // background-color: #F8F8F8;
+    margin: 10px 50px;
+  
+    .slides-container {
+      width: 50%;
+    }
+  
+    .slide-edit-form {
+      width: 50%;
+      padding-left: 150px;
+      @media(max-width: 1097px) {
+        padding-left: 50px;
+      }
+    }
+  
+    .slides {
+      display: grid;
+      margin: 0px (-$slide-margin);
+      grid-template-columns: repeat(auto-fit, minmax($slide-row-height, $slide-row-height));
+      max-height: 2 * $slide-row-height;
+      overflow-y: auto;
+      cursor: move;
+      .slide:first-child {
+        cursor: pointer;
+      }
+    }
+  
+    .slide-selected {
+      -webkit-box-shadow: 0px 0px 17px -3px $slide-selected-color;
+      -moz-box-shadow: 0px 0px 17px -3px $slide-selected-color;
+      box-shadow: 0px 0px 17px -3px $slide-selected-color;
+    }
+  
+    .slide {
+      margin: $slide-margin;
+      height: $slide-height;
+      width: $slide-width;
+      border-radius: 15px;
+      background-color: $slide-bg;
+      position: relative;
+      img {
+        object-fit: cover;
+        height: 100%;
+        width: 100%;
+        border-radius: 15px;
+      }
+  
+      .icon-delete_forever {
+        cursor: pointer;
+        position: absolute;
+        top: -7px;
+        right: -7px;
+        color: white;
+        background-color: #FF4158;
+        width: 25px;
+        height: 25px;
+        border-radius: 50%;
+        text-align: center;
+      }
+  
+      // used on add slide icon
+      .icon-add_circle {
+        color: darken($slide-bg, 20%);
+        font-size: 32px;
+        position: absolute;
+        left: $slide-width/2 - 16px; // 16px is half width of icon
+        top: $slide-height/2 - 20.5px; // 20.5px is half height of icon
+      }
+    }
+  
+    .divider {
+      margin-top: 30px;
+      margin-bottom: 20px;
+      width: 100%;
+      border: 1px solid #96969659;
+    }
+  
+    .input-group {
+      margin: 10px 0;
+      display: flex;
+  
+      label {
+        flex-grow: 1;
+        font-size: 14px;
+      }
+      input {
+        max-width: 250px;
+        height: 24px;
+        min-height: auto;
+      }
+    }
+  
+    .settings-form {
+      margin: 10px -40px;
+      display: flex;
+      max-height: 200px;
+      overflow-y: auto;
+      overflow-x: hidden;
+      .input-group {
+        input {
+          max-width: 100px;
+        }
+      }
+    }
+  
+    .tox-checkbox {
+      height: 30px;
+    }
+  
+    .settings-col {
+      width: 30%;
+      margin: 0 40px;
+    }
+  }

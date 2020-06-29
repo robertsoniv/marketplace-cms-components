@@ -1,3 +1,7 @@
+import 'jquery';
+import 'slick-carousel';
+import 'slick-carousel/slick/slick.css';
+
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
