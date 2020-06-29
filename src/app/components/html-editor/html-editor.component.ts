@@ -4,7 +4,7 @@ import { Component, OnInit, Input, ViewEncapsulation } from '@angular/core';
   selector: 'cms-html-editor',
   templateUrl: './html-editor.component.html',
   styleUrls: ['../../../styles/main.scss'],
-  encapsulation: ViewEncapsulation.None, // TODO: remove this later, just want to make sure this works with new build
+  encapsulation: ViewEncapsulation.None // TODO: remove this later, just want to make sure this works with new build
 })
 export class HtmlEditorComponent implements OnInit {
   @Input() renderSiteUrl: string;
@@ -25,16 +25,18 @@ export class HtmlEditorComponent implements OnInit {
       'ordercloud print preview paste importcss searchreplace autolink autosave save directionality',
       'code visualblocks visualchars fullscreen image link media template codesample table charmap',
       'hr pagebreak nonbreaking anchor toc insertdatetime advlist lists wordcount imagetools',
-      'textpattern noneditable help charmap quickbars emoticons'
+      'textpattern noneditable help charmap emoticons'
     ],
     menubar: 'file edit view insert format tools table help',
-    toolbar:
-      'oc-carousel oc-product undo redo | bold italic underline strikethrough | fontselect fontsizeselect formatselect | alignleft aligncenter alignright alignjustify | outdent indent |  numlist bullist | forecolor backcolor removeformat',
+    toolbar: [
+      'oc-carousel oc-product',
+      'undo redo | bold italic underline strikethrough | fontselect fontsizeselect formatselect | alignleft aligncenter alignright alignjustify | outdent indent |  numlist bullist | forecolor backcolor removeformat'
+    ],
     quickbars_selection_toolbar:
       'bold italic | quicklink h2 h3 blockquote quickimage quicktable',
     imagetools_toolbar:
       'rotateleft rotateright | flipv fliph | editimage imageoptions',
-    contextmenu: 'link image imagetools table oc-product',
+    contextmenu: 'link image imagetools table oc-product oc-row oc-col',
     toolbar_sticky: true,
     autosave_ask_before_unload: true,
     autosave_interval: '30s',
