@@ -1,0 +1,17 @@
+@import url('https://mgrstoragetest.azureedge.net/buyerweb/styles.e94215343d3493186ae1.css');
+
+.section-template-renderer_content {
+  pointer-events: none;
+}
+
+.section-template-renderer_root {
+  border: 2px solid transparent;
+  border-radius: 4px;
+  overflow: hidden;
+  padding: 5px;
+  margin-bottom: 15px;
+
+  &.selected {
+    border-color: blue;
+  }
+}

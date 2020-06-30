@@ -6,6 +6,7 @@ import InsertProduct from './components/InsertProduct/InsertProduct';
 import InsertRow from './components/InsertRow/InsertRow';
 import Commands from './commands/index';
 import MarketplaceSdk from './config/MarketPlaceSdk.config';
+import InsertSection from './components/InsertSection/InsertSection';
 
 tinymce.PluginManager.add('ordercloud', function(editor, url) {
   /**
@@ -16,5 +17,6 @@ tinymce.PluginManager.add('ordercloud', function(editor, url) {
   MarketplaceSdk(editor);
   InsertProduct(editor, url);
   InsertRow(editor, url);
+  InsertSection(editor);
   Commands(editor);
 });
