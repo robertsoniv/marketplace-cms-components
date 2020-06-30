@@ -17,7 +17,6 @@ export class BgColorDirective implements OnInit {
         const color = new Color(this.cmsBgColor);
         this.el.nativeElement.style.backgroundColor = color.hex();
       } catch (ex) {
-        console.log(ex);
         throw ex;
       }
     }

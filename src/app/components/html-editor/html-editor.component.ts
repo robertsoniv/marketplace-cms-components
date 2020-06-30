@@ -1,10 +1,13 @@
-import { Component, OnInit, Input, ViewEncapsulation } from '@angular/core';
+import { Component, OnInit, Input, NgZone } from '@angular/core';
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { AssetPickerComponent } from '../asset-picker/asset-picker.component';
+import { CarouselEditorComponent } from '../carousel-editor/carousel-editor.component';
+import { v4 as guid } from 'uuid';
 
 @Component({
   selector: 'cms-html-editor',
   templateUrl: './html-editor.component.html',
-  styleUrls: ['../../../styles/main.scss'],
-  encapsulation: ViewEncapsulation.None // TODO: remove this later, just want to make sure this works with new build
+  styleUrls: ['./html-editor.component.scss'],
 })
 export class HtmlEditorComponent implements OnInit {
   @Input() renderSiteUrl: string;
@@ -12,13 +15,41 @@ export class HtmlEditorComponent implements OnInit {
   @Input() editorOptions: any;
   resolvedEditorOptions: any = {};
 
+  tinymceId = `tiny-angular_${guid()}`
+
   defaultEditorOptions = {
-    marketplaceUrl: 'https://marketplace-middleware-test.azurewebsites.net',
     base_url: '/tinymce',
     suffix: '.min',
     content_css:
       'https://mgrstoragetest.azureedge.net/buyerweb/styles.e94215343d3493186ae1.css',
-    content_style: 'body {padding:15px !important;}',
+    content_style: `
+    body {
+      padding:15px !important;
+    }
+    #tinymce[contenteditable="true"] .c-slide-container img { 
+      display: none;
+    }
+
+    #tinymce[contenteditable="true"] .c-slide-container {
+      position: relative;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    #tinymce[contenteditable="true"] .c-slide-container::before {
+      content: '';
+      width: 100%;
+      height: 200px;
+      position: absolute;
+      background-color: lightgray;
+    }
+    #tinymce[contenteditable="true"] .c-slide-container::after {
+      font-weight: bold;
+      content: 'Carousel preview not available in edit mode. Click View > Preview';
+      z-index: 0;
+    }
+    `,
     height: 500,
 
     plugins: [
@@ -45,18 +76,19 @@ export class HtmlEditorComponent implements OnInit {
     autosave_retention: '2m',
     importcss_append: true,
     toolbar_mode: 'sliding',
+    extended_valid_elements : "script[src|async|defer|type|charset]",
 
-    /**
-     * Allows user to browse and select images from ordercloud cms
-     */
-    file_picker_callback: function(callback, value, meta) {
-      // importing tinymce breaks things so we have to use instance from window
-      window['tinymce'].execCommand('ocAssetPicker', true, {
-        callback,
-        value,
-        meta
-      });
-    },
+    // /**
+    //  * Allows user to browse and select images from ordercloud cms
+    //  */
+    // file_picker_callback: function(callback, value, meta) {
+    //   // importing tinymce breaks things so we have to use instance from window
+    //   window['tinymce'].execCommand('ocAssetPicker', true, {
+    //     callback,
+    //     value,
+    //     meta
+    //   });
+    // },
 
     /**
      * Adds an advanced tab to set things like style/border/space
@@ -83,13 +115,37 @@ export class HtmlEditorComponent implements OnInit {
     imagetools_cors_hosts: ['marktplacetest.blob.core.windows.net']
   };
 
-  constructor() {}
+  constructor(private modalService: NgbModal, public zone: NgZone) {
+  }
 
   ngOnInit(): void {
+    const classContext = this;
     Object.assign(
       this.resolvedEditorOptions,
       this.defaultEditorOptions,
       this.editorOptions
     );
+
+    this.resolvedEditorOptions.file_picker_callback = this.openAssetPicker.bind(this);
+    this.resolvedEditorOptions.ordercloud.open_carousel_editor = (editor) => {
+      this.zone.run(() => {
+        // we need to manually trigger change detection
+        // because this is running outside of the scope of angular
+        this.openCarouselEditor.bind(this)(editor, classContext)
+      })
+    }
+  }
+
+  openAssetPicker(callback, value, meta) {
+    const modalRef = this.modalService.open(AssetPickerComponent);
+    modalRef.componentInstance.onSuccess = callback;
+    modalRef.componentInstance.fileMeta = meta;
+  }
+
+  openCarouselEditor(editor) {
+    const modalRef = this.modalService.open(CarouselEditorComponent, {size: 'xl'});
+    modalRef.result.then((html) => {
+      editor.insertContent(html);
+    })
   }
 }

@@ -26,8 +26,9 @@ export const BasicExample = () => ({
   props: {
     ocToken: '',
     initialValue: '',
-    remoteCss:
-      'https://mgrstoragetest.azureedge.net/buyerweb/styles.e94215343d3493186ae1.css'
+    // remoteCss:
+    //   'https://mgrstoragetest.azureedge.net/buyerweb/styles.e94215343d3493186ae1.css'
+    content_css: 'https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.9.0/slick.min.css',
   }
 });
 
