@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, NgZone } from '@angular/core';
 import { NgbActiveModal, NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { AssetPickerComponent } from '../asset-picker/asset-picker.component';
 import { CarouselSlide } from 'src/app/models/CarouselSlide.interface';
@@ -33,14 +33,15 @@ export class CarouselEditorComponent implements OnInit {
     fade: true
   };
   constructor(
-    public modal: NgbActiveModal, 
-    private modalService: NgbModal, 
-    private formBuilder: FormBuilder
-    ) {}
+    public modal: NgbActiveModal,
+    private modalService: NgbModal,
+    private formBuilder: FormBuilder,
+    public zone: NgZone
+  ) { }
 
   ngOnInit(): void {
     this.carouselSettingsForm = this.formBuilder.group(this.carouselSettings)
-    this.slideEditForm = this.formBuilder.group({Heading: '', Subheading: '', ActionText: '', ActionUrl: ''})
+    this.slideEditForm = this.formBuilder.group({ Heading: '', Subheading: '', ActionText: '', ActionUrl: '' })
     this.onSlideEditFormChanges();
     this.onCarouselSettingsFormChanges();
   }
@@ -48,7 +49,7 @@ export class CarouselEditorComponent implements OnInit {
   onSlideEditFormChanges() {
     this.slideEditForm.valueChanges.subscribe(formValues => {
       const index = this.getSlideIndex(this.selectedSlide)
-      this.slides[index] = {...this.selectedSlide, ...formValues}
+      this.slides[index] = { ...this.selectedSlide, ...formValues }
     })
   }
 
@@ -59,36 +60,44 @@ export class CarouselEditorComponent implements OnInit {
   }
 
   addCarousel() {
-    const html = this.buildCarouselHtml();
-    console.log(html);
+    const carouselId = `oc-carousel-${guid()}`;
+    const html = this.buildCarouselHtml.bind(this)(carouselId)
+    this.modal.close(html);
   }
 
-  buildCarouselHtml() {
-    const carouselClassName = `oc-carousel-${guid()}`;
+  buildCarouselHtml(carouselId) {
     return `
-    <div class="${carouselClassName}">
-      ${this.slides.map(slide => {
-        return `
-        <div class="c-slide-container">
-          <img src=${slide.ImageUrl} title=${slide.ImageTitle}></img>
-          ${slide.Heading ? `<h1>${slide.Heading}</h1>` : ``}
-          ${slide.Subheading ? `<h2>${slide.Heading}</h2>` : ``}
-          ${slide.ActionUrl && slide.ActionText ? `<a href="${slide.ActionUrl}">${slide.ActionText}</a>` : ``}
-        </div>
-        `
-      }).join('')}
-    </div>
+    <div class="carousel-wrapper" contenteditable="false">
+      <div id="${carouselId}">
+        ${this.slides.map(slide => {
+          return `
+            <div class="c-slide-container">
+              <img src="${slide.ImageUrl}" title="${slide.ImageTitle}"/>
+              ${slide.Heading ? `<h1>${slide.Heading}</h1>` : ``}
+              ${slide.Subheading ? `<h2>${slide.Heading}</h2>` : ``}
+              ${slide.ActionUrl && slide.ActionText ? `<a href="${slide.ActionUrl}">${slide.ActionText}</a>` : ``}
+            </div>
+            `
+        }).join('')}
+      </div>
+    <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.9.0/slick.min.css"/>
+    <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.9.0/slick-theme.min.css"/>
+    <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.9.0/slick.min.js"></script>
     <script>
-      $('.${carouselClassName}').slick(${JSON.stringify(this.carouselSettings)})
+      $(document).ready(function() {
+        $('#${carouselId}').slick({slidesToShow: 3});
+      });
     </script>
+    </div>
     `
   }
 
   deleteSlide(slide: CarouselSlide) {
     this.slides = this.slides.filter(s => s.ID !== slide.ID)
-    if(this.isSelected(slide)) {
+    if (this.isSelected(slide)) {
       delete this.selectedSlide;
-      if(this.slides.length) {
+      if (this.slides.length) {
         this.selectedSlide = this.slides[this.slides.length - 1];
       }
     }
@@ -107,19 +116,15 @@ export class CarouselEditorComponent implements OnInit {
     })
   }
 
-  openProductPicker() {
-    console.log('Product picker clicked');
-  }
-
   getSlideIndex(slide: CarouselSlide) {
     return this.slides.map(a => a.ID).indexOf(slide.ID);
   }
 
   isSelected(slide: CarouselSlide) {
-    if(!slide) {
+    if (!slide) {
       return false;
     }
-    if(!this.selectedSlide) {
+    if (!this.selectedSlide) {
       return false;
     }
     return this.selectedSlide.ID === slide.ID;

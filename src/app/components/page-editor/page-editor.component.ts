@@ -31,7 +31,6 @@ export class PageEditorComponent implements OnInit {
   constructor() {}
 
   ngOnInit(): void {
-    console.log(this.htmlEditorOnly);
     if (this.pageContentDoc) {
       this.page = this.pageContentDoc;
       this.automaticUrl =
@@ -57,7 +56,6 @@ export class PageEditorComponent implements OnInit {
   }
 
   onPageNavigationChange() {
-    console.log('hit');
     if (this.pageNavigation && !this.page.NavigationTitle) {
       this.page.NavigationTitle = this.page.Title;
     }
