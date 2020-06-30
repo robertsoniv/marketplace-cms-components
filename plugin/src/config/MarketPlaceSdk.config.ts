@@ -6,9 +6,8 @@ import * as MarketplaceSdkInstance from 'marketplace-javascript-sdk';
  * and we rely on shared instance but need for local development
  */
 export default editor => {
-  debugger;
   MarketplaceSdkInstance.Configuration.Set({
-    baseApiUrl: editor.settings.ordercloud.marketplaceUrl,
+    baseApiUrl: editor.settings.ordercloud.marketplaceUrl
   });
   MarketplaceSDK.Tokens.SetAccessToken(editor.settings.ordercloud.access_token);
 };
