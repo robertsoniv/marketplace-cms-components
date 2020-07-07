@@ -166,13 +166,19 @@ export class HtmlEditorComponent implements OnInit {
     const modalRef = this.modalService.open(SectionPickerComponent, {
       size: 'xl'
     });
-    modalRef.result.then(html => {
-      editor.insertContent(
-        `<div ${OC_TINYMCE_WIDGET_ATTRIBUTE}=${OC_TINYMCE_SECTION_WIDGET_ID}>
+    modalRef.result
+      .then(html => {
+        editor.insertContent(
+          `<div ${OC_TINYMCE_WIDGET_ATTRIBUTE}=${OC_TINYMCE_SECTION_WIDGET_ID}>
           ${html}
         </div>`
-      );
-    });
+        );
+      })
+      .catch(ex => {
+        if (ex === 'Cross click') {
+          return;
+        }
+      });
     modalRef.componentInstance.remoteCss = editor.settings.content_css[0];
   }
 }
