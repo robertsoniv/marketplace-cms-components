@@ -36,6 +36,11 @@ export class SectionTemplateRendererComponent implements OnInit, OnChanges {
   }
 
   ngOnChanges(changes: SimpleChanges) {
+    this.checkPreviewTransformRatio(changes);
+    this.checkRemoteCss(changes);
+  }
+
+  checkPreviewTransformRatio(changes: SimpleChanges) {
     if (
       (changes.previewTransformRatio &&
         changes.previewTransformRatio.currentValue !==
@@ -44,6 +49,17 @@ export class SectionTemplateRendererComponent implements OnInit, OnChanges {
         changes.height.currentValue !== changes.height.previousValue)
     ) {
       this.transform = `scale(${this.previewTransformRatio})`;
+      this.rootHeight = this.previewTransformRatio * (this.height + 4);
+    }
+  }
+
+  checkRemoteCss(changes: SimpleChanges) {
+    if (
+      changes.remoteCss &&
+      !changes.remoteCss.firstChange &&
+      changes.remoteCss.currentValue !== changes.remoteCss.previousValue
+    ) {
+      this.iframeSource = this.initIframeSource();
     }
   }
 
@@ -66,7 +82,7 @@ export class SectionTemplateRendererComponent implements OnInit, OnChanges {
     if (this.iframeElement) {
       const iframeDoc = this.iframeElement.nativeElement.contentWindow.document;
       this.height = iframeDoc.body.clientHeight;
-      this.rootHeight = this.height * this.previewTransformRatio;
+      this.rootHeight = (this.height + 4) * this.previewTransformRatio;
     }
   }
 }

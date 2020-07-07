@@ -5,10 +5,25 @@
 }
 
 .section-template-renderer_root {
-  border: 2px solid transparent;
-  border-radius: 4px;
+  border: 2px solid rgb(196, 196, 196);
+  border-radius: 8px;
   overflow: hidden;
   margin-bottom: 15px;
+  cursor: pointer;
+
+  &.loading {
+    position: relative;
+  }
+
+  &.loading:after {
+    content: ' ';
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: 0;
+    bottom: 0;
+    background-color: rgb(196, 196, 196);
+  }
 
   &.selected {
     border-color: blue;
