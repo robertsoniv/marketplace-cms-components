@@ -8,7 +8,7 @@ import {
   OC_TINYMCE_WIDGET_ATTRIBUTE,
   OC_TINYMCE_SECTION_WIDGET_ID
 } from 'plugin/src/constants/widget.constants';
-import { MarketplaceSDK } from 'marketplace-javascript-sdk';
+import { MarketplaceSDK, Asset } from 'marketplace-javascript-sdk';
 import * as MarketplaceSdkInstance from 'marketplace-javascript-sdk';
 
 @Component({
@@ -125,9 +125,11 @@ export class HtmlEditorComponent implements OnInit {
       baseApiUrl: this.resolvedEditorOptions.ordercloud.marketplaceUrl
     });
 
-    this.resolvedEditorOptions.file_picker_callback = this.openAssetPicker.bind(
-      this
-    );
+    this.resolvedEditorOptions.file_picker_callback = (callback, value, meta) => {
+      this.zone.run(() => {
+        this.openAssetPicker.bind(this)(callback, value, meta)
+      })
+    }
     this.resolvedEditorOptions.ordercloud.open_carousel_editor = editor => {
       this.zone.run(() => {
         // we need to manually trigger change detection
@@ -144,8 +146,17 @@ export class HtmlEditorComponent implements OnInit {
 
   openAssetPicker(callback, value, meta) {
     const modalRef = this.modalService.open(AssetPickerComponent);
-    modalRef.componentInstance.onSuccess = callback;
-    modalRef.componentInstance.fileMeta = meta;
+    modalRef.result.then((asset: Asset) => {
+      if(meta.filetype === 'image') {
+        callback(asset.Url, asset.Title)
+      } else if(meta.filetype === 'file') {
+        // TODO: do
+        console.error('Filetype is not yet implemented')
+      } else if(meta.filetype === 'media') {
+        // TODO: do
+        console.error('Filetype is not yet implemented')
+      }
+    })
   }
 
   openCarouselEditor(editor) {
