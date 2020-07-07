@@ -1,6 +1,6 @@
-@import url('https://mgrstoragetest.azureedge.net/buyerweb/styles.e94215343d3493186ae1.css');
-
-.section-template-renderer_content {
+.section-template-renderer_iframe {
+  border: none;
+  transform-origin: left top;
   pointer-events: none;
 }
 
@@ -8,7 +8,6 @@
   border: 2px solid transparent;
   border-radius: 4px;
   overflow: hidden;
-  padding: 5px;
   margin-bottom: 15px;
 
   &.selected {

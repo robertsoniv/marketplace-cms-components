@@ -168,10 +168,11 @@ export class HtmlEditorComponent implements OnInit {
     });
     modalRef.result.then(html => {
       editor.insertContent(
-        `<div contenteditable="false" ${OC_TINYMCE_WIDGET_ATTRIBUTE}=${OC_TINYMCE_SECTION_WIDGET_ID}>
-          <div contenteditable="true">${html}</div>
+        `<div ${OC_TINYMCE_WIDGET_ATTRIBUTE}=${OC_TINYMCE_SECTION_WIDGET_ID}>
+          ${html}
         </div>`
       );
     });
+    modalRef.componentInstance.remoteCss = editor.settings.content_css[0];
   }
 }

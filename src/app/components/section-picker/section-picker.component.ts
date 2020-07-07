@@ -1,6 +1,12 @@
-import { Component, OnInit, NgZone } from '@angular/core';
-import { NgbActiveModal, NgbModal } from '@ng-bootstrap/ng-bootstrap';
-import { FormGroup, FormBuilder } from '@angular/forms';
+import {
+  Component,
+  NgZone,
+  Input,
+  ViewChild,
+  ElementRef,
+  AfterViewChecked
+} from '@angular/core';
+import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 import sectionPickerMock from './section-picker.mock';
 
 @Component({
@@ -8,20 +14,41 @@ import sectionPickerMock from './section-picker.mock';
   templateUrl: './section-picker.component.html',
   styleUrls: ['./section-picker.component.scss']
 })
-export class SectionPickerComponent implements OnInit {
+export class SectionPickerComponent implements AfterViewChecked {
+  @ViewChild('list', { read: ElementRef })
+  listElement: ElementRef<HTMLDivElement>;
+  @Input() remoteCss: string;
   sectionTemplates = sectionPickerMock;
   selectedTemplateIndex: number;
-  constructor(
-    public modal: NgbActiveModal,
-    private modalService: NgbModal,
-    private formBuilder: FormBuilder,
-    public zone: NgZone
-  ) {}
+  previewWidth: number = 1024;
+  previewTransformRatio: number = 1;
+  debounceTimeout: any;
+  constructor(public modal: NgbActiveModal, public zone: NgZone) {}
 
-  ngOnInit(): void {}
+  ngAfterViewChecked(): void {
+    if (this.debounceTimeout) {
+      clearTimeout(this.debounceTimeout);
+    }
+
+    //TODO: this seems like it's getting hit way more than it should.
+    console.log('hit');
+
+    this.debounceTimeout = setTimeout(() => {
+      const transformRatio = this.determineTransformRatio();
+      if (this.previewTransformRatio !== transformRatio) {
+        this.previewTransformRatio = transformRatio;
+      }
+    }, 100);
+  }
+
+  determineTransformRatio() {
+    if (this.listElement && this.listElement.nativeElement) {
+      return this.listElement.nativeElement.clientWidth / this.previewWidth;
+    }
+    return 1;
+  }
 
   handleSelectTemplate(index) {
-    console.log('hit', index);
     this.selectedTemplateIndex = index;
   }
 

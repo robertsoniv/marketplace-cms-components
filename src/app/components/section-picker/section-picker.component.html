@@ -10,12 +10,17 @@
   </button>
 </div>
 <div class="modal-body">
-  <div *ngFor="let template of sectionTemplates; index as i">
-    <cms-section-template-renderer
-      [html]="template"
-      [selected]="i === selectedTemplateIndex"
-      (click)="handleSelectTemplate(i)"
-    ></cms-section-template-renderer>
+  <div #list class="section-picker_list">
+    <div *ngFor="let template of sectionTemplates; index as i">
+      <cms-section-template-renderer
+        [html]="template"
+        [selected]="i === selectedTemplateIndex"
+        (click)="handleSelectTemplate(i)"
+        [previewWidth]="previewWidth"
+        [previewTransformRatio]="previewTransformRatio"
+        [remoteCss]="remoteCss"
+      ></cms-section-template-renderer>
+    </div>
   </div>
 </div>
 <div class="modal-footer">

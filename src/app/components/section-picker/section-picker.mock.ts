@@ -7,6 +7,21 @@ export default [
             <a href="#" class="btn btn-link">Read More</a>
         </div>
     </div>`,
+  `<div class="container">
+        <div class="row align-items-center">
+            <div class="col-xs-12 col-sm-12 col-md-6">
+                <h4>Nulla vitae malesuada</h4>
+                <p>Cras consequat faucibus purus, nec viverra elit molestie dictum. Nunc at tempor purus.</p>
+                <a href="#" class="btn btn-primary">Start Now</a>
+                <a href="#" class="btn btn-secondary">Read More</a>
+            </div>
+            <div class="col-xs-12 col-sm-12 col-md-6">
+                <figure style="max-width:100%">
+                    <img style="max-width:100%" src="https://via.placeholder.com/600x250.png" />
+                </figure>
+            </div>
+        </div>
+    </div>`,
   `<div class="container text-center">
         <h2>Duis facilisis massa eget dui viverra</h2>
         <div class="row justify-content-center">
