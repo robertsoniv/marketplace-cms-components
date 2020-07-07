@@ -13,29 +13,44 @@ import { PageEditorComponent } from './components/page-editor/page-editor.compon
 import { AssetPickerComponent } from './components/asset-picker/asset-picker.component';
 import { CarouselEditorComponent } from './components/carousel-editor/carousel-editor.component';
 import { ConfirmModalComponent } from './components/confirm-modal/confirm-modal.component';
-import { NgxSpinnerModule } from "ngx-spinner";
+import { NgxSpinnerModule } from 'ngx-spinner';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { DragulaModule } from 'ng2-dragula';
-
+import { SectionPickerComponent } from './components/section-picker/section-picker.component';
+import { SectionTemplateRendererComponent } from './components/section-template-renderer/section-template-renderer.component';
+import { SafeHtmlPipe } from './pipes/safe-html.pipe';
 
 @NgModule({
-  declarations: [AppComponent, HtmlEditorComponent, PageEditorComponent, AssetPickerComponent, CarouselEditorComponent, ConfirmModalComponent],
+  declarations: [
+    AppComponent,
+    HtmlEditorComponent,
+    PageEditorComponent,
+    AssetPickerComponent,
+    CarouselEditorComponent,
+    ConfirmModalComponent,
+    SectionPickerComponent,
+    SectionTemplateRendererComponent,
+    SafeHtmlPipe
+  ],
   imports: [
-    BrowserModule, 
-    FormsModule, 
-    ReactiveFormsModule, 
-    NgbModule, 
-    EditorModule, 
-    NgbModalModule, 
-    NgxSpinnerModule, 
+    BrowserModule,
+    FormsModule,
+    ReactiveFormsModule,
+    NgbModule,
+    EditorModule,
+    NgbModalModule,
+    NgxSpinnerModule,
     BrowserAnimationsModule,
-    DragulaModule.forRoot()
   ],
   providers: [
     { provide: TINYMCE_SCRIPT_SRC, useValue: 'tinymce/tinymce.min.js' }
   ],
-  entryComponents: [ConfirmModalComponent, AssetPickerComponent, CarouselEditorComponent],
+  entryComponents: [
+    ConfirmModalComponent,
+    AssetPickerComponent,
+    CarouselEditorComponent,
+    SectionPickerComponent
+  ],
   bootstrap: [AppComponent],
   schemas: [CUSTOM_ELEMENTS_SCHEMA]
 })
-export class AppModule { }
+export class AppModule {}

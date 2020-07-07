@@ -1,0 +1,16 @@
+.section-template-renderer_iframe {
+  border: none;
+  transform-origin: left top;
+  pointer-events: none;
+}
+
+.section-template-renderer_root {
+  border: 2px solid transparent;
+  border-radius: 4px;
+  overflow: hidden;
+  margin-bottom: 15px;
+
+  &.selected {
+    border-color: blue;
+  }
+}
