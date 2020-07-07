@@ -9,7 +9,7 @@
         <div class="col-lg-6 col-xl-7">
             <h4 class="text-muted">Drag to rearrange the order of your carousel slides</h4>
             <button class="btn btn-primary add-image-btn" (click)="openAssetPicker()">Add Image</button>
-            <div class="slides" [dragula]="CAROUSEL_SLIDES" [(dragulaModel)]="slides">
+            <div class="slides">
                 <div class="slide" *ngFor="let slide of slides" (click)="selectSlide(slide)" [ngClass]="{'slide-selected': isSelected(slide)}">
                     <img src="{{slide.ImageUrl}}" alt="{{slide.ImageTitle}}">
                     <span (click)="deleteSlide(slide)" class="icon-delete_forever"></span>

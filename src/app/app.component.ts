@@ -1,6 +1,5 @@
 import { Component } from '@angular/core';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
-import { CarouselEditorComponent } from './components/carousel-editor/carousel-editor.component';
 
 @Component({
   selector: 'app-root',
@@ -24,12 +23,4 @@ export class AppComponent {
       'https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.9.0/slick.min.css'
     ]
   };
-
-  openModal() {
-    const modalRef = this.modalService.open(CarouselEditorComponent, {
-      size: 'xl'
-    });
-    // modalRef.componentInstance.onSuccess = callback;
-    // modalRef.componentInstance.fileMeta = meta;
-  }
 }

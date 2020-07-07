@@ -15,7 +15,6 @@ import { CarouselEditorComponent } from './components/carousel-editor/carousel-e
 import { ConfirmModalComponent } from './components/confirm-modal/confirm-modal.component';
 import { NgxSpinnerModule } from 'ngx-spinner';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { DragulaModule } from 'ng2-dragula';
 import { SectionPickerComponent } from './components/section-picker/section-picker.component';
 import { SectionTemplateRendererComponent } from './components/section-template-renderer/section-template-renderer.component';
 import { SafeHtmlPipe } from './pipes/safe-html.pipe';
@@ -41,7 +40,6 @@ import { SafeHtmlPipe } from './pipes/safe-html.pipe';
     NgbModalModule,
     NgxSpinnerModule,
     BrowserAnimationsModule,
-    DragulaModule.forRoot()
   ],
   providers: [
     { provide: TINYMCE_SCRIPT_SRC, useValue: 'tinymce/tinymce.min.js' }
