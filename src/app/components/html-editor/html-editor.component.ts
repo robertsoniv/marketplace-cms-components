@@ -8,6 +8,8 @@ import {
   OC_TINYMCE_WIDGET_ATTRIBUTE,
   OC_TINYMCE_SECTION_WIDGET_ID
 } from 'plugin/src/constants/widget.constants';
+import { MarketplaceSDK } from 'marketplace-javascript-sdk';
+import * as MarketplaceSdkInstance from 'marketplace-javascript-sdk';
 
 @Component({
   selector: 'cms-html-editor',
@@ -83,18 +85,6 @@ export class HtmlEditorComponent implements OnInit {
     toolbar_mode: 'sliding',
     extended_valid_elements: 'script[src|async|defer|type|charset]',
 
-    // /**
-    //  * Allows user to browse and select images from ordercloud cms
-    //  */
-    // file_picker_callback: function(callback, value, meta) {
-    //   // importing tinymce breaks things so we have to use instance from window
-    //   window['tinymce'].execCommand('ocAssetPicker', true, {
-    //     callback,
-    //     value,
-    //     meta
-    //   });
-    // },
-
     /**
      * Adds an advanced tab to set things like style/border/space
      */
@@ -123,12 +113,17 @@ export class HtmlEditorComponent implements OnInit {
   constructor(private modalService: NgbModal, public zone: NgZone) {}
 
   ngOnInit(): void {
-    const classContext = this;
     Object.assign(
       this.resolvedEditorOptions,
       this.defaultEditorOptions,
       this.editorOptions
     );
+
+    // I think we need to set this here *and* in the plugin because it sets
+    // it on different instances of the sdk
+    MarketplaceSdkInstance.Configuration.Set({
+      baseApiUrl: this.resolvedEditorOptions.ordercloud.marketplaceUrl
+    });
 
     this.resolvedEditorOptions.file_picker_callback = this.openAssetPicker.bind(
       this
@@ -137,12 +132,12 @@ export class HtmlEditorComponent implements OnInit {
       this.zone.run(() => {
         // we need to manually trigger change detection
         // because this is running outside of the scope of angular
-        this.openCarouselEditor.bind(this)(editor, classContext);
+        this.openCarouselEditor.bind(this)(editor);
       });
     };
     this.resolvedEditorOptions.ordercloud.open_section_picker = editor => {
       this.zone.run(() => {
-        this.openSectionPicker.bind(this)(editor, classContext);
+        this.openSectionPicker.bind(this)(editor);
       });
     };
   }
