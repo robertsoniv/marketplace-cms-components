@@ -6,3 +6,8 @@
   width: 100%;
   overflow: hidden;
 }
+
+.section-picker_body {
+  height: calc(100vh - (3.5rem + 150px));
+  overflow-y: auto;
+}
