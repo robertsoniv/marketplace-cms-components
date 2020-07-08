@@ -1,4 +1,10 @@
-import { Component, OnInit, Input, NgZone } from '@angular/core';
+import {
+  Component,
+  OnInit,
+  Input,
+  NgZone,
+  ViewEncapsulation
+} from '@angular/core';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { AssetPickerComponent } from '../asset-picker/asset-picker.component';
 import { CarouselEditorComponent } from '../carousel-editor/carousel-editor.component';
@@ -13,7 +19,8 @@ import { SectionDateSettingsComponent } from '../section-date-settings/section-d
 @Component({
   selector: 'cms-html-editor',
   templateUrl: './html-editor.component.html',
-  styleUrls: ['./html-editor.component.scss']
+  styleUrls: ['./html-editor.component.scss'],
+  encapsulation: ViewEncapsulation.None
 })
 export class HtmlEditorComponent implements OnInit {
   @Input() renderSiteUrl: string;
@@ -162,7 +169,10 @@ export class HtmlEditorComponent implements OnInit {
 
   openCarouselEditor(editor) {
     const modalRef = this.modalService.open(CarouselEditorComponent, {
-      size: 'xl'
+      size: 'xl',
+      centered: true,
+      backdropClass: 'oc-tinymce-modal_backdrop',
+      windowClass: 'oc-tinymce-modal_window'
     });
     modalRef.result.then(html => {
       editor.insertContent(html);
@@ -171,7 +181,10 @@ export class HtmlEditorComponent implements OnInit {
 
   openSectionPicker(data) {
     const modalRef = this.modalService.open(SectionPickerComponent, {
-      size: 'xl'
+      size: 'xl',
+      centered: true,
+      backdropClass: 'oc-tinymce-modal_backdrop', //TODO: might wanna abstract these classes / centered as default settings for any modal that's opened from the editor
+      windowClass: 'oc-tinymce-modal_window'
     });
     modalRef.componentInstance.data = data;
     return modalRef.result;
@@ -179,7 +192,10 @@ export class HtmlEditorComponent implements OnInit {
 
   openSectionDateSettings(data) {
     const modalRef = this.modalService.open(SectionDateSettingsComponent, {
-      size: 'md'
+      size: 'md',
+      centered: true,
+      backdropClass: 'oc-tinymce-modal_backdrop',
+      windowClass: 'oc-tinymce-modal_window'
     });
     modalRef.componentInstance.data = data;
     return modalRef.result;
