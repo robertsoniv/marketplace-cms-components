@@ -7,7 +7,10 @@ export default (editor, url) => {
     icon: 'view-carousel',
     tooltip: 'Insert Carousel',
     onAction: function () {
-      editor.settings.ordercloud.open_carousel_editor(editor);
+      editor.settings.ordercloud.open_carousel_editor()
+        .then(html => {
+          editor.insertContent(html)
+        })
     },
   });
 };

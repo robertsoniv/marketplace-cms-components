@@ -10,12 +10,8 @@ import { AssetPickerComponent } from '../asset-picker/asset-picker.component';
 import { CarouselEditorComponent } from '../carousel-editor/carousel-editor.component';
 import { v4 as guid } from 'uuid';
 import { SectionPickerComponent } from '../section-picker/section-picker.component';
-import {
-  OC_TINYMCE_WIDGET_ATTRIBUTE,
-  OC_TINYMCE_SECTION_WIDGET_ID
-} from 'plugin/src/constants/widget.constants';
 import { SectionDateSettingsComponent } from '../section-date-settings/section-date-settings.component';
-import { MarketplaceSDK, Asset } from 'marketplace-javascript-sdk';
+import { Asset } from 'marketplace-javascript-sdk';
 import * as MarketplaceSdkInstance from 'marketplace-javascript-sdk';
 
 @Component({
@@ -144,10 +140,10 @@ export class HtmlEditorComponent implements OnInit {
       });
     };
     this.resolvedEditorOptions.ordercloud.open_carousel_editor = editor => {
-      this.zone.run(() => {
+      return this.zone.run(() => {
         // we need to manually trigger change detection
         // because this is running outside of the scope of angular
-        this.openCarouselEditor.bind(this)(editor);
+        return this.openCarouselEditor.bind(this)(editor);
       });
     };
     this.resolvedEditorOptions.ordercloud.open_section_picker = data => {
@@ -163,10 +159,15 @@ export class HtmlEditorComponent implements OnInit {
   }
 
   openAssetPicker(callback, value, meta) {
-    const modalRef = this.modalService.open(AssetPickerComponent);
+    const modalRef = this.modalService.open(AssetPickerComponent, {
+      size: 'xl',
+      centered: true,
+      backdropClass: 'oc-tinymce-modal_backdrop',
+      windowClass: 'oc-tinymce-modal_window'
+    });
     modalRef.result.then((asset: Asset) => {
       if (meta.filetype === 'image') {
-        callback(asset.Url, asset.Title);
+        callback(asset.Url, {alt: asset.Title});
       } else if (meta.filetype === 'file') {
         // TODO: do
         console.error('Filetype is not yet implemented');
@@ -177,16 +178,14 @@ export class HtmlEditorComponent implements OnInit {
     });
   }
 
-  openCarouselEditor(editor) {
+  openCarouselEditor() {
     const modalRef = this.modalService.open(CarouselEditorComponent, {
       size: 'xl',
       centered: true,
       backdropClass: 'oc-tinymce-modal_backdrop',
       windowClass: 'oc-tinymce-modal_window'
     });
-    modalRef.result.then(html => {
-      editor.insertContent(html);
-    });
+    return modalRef.result
   }
 
   openSectionPicker(data) {
