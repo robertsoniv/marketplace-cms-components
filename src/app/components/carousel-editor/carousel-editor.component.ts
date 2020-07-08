@@ -104,7 +104,12 @@ export class CarouselEditorComponent implements OnInit {
   }
 
   openAssetPicker() {
-    const modalRef = this.modalService.open(AssetPickerComponent, { size: 'xl' });
+    const modalRef = this.modalService.open(AssetPickerComponent, {
+      size: 'xl',
+      centered: true,
+      backdropClass: 'oc-tinymce-modal_backdrop',
+      windowClass: 'oc-tinymce-modal_window'
+    });
     modalRef.result.then(asset => {
       const slide = {
         ID: guid(),
