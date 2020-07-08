@@ -18,7 +18,6 @@ export class SectionDateSettingsComponent implements OnInit {
   }
 
   submit() {
-    console.log(this.startDate, this.endDate);
     this.modal.close({ startDate: this.startDate, endDate: this.endDate });
   }
 }

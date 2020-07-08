@@ -7,14 +7,7 @@ const EMPTY_PAGE_CONTENT_DOC: Partial<PageContentDoc> = {
   Url: '',
   Description: '',
   HeaderEmbeds: '',
-  Content: `<div data-oc-widget="oc-section">
-  <div class="jumbotron border-0">
-  <div class="container text-center">
-  <h1>Lorem ipsum dolor</h1>
-  <p>Donec fermentum magna at ex pulvinar, sit amet viverra ex suscipit. Integer fringilla mauris vitae eleifend dictum.</p>
-  <a class="btn btn-primary" href="#">Start Now</a> <a class="btn btn-link" href="#">Read More</a></div>
-  </div>
-  </div>`,
+  Content: ``,
   FooterEmbeds: '',
   Active: false,
   NavigationTitle: ''
