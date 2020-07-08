@@ -1,7 +1,7 @@
 <div
   #root
   class="section-template-renderer_root"
-  [ngClass]="{ selected: selected }"
+  [ngClass]="{ selected: selected, loading: !rootHeight }"
   [ngStyle]="{ 'height.px': rootHeight }"
 >
   <iframe

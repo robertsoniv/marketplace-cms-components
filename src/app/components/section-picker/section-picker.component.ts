@@ -17,7 +17,7 @@ import sectionPickerMock from './section-picker.mock';
 export class SectionPickerComponent implements AfterViewChecked {
   @ViewChild('list', { read: ElementRef })
   listElement: ElementRef<HTMLDivElement>;
-  @Input() remoteCss: string;
+  @Input() data: any;
   sectionTemplates = sectionPickerMock;
   selectedTemplateIndex: number;
   previewWidth: number = 1024;

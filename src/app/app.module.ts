@@ -18,6 +18,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { SectionPickerComponent } from './components/section-picker/section-picker.component';
 import { SectionTemplateRendererComponent } from './components/section-template-renderer/section-template-renderer.component';
 import { SafeHtmlPipe } from './pipes/safe-html.pipe';
+import { SectionDateSettingsComponent } from './components/section-date-settings/section-date-settings.component';
 
 @NgModule({
   declarations: [
@@ -29,7 +30,8 @@ import { SafeHtmlPipe } from './pipes/safe-html.pipe';
     ConfirmModalComponent,
     SectionPickerComponent,
     SectionTemplateRendererComponent,
-    SafeHtmlPipe
+    SafeHtmlPipe,
+    SectionDateSettingsComponent
   ],
   imports: [
     BrowserModule,
@@ -48,7 +50,8 @@ import { SafeHtmlPipe } from './pipes/safe-html.pipe';
     ConfirmModalComponent,
     AssetPickerComponent,
     CarouselEditorComponent,
-    SectionPickerComponent
+    SectionPickerComponent,
+    SectionDateSettingsComponent
   ],
   bootstrap: [AppComponent],
   schemas: [CUSTOM_ELEMENTS_SCHEMA]
