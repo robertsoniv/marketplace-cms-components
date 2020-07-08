@@ -182,16 +182,14 @@ export class HtmlEditorComponent implements OnInit {
     });
   }
 
-  openCarouselEditor(editor) {
+  openCarouselEditor() {
     const modalRef = this.modalService.open(CarouselEditorComponent, {
       size: 'xl',
       centered: true,
       backdropClass: 'oc-tinymce-modal_backdrop',
       windowClass: 'oc-tinymce-modal_window'
     });
-    modalRef.result.then(html => {
-      editor.insertContent(html);
-    });
+    return modalRef.result;
   }
 
   openSectionPicker(data) {
