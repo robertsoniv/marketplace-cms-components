@@ -21,7 +21,7 @@
             (click)="handleSelectTemplate(i)"
             [previewWidth]="previewWidth"
             [previewTransformRatio]="previewTransformRatio"
-            [remoteCss]="remoteCss"
+            [remoteCss]="data.remoteCss"
           ></cms-section-template-renderer>
 
           <hr *ngIf="i < sectionTemplates.length - 1" />
