@@ -163,7 +163,12 @@ export class HtmlEditorComponent implements OnInit {
   }
 
   openAssetPicker(callback, value, meta) {
-    const modalRef = this.modalService.open(AssetPickerComponent);
+    const modalRef = this.modalService.open(AssetPickerComponent, {
+      size: 'xl',
+      centered: true,
+      backdropClass: 'oc-tinymce-modal_backdrop',
+      windowClass: 'oc-tinymce-modal_window'
+    });
     modalRef.result.then((asset: Asset) => {
       if (meta.filetype === 'image') {
         callback(asset.Url, asset.Title);
