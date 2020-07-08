@@ -8,6 +8,7 @@ import {
   OC_TINYMCE_WIDGET_ATTRIBUTE,
   OC_TINYMCE_SECTION_WIDGET_ID
 } from 'plugin/src/constants/widget.constants';
+import { SectionDateSettingsComponent } from '../section-date-settings/section-date-settings.component';
 import { MarketplaceSDK, Asset } from 'marketplace-javascript-sdk';
 import * as MarketplaceSdkInstance from 'marketplace-javascript-sdk';
 
@@ -74,7 +75,8 @@ export class HtmlEditorComponent implements OnInit {
       'bold italic | quicklink h2 h3 blockquote quickimage quicktable',
     imagetools_toolbar:
       'rotateleft rotateright | flipv fliph | editimage imageoptions',
-    contextmenu: 'link image imagetools table oc-product oc-row oc-col',
+    contextmenu:
+      'link image imagetools table oc-product oc-row oc-col oc-section',
     toolbar_sticky: true,
     autosave_ask_before_unload: true,
     autosave_interval: '30s',
@@ -125,11 +127,15 @@ export class HtmlEditorComponent implements OnInit {
       baseApiUrl: this.resolvedEditorOptions.ordercloud.marketplaceUrl
     });
 
-    this.resolvedEditorOptions.file_picker_callback = (callback, value, meta) => {
+    this.resolvedEditorOptions.file_picker_callback = (
+      callback,
+      value,
+      meta
+    ) => {
       this.zone.run(() => {
-        this.openAssetPicker.bind(this)(callback, value, meta)
-      })
-    }
+        this.openAssetPicker.bind(this)(callback, value, meta);
+      });
+    };
     this.resolvedEditorOptions.ordercloud.open_carousel_editor = editor => {
       this.zone.run(() => {
         // we need to manually trigger change detection
@@ -137,9 +143,14 @@ export class HtmlEditorComponent implements OnInit {
         this.openCarouselEditor.bind(this)(editor);
       });
     };
-    this.resolvedEditorOptions.ordercloud.open_section_picker = editor => {
-      this.zone.run(() => {
-        this.openSectionPicker.bind(this)(editor);
+    this.resolvedEditorOptions.ordercloud.open_section_picker = data => {
+      return this.zone.run(() => {
+        return this.openSectionPicker.bind(this)(data);
+      });
+    };
+    this.resolvedEditorOptions.ordercloud.open_section_date_settings = data => {
+      return this.zone.run(() => {
+        return this.openSectionDateSettings.bind(this)(data);
       });
     };
   }
@@ -147,16 +158,16 @@ export class HtmlEditorComponent implements OnInit {
   openAssetPicker(callback, value, meta) {
     const modalRef = this.modalService.open(AssetPickerComponent);
     modalRef.result.then((asset: Asset) => {
-      if(meta.filetype === 'image') {
-        callback(asset.Url, asset.Title)
-      } else if(meta.filetype === 'file') {
+      if (meta.filetype === 'image') {
+        callback(asset.Url, asset.Title);
+      } else if (meta.filetype === 'file') {
         // TODO: do
-        console.error('Filetype is not yet implemented')
-      } else if(meta.filetype === 'media') {
+        console.error('Filetype is not yet implemented');
+      } else if (meta.filetype === 'media') {
         // TODO: do
-        console.error('Filetype is not yet implemented')
+        console.error('Filetype is not yet implemented');
       }
-    })
+    });
   }
 
   openCarouselEditor(editor) {
@@ -168,23 +179,19 @@ export class HtmlEditorComponent implements OnInit {
     });
   }
 
-  openSectionPicker(editor) {
+  openSectionPicker(data) {
     const modalRef = this.modalService.open(SectionPickerComponent, {
       size: 'xl'
     });
-    modalRef.result
-      .then(html => {
-        editor.insertContent(
-          `<div ${OC_TINYMCE_WIDGET_ATTRIBUTE}=${OC_TINYMCE_SECTION_WIDGET_ID}>
-          ${html}
-        </div>`
-        );
-      })
-      .catch(ex => {
-        if (ex === 'Cross click') {
-          return;
-        }
-      });
-    modalRef.componentInstance.remoteCss = editor.settings.content_css[0];
+    modalRef.componentInstance.data = data;
+    return modalRef.result;
+  }
+
+  openSectionDateSettings(data) {
+    const modalRef = this.modalService.open(SectionDateSettingsComponent, {
+      size: 'md'
+    });
+    modalRef.componentInstance.data = data;
+    return modalRef.result;
   }
 }
